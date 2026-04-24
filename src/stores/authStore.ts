@@ -22,6 +22,11 @@ export const useAuthStore = defineStore('auth', () => {
     accessToken.value = null
     refreshToken.value = null
     localStorage.removeItem('refreshToken')
+
+    // Importação dinâmica para evitar dependência circular entre stores
+    import('@/stores/accountStore').then(({ useAccountStore }) => {
+      useAccountStore().reset()
+    })
   }
 
   async function register(payload: RegisterPayload) {
