@@ -160,6 +160,9 @@ function formatArea(value: number, unit: string) {
 
         <!-- Ações -->
         <div class="farm-card__actions">
+          <button class="btn-action btn-action--expenses" @click="router.push({ name: 'farm-expenses', params: { farmId: farm.id } })">
+            Despesas
+          </button>
           <button class="btn-action" @click="router.push({ name: 'farm-edit', params: { farmId: farm.id } })">
             Editar
           </button>
@@ -409,6 +412,12 @@ function formatArea(value: number, unit: string) {
   background: var(--color-error-light);
   border-color: var(--color-error);
   color: var(--color-error);
+}
+
+.btn-action--expenses:hover {
+  background: var(--color-primary-light);
+  border-color: var(--color-primary);
+  color: var(--color-primary);
 }
 
 .btn-primary {

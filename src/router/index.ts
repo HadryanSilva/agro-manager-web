@@ -77,6 +77,8 @@ const router = createRouter({
           name: 'dashboard',
           component: () => import('@/views/DashboardView.vue')
         },
+
+        // ── Lavouras ──────────────────────────────────────────────
         {
           path: 'farms',
           name: 'farms',
@@ -91,6 +93,23 @@ const router = createRouter({
           path: 'farms/:farmId/edit',
           name: 'farm-edit',
           component: () => import('@/views/farms/FarmFormView.vue')
+        },
+
+        // ── Despesas por lavoura ───────────────────────────────────
+        {
+          path: 'farms/:farmId/expenses',
+          name: 'farm-expenses',
+          component: () => import('@/views/expenses/ExpensesView.vue')
+        },
+        {
+          path: 'farms/:farmId/expenses/new',
+          name: 'expense-create',
+          component: () => import('@/views/expenses/ExpenseFormView.vue')
+        },
+        {
+          path: 'farms/:farmId/expenses/:expenseId/edit',
+          name: 'expense-edit',
+          component: () => import('@/views/expenses/ExpenseFormView.vue')
         }
       ]
     },
