@@ -1,9 +1,14 @@
 <script setup lang="ts">
 import { RouterView } from 'vue-router'
+import ThemeToggle from '@/components/ThemeToggle.vue'
 </script>
 
 <template>
   <div class="onboarding-wrapper">
+    <div class="onboarding-toolbar">
+      <ThemeToggle />
+    </div>
+
     <div class="onboarding-brand">
       <span class="onboarding-brand__icon">🌱</span>
       <span class="onboarding-brand__name">Agro Manager</span>
@@ -24,6 +29,12 @@ import { RouterView } from 'vue-router'
   justify-content: center;
   padding: 2rem 1rem;
   background: var(--color-background);
+}
+
+.onboarding-toolbar {
+  position: fixed;
+  top: 1.25rem;
+  right: 1.25rem;
 }
 
 .onboarding-brand {
@@ -47,5 +58,6 @@ import { RouterView } from 'vue-router'
 .onboarding-content {
   width: 100%;
   max-width: 680px;
+  margin: 0 auto;
 }
 </style>

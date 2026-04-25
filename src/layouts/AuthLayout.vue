@@ -1,9 +1,15 @@
 <script setup lang="ts">
 import { RouterView } from 'vue-router'
+import ThemeToggle from '@/components/ThemeToggle.vue'
 </script>
 
 <template>
   <div class="auth-wrapper">
+    <!-- Toggle de tema fixo no canto superior direito -->
+    <div class="auth-toolbar">
+      <ThemeToggle />
+    </div>
+
     <div class="auth-brand">
       <span class="auth-brand__icon">🌱</span>
       <span class="auth-brand__name">Agro Manager</span>
@@ -30,12 +36,17 @@ import { RouterView } from 'vue-router'
   background: var(--color-background);
 }
 
+.auth-toolbar {
+  position: fixed;
+  top: 1.25rem;
+  right: 1.25rem;
+}
+
 .auth-brand {
   display: flex;
   align-items: center;
   gap: 0.5rem;
   margin-bottom: 2rem;
-  text-decoration: none;
 }
 
 .auth-brand__icon {

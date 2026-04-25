@@ -35,14 +35,14 @@ const router = createRouter({
       ]
     },
 
-    // Callback do OAuth2 — sem layout próprio
+    // Callback do OAuth2
     {
       path: '/oauth2/callback',
       name: 'oauth2-callback',
       component: () => import('@/views/auth/OAuthCallbackView.vue')
     },
 
-    // Onboarding — exige autenticação, mas sem conta vinculada
+    // Onboarding — autenticado, sem conta
     {
       path: '/onboarding',
       component: OnboardingLayout,
@@ -69,7 +69,6 @@ const router = createRouter({
         {
           path: 'dashboard',
           name: 'dashboard',
-          // Placeholder até a tela de dashboard ser implementada
           component: () => import('@/views/onboarding/OnboardingView.vue')
         }
       ]
@@ -103,7 +102,6 @@ router.beforeEach(async (to) => {
     try {
       await accountStore.fetchUserAccounts()
     } catch {
-      // Se falhar ao buscar contas, desloga por segurança
       auth.clearAuth()
       return { name: 'login' }
     }

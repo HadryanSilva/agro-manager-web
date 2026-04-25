@@ -23,6 +23,28 @@
   --radius-lg: 16px;
 }
 
+/* Tema escuro — ativado via data-theme="dark" no elemento raiz */
+[data-theme="dark"] {
+  --color-background: #0d1117;
+  --color-card: #161b22;
+  --color-border: #30363d;
+  --color-border-focus: #00bd7e;
+
+  --color-text: #e6edf3;
+  --color-text-muted: #8b949e;
+  --color-text-placeholder: #6e7681;
+
+  --color-error: #f85149;
+  --color-error-light: #1f0d0d;
+
+  --color-primary: #00bd7e;
+  --color-primary-dark: #00a06b;
+  --color-primary-light: #0d2218;
+
+  --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.4), 0 4px 16px rgba(0, 0, 0, 0.4);
+  --shadow-card-hover: 0 2px 8px rgba(0, 0, 0, 0.5), 0 8px 24px rgba(0, 0, 0, 0.5);
+}
+
 *,
 *::before,
 *::after {
@@ -41,4 +63,10 @@ body {
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  /* Transição suave ao trocar tema */
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+#app {
+  min-height: 100vh;
 }
