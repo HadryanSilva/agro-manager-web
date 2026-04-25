@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import { RouterView, useRouter, useRoute } from 'vue-router'
 import { useAuthStore } from '@/stores/authStore'
 import { useAccountStore } from '@/stores/accountStore'
+import { useUserStore } from '@/stores/userStore'
 import ThemeToggle from '@/components/ThemeToggle.vue'
 
 const router = useRouter()
@@ -14,6 +15,11 @@ const accountStore = useAccountStore()
 const sidebarOpen = ref(false)
 
 const accountName = computed(() => accountStore.accounts[0]?.name ?? 'Minha Conta')
+const userStore = useUserStore()
+ 
+onMounted(() => {
+  userStore.fetchProfile()
+})
 
 const navItems = [
   {
@@ -47,6 +53,7 @@ function navigate(name: string) {
 
 function logout() {
   authStore.clearAuth()
+  userStore.clearProfile()
   router.push({ name: 'login' })
 }
 </script>
@@ -96,13 +103,19 @@ function logout() {
 
       <!-- Rodapé da sidebar -->
       <div class="sidebar__footer">
-        <button class="sidebar__nav-item" @click="navigate('settings-profile')">
-          <span class="sidebar__nav-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
-            </svg>
-          </span>
-          <span>Configurações</span>
+        <button class="sidebar__user" @click="navigate('settings-profile')">
+          <div class="sidebar__user-avatar">
+            <img
+              v-if="userStore.profile?.avatarUrl"
+              :src="userStore.profile.avatarUrl"
+              :alt="userStore.profile.name"
+            />
+            <span v-else class="sidebar__user-initials">{{ userStore.initials }}</span>
+          </div>
+          <div class="sidebar__user-info">
+            <span class="sidebar__user-name">{{ userStore.firstName }}</span>
+            <span class="sidebar__user-label">Ver perfil</span>
+          </div>
         </button>
 
         <button class="sidebar__nav-item sidebar__nav-item--danger" @click="logout">
@@ -352,5 +365,68 @@ function logout() {
   .topbar {
     display: flex;
   }
+}
+
+.sidebar__user {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  width: 100%;
+  padding: 0.5rem 0.625rem;
+  border: none;
+  border-radius: var(--radius-sm);
+  background: none;
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.15s;
+}
+ 
+.sidebar__user:hover {
+  background: var(--color-background);
+}
+ 
+.sidebar__user-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  overflow: hidden;
+  background: var(--color-primary-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+ 
+.sidebar__user-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+ 
+.sidebar__user-initials {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--color-primary);
+}
+ 
+.sidebar__user-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.05rem;
+  min-width: 0;
+}
+ 
+.sidebar__user-name {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+ 
+.sidebar__user-label {
+  font-size: 0.7rem;
+  color: var(--color-text-muted);
 }
 </style>
