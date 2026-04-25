@@ -4,6 +4,7 @@ import { useAccountStore } from '@/stores/accountStore'
 import memberService from '@/services/memberService'
 import type { AccountMemberResponse, AccountInviteResponse } from '@/services/memberService'
 import type { AccountRole } from '@/services/accountService'
+import SettingsTabs from '@/components/SettingsTabs.vue'
 
 const accountStore = useAccountStore()
 const accountId    = computed(() => accountStore.accounts[0]?.id)
@@ -112,12 +113,11 @@ function getInitials(name: string): string {
 
     <!-- Cabeçalho -->
     <div class="members__header">
-      <h1 class="members__title">Membros</h1>
-      <p class="members__subtitle">
-        Gerencie quem tem acesso à conta <strong>{{ currentAccount?.name }}</strong>
-      </p>
+      <h1 class="members__title">Configurações</h1>
     </div>
-
+ 
+    <SettingsTabs />
+ 
     <div v-if="error" class="error-banner">{{ error }}</div>
 
     <div v-if="loading" class="loading-state">

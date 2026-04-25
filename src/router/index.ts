@@ -130,7 +130,12 @@ const router = createRouter({
       children: [
         {
           path: '',
-          redirect: { name: 'settings-members' }
+          redirect: { name: 'settings-profile' }
+        },
+        {
+          path: 'profile',
+          name: 'settings-profile',
+          component: () => import('@/views/settings/ProfileSettingsView.vue')
         },
         {
           path: 'members',
@@ -153,7 +158,6 @@ router.beforeEach(async (to) => {
   const accountStore = useAccountStore()
 
   if (to.meta.requiresAuth && !auth.isAuthenticated) {
-    // Preserva a rota atual como redirect para retornar após o login
     return { name: 'login', query: { redirect: to.fullPath } }
   }
 
