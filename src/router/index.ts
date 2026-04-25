@@ -43,6 +43,14 @@ const router = createRouter({
       component: () => import('@/views/auth/OAuthCallbackView.vue')
     },
 
+    // Página de aceite de convite — requer auth, mas não requer conta própria
+    {
+      path: '/invite/:token',
+      name: 'invite-accept',
+      component: () => import('@/views/invite/InviteAcceptView.vue'),
+      meta: { requiresAuth: true }
+    },
+
     // Onboarding — autenticado, sem conta
     {
       path: '/onboarding',
@@ -114,16 +122,21 @@ const router = createRouter({
       ]
     },
 
-    // Configurações — também usa AppLayout para manter a sidebar
+    // Configurações — usa AppLayout para manter a sidebar
     {
       path: '/settings',
       component: AppLayout,
-      meta: { requiresAuth: true },
+      meta: { requiresAuth: true, requiresAccount: true },
       children: [
         {
           path: '',
-          redirect: { name: 'settings-profile' }
+          redirect: { name: 'settings-members' }
         },
+        {
+          path: 'members',
+          name: 'settings-members',
+          component: () => import('@/views/settings/MembersSettingsView.vue')
+        }
       ]
     },
 
@@ -140,7 +153,8 @@ router.beforeEach(async (to) => {
   const accountStore = useAccountStore()
 
   if (to.meta.requiresAuth && !auth.isAuthenticated) {
-    return { name: 'login' }
+    // Preserva a rota atual como redirect para retornar após o login
+    return { name: 'login', query: { redirect: to.fullPath } }
   }
 
   if (to.meta.guestOnly && auth.isAuthenticated) {

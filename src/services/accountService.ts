@@ -1,9 +1,12 @@
 import api from './api'
 
+// Tipo exportado separadamente para ser reutilizado em memberService, expenseService, etc.
+export type AccountRole = 'OWNER' | 'ADMIN' | 'MEMBER'
+
 export interface AccountResponse {
   id: string
   name: string
-  userRole: 'OWNER' | 'ADMIN' | 'MEMBER'
+  userRole: AccountRole
   memberCount: number
   createdAt: string
 }
