@@ -3,6 +3,7 @@ import { useAuthStore } from '@/stores/authStore'
 import { useAccountStore } from '@/stores/accountStore'
 import AuthLayout from '@/layouts/AuthLayout.vue'
 import OnboardingLayout from '@/layouts/OnboardingLayout.vue'
+import AppLayout from '@/layouts/AppLayout.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -61,16 +62,49 @@ const router = createRouter({
       ]
     },
 
-    // Área autenticada — exige autenticação e ao menos uma conta
+    // Área autenticada com sidebar
     {
       path: '/app',
+      component: AppLayout,
       meta: { requiresAuth: true, requiresAccount: true },
       children: [
         {
+          path: '',
+          redirect: { name: 'dashboard' }
+        },
+        {
           path: 'dashboard',
           name: 'dashboard',
-          component: () => import('@/views/onboarding/OnboardingView.vue')
+          component: () => import('@/views/DashboardView.vue')
+        },
+        {
+          path: 'farms',
+          name: 'farms',
+          component: () => import('@/views/farms/FarmsView.vue')
+        },
+        {
+          path: 'farms/new',
+          name: 'farm-create',
+          component: () => import('@/views/farms/FarmFormView.vue')
+        },
+        {
+          path: 'farms/:farmId/edit',
+          name: 'farm-edit',
+          component: () => import('@/views/farms/FarmFormView.vue')
         }
+      ]
+    },
+
+    // Configurações — também usa AppLayout para manter a sidebar
+    {
+      path: '/settings',
+      component: AppLayout,
+      meta: { requiresAuth: true },
+      children: [
+        {
+          path: '',
+          redirect: { name: 'settings-profile' }
+        },
       ]
     },
 
@@ -86,17 +120,14 @@ router.beforeEach(async (to) => {
   const auth = useAuthStore()
   const accountStore = useAccountStore()
 
-  // Rota protegida sem autenticação → login
   if (to.meta.requiresAuth && !auth.isAuthenticated) {
     return { name: 'login' }
   }
 
-  // Rota de guest com usuário já autenticado → dashboard
   if (to.meta.guestOnly && auth.isAuthenticated) {
     return { name: 'dashboard' }
   }
 
-  // Para rotas que dependem do estado de contas, garante que os dados estão carregados
   const needsAccountCheck = to.meta.requiresAccount || to.meta.guestAccount
   if (auth.isAuthenticated && needsAccountCheck && !accountStore.loaded) {
     try {
@@ -107,12 +138,10 @@ router.beforeEach(async (to) => {
     }
   }
 
-  // Rota da área autenticada sem nenhuma conta → onboarding
   if (to.meta.requiresAccount && !accountStore.hasAccounts) {
     return { name: 'onboarding' }
   }
 
-  // Rota de onboarding com conta já existente → dashboard
   if (to.meta.guestAccount && accountStore.loaded && accountStore.hasAccounts) {
     return { name: 'dashboard' }
   }
