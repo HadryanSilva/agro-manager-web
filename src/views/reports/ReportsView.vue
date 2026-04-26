@@ -7,7 +7,7 @@ import type { FarmResponse } from '@/services/farmService'
 
 const router       = useRouter()
 const accountStore = useAccountStore()
-const accountId    = computed(() => accountStore.accounts[0]?.id)
+const accountId    = computed(() => accountStore.selectedAccount?.id)
 
 const farms   = ref<FarmResponse[]>([])
 const loading = ref(true)

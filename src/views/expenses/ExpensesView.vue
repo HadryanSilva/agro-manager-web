@@ -11,7 +11,7 @@ const route        = useRoute()
 const accountStore = useAccountStore()
 
 const farmId    = route.params.farmId as string
-const accountId = computed(() => accountStore.accounts[0]?.id)
+const accountId = computed(() => accountStore.selectedAccount?.id)
 
 const expenses   = ref<ExpenseResponse[]>([])
 const farmName   = ref('')

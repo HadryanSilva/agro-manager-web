@@ -13,7 +13,7 @@ const loading = ref(true)
 const error = ref('')
 const activeFilter = ref<FarmStatus | null>(null)
 
-const accountId = computed(() => accountStore.accounts[0]?.id)
+const accountId = computed(() => accountStore.selectedAccount?.id)
 
 const statusConfig: Record<FarmStatus, { label: string; color: string }> = {
   EM_PREPARACAO: { label: 'Em preparação', color: '#f59e0b' },

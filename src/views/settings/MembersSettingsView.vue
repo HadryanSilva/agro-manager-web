@@ -7,8 +7,8 @@ import type { AccountRole } from '@/services/accountService'
 import SettingsTabs from '@/components/SettingsTabs.vue'
 
 const accountStore = useAccountStore()
-const accountId    = computed(() => accountStore.accounts[0]?.id)
-const currentAccount = computed(() => accountStore.accounts[0])
+const accountId = computed(() => accountStore.selectedAccount?.id)
+const currentAccount = computed(() => accountStore.selectedAccount)
 
 const members   = ref<AccountMemberResponse[]>([])
 const invites   = ref<AccountInviteResponse[]>([])

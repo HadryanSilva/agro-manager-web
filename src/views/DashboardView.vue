@@ -13,7 +13,7 @@ const summary  = ref<DashboardSummary | null>(null)
 const loading  = ref(true)
 const error    = ref('')
 
-const accountId = computed(() => accountStore.accounts[0]?.id)
+const accountId = computed(() => accountStore.selectedAccount?.id)
 
 // Tipo auxiliar que mapeia cada FarmStatus para a chave camelCase equivalente no DashboardSummary
 type StatusSummaryKey = 'emPreparacao' | 'emAndamento' | 'colhida' | 'cancelada'
@@ -91,7 +91,7 @@ const paidPercent = computed(() => {
       <div>
         <h1 class="dashboard__title">Dashboard</h1>
         <p class="dashboard__subtitle">
-          Resumo da conta <strong>{{ accountStore.accounts[0]?.name }}</strong>
+          Resumo da conta <strong>{{ accountStore.selectedAccount?.name }}</strong>
         </p>
       </div>
       <button class="btn-refresh" @click="fetchDashboard" :disabled="loading" title="Atualizar">

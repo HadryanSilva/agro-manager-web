@@ -5,6 +5,7 @@ import { useAuthStore } from '@/stores/authStore'
 import { useAccountStore } from '@/stores/accountStore'
 import { useUserStore } from '@/stores/userStore'
 import ThemeToggle from '@/components/ThemeToggle.vue'
+import AccountSwitcher from '@/components/AccountSwitcher.vue'
 
 const router = useRouter()
 const route = useRoute()
@@ -14,7 +15,7 @@ const accountStore = useAccountStore()
 // Controle da sidebar em mobile
 const sidebarOpen = ref(false)
 
-const accountName = computed(() => accountStore.accounts[0]?.name ?? 'Minha Conta')
+const accountName = computed(() => accountStore.selectedAccount?.name ?? 'Minha Conta')
 const userStore = useUserStore()
  
 onMounted(() => {
@@ -96,10 +97,7 @@ function logout() {
       </div>
 
       <!-- Conta ativa -->
-      <div class="sidebar__account">
-        <div class="sidebar__account-dot" />
-        <span class="sidebar__account-name">{{ accountName }}</span>
-      </div>
+      <AccountSwitcher />
 
       <!-- Navegação principal -->
       <nav class="sidebar__nav">
@@ -293,12 +291,11 @@ function logout() {
 }
 
 .sidebar__footer {
+  padding: 0.75rem;
+  border-top: 1px solid var(--color-border);
   display: flex;
   flex-direction: column;
-  gap: 0.125rem;
-  padding-top: 0.75rem;
-  border-top: 1px solid var(--color-border);
-  margin-top: auto;
+  gap: 0.5rem;
 }
 
 /* ── Área principal ───────────────────────────────────────────────────────── */

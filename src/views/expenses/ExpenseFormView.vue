@@ -13,7 +13,7 @@ const accountStore = useAccountStore()
 const farmId    = route.params.farmId as string
 const expenseId = route.params.expenseId as string | undefined
 const isEditing = computed(() => !!expenseId)
-const accountId = computed(() => accountStore.accounts[0]?.id)
+const accountId = computed(() => accountStore.selectedAccount?.id)
 
 // ── Estado do formulário ────────────────────────────────────────
 const description    = ref('')

@@ -12,7 +12,7 @@ const route        = useRoute()
 const accountStore = useAccountStore()
 
 const farmId    = route.params.farmId as string
-const accountId = computed(() => accountStore.accounts[0]?.id)
+const accountId = computed(() => accountStore.selectedAccount?.id)
 
 const report   = ref<FarmReportResponse | null>(null)
 const loading  = ref(true)
