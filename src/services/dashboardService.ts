@@ -10,18 +10,31 @@ export interface RecentFarm {
   status: FarmStatus
   plantingStartDate: string | null
   createdAt: string
+  totalExpenses: number
+  totalExpensesPaid: number
 }
 
 // Resposta completa do endpoint de dashboard
 export interface DashboardSummary {
+  // Contagens por status
   totalFarms: number
   emPreparacao: number
   emAndamento: number
   colhida: number
   cancelada: number
+
+  // Áreas
   totalAreaHectares: number
   totalAreaAlqueires: number
+
+  // Alerta de arrendamentos
   leasesExpiringIn30Days: number
+
+  // Resumo financeiro — campos adicionados na última iteração
+  totalExpenses: number
+  totalExpensesPaid: number
+  totalExpensesPending: number
+
   recentFarms: RecentFarm[]
 }
 

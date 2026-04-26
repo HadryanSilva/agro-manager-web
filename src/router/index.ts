@@ -43,7 +43,7 @@ const router = createRouter({
       component: () => import('@/views/auth/OAuthCallbackView.vue')
     },
 
-    // Página de aceite de convite — requer auth, mas não requer conta própria
+    // Página de aceite de convite
     {
       path: '/invite/:token',
       name: 'invite-accept',
@@ -76,10 +76,9 @@ const router = createRouter({
       component: AppLayout,
       meta: { requiresAuth: true, requiresAccount: true },
       children: [
-        {
-          path: '',
-          redirect: { name: 'dashboard' }
-        },
+        { path: '', redirect: { name: 'dashboard' } },
+
+        // Dashboard
         {
           path: 'dashboard',
           name: 'dashboard',
@@ -122,16 +121,32 @@ const router = createRouter({
       ]
     },
 
-    // Configurações — usa AppLayout para manter a sidebar
+    // ── Relatórios — seção dedicada com próprio espaço no menu ────
     {
-      path: '/settings',
+      path: '/reports',
       component: AppLayout,
       meta: { requiresAuth: true, requiresAccount: true },
       children: [
         {
           path: '',
-          redirect: { name: 'settings-profile' }
+          name: 'reports',
+          component: () => import('@/views/reports/ReportsView.vue')
         },
+        {
+          path: 'farms/:farmId/financial',
+          name: 'farm-report',
+          component: () => import('@/views/farms/FarmReportView.vue')
+        }
+      ]
+    },
+
+    // ── Configurações ──────────────────────────────────────────────
+    {
+      path: '/settings',
+      component: AppLayout,
+      meta: { requiresAuth: true, requiresAccount: true },
+      children: [
+        { path: '', redirect: { name: 'settings-profile' } },
         {
           path: 'profile',
           name: 'settings-profile',
@@ -145,10 +160,7 @@ const router = createRouter({
       ]
     },
 
-    {
-      path: '/:pathMatch(.*)*',
-      redirect: '/'
-    }
+    { path: '/:pathMatch(.*)*', redirect: '/' }
   ]
 })
 

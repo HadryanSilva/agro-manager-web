@@ -545,9 +545,6 @@ const paidPercent = computed(() => {
   gap: 0.25rem;
 }
 
-.finance-total--paid    { }
-.finance-total--pending { }
-
 .finance-total__label {
   font-size: 0.78rem;
   font-weight: 600;
