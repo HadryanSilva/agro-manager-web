@@ -168,12 +168,12 @@ const paidPercent = computed(() => {
 
         <!-- Arrendamentos vencendo -->
         <div class="metric-card" :class="{ 'metric-card--alert': summary.leasesExpiringIn30Days > 0 }">
-          <div class="metric-card__icon"
-               :class="summary.leasesExpiringIn30Days > 0 ? 'metric-card__icon--warning' : 'metric-card__icon--muted'">
+          <div class="metric-card__icon metric-card__icon--warning">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
-                 fill="none" stroke="currentColor" stroke-width="2">
+                fill="none" stroke="currentColor" stroke-width="2">
               <path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
-              <line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
+              <line x1="12" y1="9" x2="12" y2="13"/>
+              <circle cx="12" cy="17.5" r="0.8" fill="currentColor" stroke="none"/>
             </svg>
           </div>
           <div class="metric-card__body">
@@ -721,6 +721,11 @@ const paidPercent = computed(() => {
   transition: opacity 0.15s;
 }
 .btn-primary:hover { opacity: 0.85; }
+
+.metric-card__icon--warning {
+  background: #fef3c7;
+  color: #d97706;
+}
 
 /* ── Responsividade ─────────────────────────────────────────────── */
 @media (max-width: 1024px) {

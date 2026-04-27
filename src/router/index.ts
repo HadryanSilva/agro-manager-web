@@ -117,7 +117,12 @@ const router = createRouter({
           path: 'farms/:farmId/expenses/:expenseId/edit',
           name: 'expense-edit',
           component: () => import('@/views/expenses/ExpenseFormView.vue')
-        }
+        },
+        {
+          path: 'transactions',
+          name: 'transactions',
+          component: () => import('@/views/transactions/TransactionsView.vue')
+        },
       ]
     },
 
