@@ -1,49 +1,27 @@
 <script setup lang="ts">
-import { computed } from 'vue'
 import { useTheme } from '@/composables/useTheme'
 
-const { preference, resolvedTheme, toggle } = useTheme()
-
-// Ícone e tooltip variam conforme a preferência atual
-const icon = computed(() => {
-  if (preference.value === 'system') return 'system'
-  if (preference.value === 'light')  return 'sun'
-  return 'moon'
-})
-
-const tooltip = computed(() => {
-  if (preference.value === 'system') return 'Automático (sistema)'
-  if (preference.value === 'light')  return 'Tema claro'
-  return 'Tema escuro'
-})
+const { theme, toggle } = useTheme()
 </script>
 
 <template>
   <button
     class="theme-toggle"
-    :class="`theme-toggle--${resolvedTheme}`"
-    :title="tooltip"
-    :aria-label="tooltip"
+    :title="theme === 'dark' ? 'Mudar para tema claro' : 'Mudar para tema escuro'"
+    :aria-label="theme === 'dark' ? 'Mudar para tema claro' : 'Mudar para tema escuro'"
     @click="toggle"
   >
-    <!-- Ícone: automático / sistema -->
-    <svg v-if="icon === 'system'" xmlns="http://www.w3.org/2000/svg" width="18" height="18"
-         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-      <circle cx="12" cy="12" r="4"/>
-      <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/>
-    </svg>
-
-    <!-- Ícone: sol (tema claro) -->
-    <svg v-else-if="icon === 'sun'" xmlns="http://www.w3.org/2000/svg" width="18" height="18"
-         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-      <circle cx="12" cy="12" r="4"/>
-      <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/>
-    </svg>
-
-    <!-- Ícone: lua (tema escuro) -->
-    <svg v-else xmlns="http://www.w3.org/2000/svg" width="18" height="18"
+    <!-- Ícone lua: tema escuro ativo -->
+    <svg v-if="theme === 'dark'" xmlns="http://www.w3.org/2000/svg" width="18" height="18"
          viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
       <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+    </svg>
+
+    <!-- Ícone sol: tema claro ativo -->
+    <svg v-else xmlns="http://www.w3.org/2000/svg" width="18" height="18"
+         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <circle cx="12" cy="12" r="4"/>
+      <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/>
     </svg>
   </button>
 </template>
@@ -60,6 +38,7 @@ const tooltip = computed(() => {
   background: var(--color-card);
   color: var(--color-text-muted);
   cursor: pointer;
+  font-family: inherit;
   transition: background 0.15s, border-color 0.15s, color 0.15s;
   flex-shrink: 0;
 }
