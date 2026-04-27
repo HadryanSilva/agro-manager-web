@@ -243,7 +243,6 @@ function getInitials(name: string): string {
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
   z-index: 50;
   overflow: hidden;
-  min-width: 220px;
 }
 
 .dropdown-section-label {
