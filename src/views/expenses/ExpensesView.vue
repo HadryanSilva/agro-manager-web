@@ -6,6 +6,7 @@ import expenseService from '@/services/expenseService'
 import farmService from '@/services/farmService'
 import type { ExpenseResponse, ExpenseCategory } from '@/services/expenseService'
 import ConfirmModal from '@/components/ConfirmModal.vue'
+import FarmActivityTimeline from '@/components/FarmActivityTimeline.vue'
 
 const router       = useRouter()
 const route        = useRoute()
@@ -18,7 +19,6 @@ const expenses   = ref<ExpenseResponse[]>([])
 const farmName   = ref('')
 const loading    = ref(true)
 const error      = ref('')
-
 const confirmModal = ref<{
   open: boolean
   title: string
@@ -34,6 +34,9 @@ const confirmModal = ref<{
   action: null,
   loading: false,
 })
+
+type ActiveTab = 'expenses' | 'history'
+const activeTab = ref<ActiveTab>('expenses')
  
 function openConfirm(title: string, message: string, confirmLabel: string, action: () => Promise<void>) {
   confirmModal.value = { open: true, title, message, confirmLabel, action, loading: false }
@@ -175,11 +178,30 @@ function formatDate(date: string | null): string {
       </div>
     </div>
 
-    <!-- Erro -->
-    <div v-if="error" class="error-banner">{{ error }}</div>
+    <!-- Abas de navegação -->
+    <div class="expenses__tabs">
+      <button
+        class="expenses__tab"
+        :class="{ 'expenses__tab--active': activeTab === 'expenses' }"
+        @click="activeTab = 'expenses'"
+      >
+        Despesas
+      </button>
+      <button
+        class="expenses__tab"
+        :class="{ 'expenses__tab--active': activeTab === 'history' }"
+        @click="activeTab = 'history'"
+      >
+        Histórico
+      </button>
+    </div>
 
-    <!-- Cards de totais -->
-    <div class="totals-grid">
+    <template v-if="activeTab === 'expenses'">
+      <!-- Erro -->
+      <div v-if="error" class="error-banner">{{ error }}</div>
+
+      <!-- Cards de totais -->
+      <div class="totals-grid">
       <div class="total-card">
         <span class="total-card__label">Total geral</span>
         <span class="total-card__value">{{ formatCurrency(totalGeral) }}</span>
@@ -192,10 +214,10 @@ function formatDate(date: string | null): string {
         <span class="total-card__label">A pagar</span>
         <span class="total-card__value">{{ formatCurrency(totalPendente) }}</span>
       </div>
-    </div>
+      </div>
 
-    <!-- Filtros -->
-    <div class="filters">
+      <!-- Filtros -->
+      <div class="filters">
       <!-- Categoria -->
       <div class="filters__group">
         <button
@@ -233,15 +255,15 @@ function formatDate(date: string | null): string {
           @click="paymentFilter = 'PAID'"
         >Pagas</button>
       </div>
-    </div>
+      </div>
 
-    <!-- Loading -->
-    <div v-if="loading" class="loading-state">
+      <!-- Loading -->
+      <div v-if="loading" class="loading-state">
       <span class="spinner" />
-    </div>
+      </div>
 
-    <!-- Vazio -->
-    <div v-else-if="!loading && filtered.length === 0" class="empty-state">
+      <!-- Vazio -->
+      <div v-else-if="!loading && filtered.length === 0" class="empty-state">
       <span class="empty-state__icon">💸</span>
       <p v-if="expenses.length === 0">Nenhuma despesa registrada para esta lavoura.</p>
       <p v-else>Nenhuma despesa encontrada com os filtros selecionados.</p>
@@ -252,10 +274,10 @@ function formatDate(date: string | null): string {
       >
         Registrar primeira despesa
       </button>
-    </div>
+      </div>
 
-    <!-- Tabela (desktop) -->
-    <div v-else class="table-wrapper">
+      <!-- Tabela (desktop) -->
+      <div v-else class="table-wrapper">
       <table class="expenses-table">
         <thead>
           <tr>
@@ -329,10 +351,10 @@ function formatDate(date: string | null): string {
           </tr>
         </tbody>
       </table>
-    </div>
+      </div>
 
-    <!-- Cards mobile -->
-    <div v-if="!loading && filtered.length > 0" class="expense-cards">
+      <!-- Cards mobile -->
+      <div v-if="!loading && filtered.length > 0" class="expense-cards">
       <div
         v-for="expense in filtered"
         :key="expense.id"
@@ -371,18 +393,23 @@ function formatDate(date: string | null): string {
           >Remover</button>
         </div>
       </div>
-    </div>
+      </div>
+    </template>
+    <!-- Aba Histórico — só aparece quando activeTab === 'history' -->
+    <template v-else>
+      <FarmActivityTimeline :farmId="farmId" />
+    </template>
   </div>
-  <ConfirmModal
-  :open="confirmModal.open"
-  :title="confirmModal.title"
-  :message="confirmModal.message"
-  :confirm-label="confirmModal.confirmLabel"
-  :loading="confirmModal.loading"
-  variant="danger"
-  @confirm="handleConfirm"
-  @cancel="handleCancel"
-/>
+    <ConfirmModal
+    :open="confirmModal.open"
+    :title="confirmModal.title"
+    :message="confirmModal.message"
+    :confirm-label="confirmModal.confirmLabel"
+    :loading="confirmModal.loading"
+    variant="danger"
+    @confirm="handleConfirm"
+    @cancel="handleCancel"
+  />
 </template>
 
 <style scoped>
@@ -709,4 +736,31 @@ function formatDate(date: string | null): string {
 }
 
 .expense-card__actions .action-btn { margin-left: 0; }
+
+.expenses__tabs {
+  display: flex;
+  gap: 0.25rem;
+  border-bottom: 1.5px solid var(--color-border);
+  margin-bottom: 1.5rem;
+}
+ 
+.expenses__tab {
+  padding: 0.5rem 1rem;
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1.5px;
+  font-family: inherit;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s;
+}
+.expenses__tab:hover { color: var(--color-text); }
+.expenses__tab--active {
+  color: var(--color-primary);
+  border-bottom-color: var(--color-primary);
+  font-weight: 600;
+}
 </style>
