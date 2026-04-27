@@ -175,6 +175,7 @@ function getInitials(name: string): string {
   background: none;
   cursor: pointer;
   text-align: left;
+  font-family: inherit;
   transition: background 0.15s, border-color 0.15s;
 }
 
