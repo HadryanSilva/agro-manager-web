@@ -106,7 +106,7 @@ function formatDate(date: string | null): string {
 }
 
 // Páginas visíveis na paginação (janela de 5)
-const visiblePages = computed(() => {
+const visiblePages = computed<number[]>(() => {
   if (!result.value) return []
   const total   = result.value.totalPages
   const current = result.value.page
@@ -117,6 +117,9 @@ const visiblePages = computed(() => {
   }
   return pages
 })
+
+const firstVisiblePage = computed<number>(() => visiblePages.value[0] ?? 0)
+const lastVisiblePage  = computed<number>(() => visiblePages.value[visiblePages.value.length - 1] ?? 0)
 </script>
 
 <template>
@@ -315,11 +318,11 @@ const visiblePages = computed(() => {
           </button>
 
           <button
-            v-if="visiblePages[0] > 0"
+            v-if="firstVisiblePage > 0"
             class="page-btn"
             @click="goToPage(0)"
           >1</button>
-          <span v-if="visiblePages[0] > 1" class="page-ellipsis">…</span>
+          <span v-if="firstVisiblePage > 1" class="page-ellipsis">…</span>
 
           <button
             v-for="p in visiblePages"
@@ -329,9 +332,9 @@ const visiblePages = computed(() => {
             @click="goToPage(p)"
           >{{ p + 1 }}</button>
 
-          <span v-if="visiblePages[visiblePages.length - 1] < result.totalPages - 2" class="page-ellipsis">…</span>
+          <span v-if="lastVisiblePage < result.totalPages - 2" class="page-ellipsis">…</span>
           <button
-            v-if="visiblePages[visiblePages.length - 1] < result.totalPages - 1"
+            v-if="lastVisiblePage < result.totalPages - 1"
             class="page-btn"
             @click="goToPage(result.totalPages - 1)"
           >{{ result.totalPages }}</button>
