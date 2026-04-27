@@ -4,6 +4,7 @@ import { useRouter } from 'vue-router'
 import farmService from '@/services/farmService'
 import type { FarmResponse, FarmStatus } from '@/services/farmService'
 import { useAccountStore } from '@/stores/accountStore'
+import ConfirmModal from '@/components/ConfirmModal.vue'
 
 const router = useRouter()
 const accountStore = useAccountStore()
@@ -12,6 +13,43 @@ const farms = ref<FarmResponse[]>([])
 const loading = ref(true)
 const error = ref('')
 const activeFilter = ref<FarmStatus | null>(null)
+
+const confirmModal = ref<{
+  open: boolean
+  title: string
+  message: string
+  confirmLabel: string
+  action: (() => Promise<void>) | null
+  loading: boolean
+}>({
+  open: false,
+  title: '',
+  message: '',
+  confirmLabel: 'Confirmar',
+  action: null,
+  loading: false,
+})
+ 
+function openConfirm(title: string, message: string, confirmLabel: string, action: () => Promise<void>) {
+  confirmModal.value = { open: true, title, message, confirmLabel, action, loading: false }
+}
+ 
+async function handleConfirm() {
+  if (!confirmModal.value.action) return
+  confirmModal.value.loading = true
+  try {
+    await confirmModal.value.action()
+  } finally {
+    confirmModal.value.open    = false
+    confirmModal.value.loading = false
+    confirmModal.value.action  = null
+  }
+}
+ 
+function handleCancel() {
+  confirmModal.value.open   = false
+  confirmModal.value.action = null
+}
 
 const accountId = computed(() => accountStore.selectedAccount?.id)
 
@@ -51,15 +89,17 @@ async function applyFilter(filter: FarmStatus | null) {
   await fetchFarms()
 }
 
-async function handleDelete(farmId: string) {
+async function handleDelete(farm: FarmResponse) {
   if (!accountId.value) return
-  if (!confirm('Tem certeza que deseja remover esta lavoura?')) return
-  try {
-    await farmService.delete(accountId.value, farmId)
-    farms.value = farms.value.filter(f => f.id !== farmId)
-  } catch {
-    error.value = 'Erro ao remover lavoura.'
-  }
+  openConfirm(
+    'Remover lavoura',
+    `Deseja remover a lavoura "${farm.name}"? Todas as despesas vinculadas também serão removidas. Esta ação não pode ser desfeita.`,
+    'Remover',
+    async () => {
+      await farmService.delete(accountId.value!, farm.id)
+      farms.value = farms.value.filter(f => f.id !== farm.id)
+    }
+  )
 }
 
 function formatDate(date: string | null) {
@@ -166,13 +206,23 @@ function formatArea(value: number, unit: string) {
           <button class="btn-action" @click="router.push({ name: 'farm-edit', params: { farmId: farm.id } })">
             Editar
           </button>
-          <button class="btn-action btn-action--danger" @click="handleDelete(farm.id)">
+          <button class="btn-action btn-action--danger" @click="handleDelete(farm)">
             Remover
           </button>
         </div>
       </div>
     </div>
   </div>
+  <ConfirmModal
+  :open="confirmModal.open"
+  :title="confirmModal.title"
+  :message="confirmModal.message"
+  :confirm-label="confirmModal.confirmLabel"
+  :loading="confirmModal.loading"
+  variant="danger"
+  @confirm="handleConfirm"
+  @cancel="handleCancel"
+/>
 </template>
 
 <style scoped>

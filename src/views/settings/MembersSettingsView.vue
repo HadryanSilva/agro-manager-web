@@ -5,6 +5,7 @@ import memberService from '@/services/memberService'
 import type { AccountMemberResponse, AccountInviteResponse } from '@/services/memberService'
 import type { AccountRole } from '@/services/accountService'
 import SettingsTabs from '@/components/SettingsTabs.vue'
+import ConfirmModal from '@/components/ConfirmModal.vue'
 
 const accountStore = useAccountStore()
 const accountId = computed(() => accountStore.selectedAccount?.id)
@@ -15,6 +16,44 @@ const invites   = ref<AccountInviteResponse[]>([])
 const loading   = ref(true)
 const error     = ref('')
 const copiedId  = ref<string | null>(null)
+
+// Estado do modal de confirmação
+const confirmModal = ref<{
+  open: boolean
+  title: string
+  message: string
+  confirmLabel: string
+  action: (() => Promise<void>) | null
+  loading: boolean
+  }>({
+  open: false,
+  title: '',
+  message: '',
+  confirmLabel: 'Confirmar',
+  action: null,
+  loading: false,
+})
+ 
+function openConfirm(title: string, message: string, confirmLabel: string, action: () => Promise<void>) {
+  confirmModal.value = { open: true, title, message, confirmLabel, action, loading: false }
+}
+ 
+async function handleConfirm() {
+  if (!confirmModal.value.action) return
+  confirmModal.value.loading = true
+  try {
+    await confirmModal.value.action()
+  } finally {
+    confirmModal.value.open    = false
+    confirmModal.value.loading = false
+    confirmModal.value.action  = null
+  }
+}
+ 
+function handleCancel() {
+  confirmModal.value.open   = false
+  confirmModal.value.action = null
+}
 
 // Role do usuário logado nesta conta (para controle de permissões no UI)
 const myRole = computed(() => currentAccount.value?.userRole ?? 'MEMBER')
@@ -57,15 +96,17 @@ async function handleUpdateRole(member: AccountMemberResponse, role: AccountRole
   }
 }
 
-async function handleRemoveMember(memberId: string) {
+async function handleRemoveMember(member: AccountMemberResponse) {
   if (!accountId.value) return
-  if (!confirm('Remover este membro da conta?')) return
-  try {
-    await memberService.removeMember(accountId.value, memberId)
-    members.value = members.value.filter(m => m.id !== memberId)
-  } catch (e: any) {
-    error.value = e.response?.data?.message ?? 'Erro ao remover membro.'
-  }
+  openConfirm(
+    'Remover membro',
+    `Deseja remover ${member.name} da conta? Esta ação não pode ser desfeita.`,
+    'Remover',
+    async () => {
+      await memberService.removeMember(accountId.value!, member.id)
+      members.value = members.value.filter(m => m.id !== member.id)
+    }
+  )
 }
 
 async function handleCreateInvite(role: AccountRole = 'MEMBER') {
@@ -80,13 +121,15 @@ async function handleCreateInvite(role: AccountRole = 'MEMBER') {
 
 async function handleRevokeInvite(inviteId: string) {
   if (!accountId.value) return
-  if (!confirm('Revogar este convite?')) return
-  try {
-    await memberService.revokeInvite(accountId.value, inviteId)
-    invites.value = invites.value.filter(i => i.id !== inviteId)
-  } catch {
-    error.value = 'Erro ao revogar convite.'
-  }
+  openConfirm(
+    'Revogar convite',
+    'Este link ficará inativo imediatamente. Quem tentar usá-lo receberá um erro.',
+    'Revogar',
+    async () => {
+      await memberService.revokeInvite(accountId.value!, inviteId)
+      invites.value = invites.value.filter(i => i.id !== inviteId)
+    }
+  )
 }
 
 async function copyInviteLink(invite: AccountInviteResponse) {
@@ -177,7 +220,7 @@ function getInitials(name: string): string {
                 v-if="canManage && member.role !== 'OWNER'"
                 class="icon-btn icon-btn--danger"
                 title="Remover membro"
-                @click="handleRemoveMember(member.id)"
+                @click="handleRemoveMember(member)"
               >
                 <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24"
                      fill="none" stroke="currentColor" stroke-width="2">
@@ -249,9 +292,18 @@ function getInitials(name: string): string {
           </div>
         </div>
       </div>
-
     </template>
   </div>
+  <ConfirmModal
+    :open="confirmModal.open"
+    :title="confirmModal.title"
+    :message="confirmModal.message"
+    :confirm-label="confirmModal.confirmLabel"
+    :loading="confirmModal.loading"
+    variant="danger"
+    @confirm="handleConfirm"
+    @cancel="handleCancel"
+  />
 </template>
 
 <style scoped>

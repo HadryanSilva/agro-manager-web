@@ -5,6 +5,7 @@ import { useAccountStore } from '@/stores/accountStore'
 import expenseService from '@/services/expenseService'
 import farmService from '@/services/farmService'
 import type { ExpenseResponse, ExpenseCategory } from '@/services/expenseService'
+import ConfirmModal from '@/components/ConfirmModal.vue'
 
 const router       = useRouter()
 const route        = useRoute()
@@ -17,6 +18,43 @@ const expenses   = ref<ExpenseResponse[]>([])
 const farmName   = ref('')
 const loading    = ref(true)
 const error      = ref('')
+
+const confirmModal = ref<{
+  open: boolean
+  title: string
+  message: string
+  confirmLabel: string
+  action: (() => Promise<void>) | null
+  loading: boolean
+}>({
+  open: false,
+  title: '',
+  message: '',
+  confirmLabel: 'Confirmar',
+  action: null,
+  loading: false,
+})
+ 
+function openConfirm(title: string, message: string, confirmLabel: string, action: () => Promise<void>) {
+  confirmModal.value = { open: true, title, message, confirmLabel, action, loading: false }
+}
+ 
+async function handleConfirm() {
+  if (!confirmModal.value.action) return
+  confirmModal.value.loading = true
+  try {
+    await confirmModal.value.action()
+  } finally {
+    confirmModal.value.open    = false
+    confirmModal.value.loading = false
+    confirmModal.value.action  = null
+  }
+}
+ 
+function handleCancel() {
+  confirmModal.value.open   = false
+  confirmModal.value.action = null
+}
 
 // Filtros ativos
 type CategoryFilter = ExpenseCategory | null
@@ -86,15 +124,17 @@ async function handleMarkAsPaid(expense: ExpenseResponse) {
   }
 }
 
-async function handleDelete(expenseId: string) {
+async function handleDelete(expense: ExpenseResponse) {
   if (!accountId.value) return
-  if (!confirm('Remover esta despesa?')) return
-  try {
-    await expenseService.delete(accountId.value, farmId, expenseId)
-    expenses.value = expenses.value.filter(e => e.id !== expenseId)
-  } catch {
-    error.value = 'Erro ao remover despesa.'
-  }
+  openConfirm(
+    'Remover despesa',
+    `Deseja remover "${expense.description}"? Esta ação não pode ser desfeita.`,
+    'Remover',
+    async () => {
+      await expenseService.delete(accountId.value!, farmId, expense.id)
+      expenses.value = expenses.value.filter(e => e.id !== expense.id)
+    }
+  )
 }
 
 function formatCurrency(value: number): string {
@@ -275,7 +315,7 @@ function formatDate(date: string | null): string {
               </button>
               <button
                 class="action-btn action-btn--danger"
-                @click="handleDelete(expense.id)"
+                @click="handleDelete(expense)"
                 title="Remover"
               >
                 <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24"
@@ -327,13 +367,22 @@ function formatDate(date: string | null): string {
           >Editar</button>
           <button
             class="action-btn action-btn--danger"
-            @click="handleDelete(expense.id)"
+            @click="handleDelete(expense)"
           >Remover</button>
         </div>
       </div>
     </div>
-
   </div>
+  <ConfirmModal
+  :open="confirmModal.open"
+  :title="confirmModal.title"
+  :message="confirmModal.message"
+  :confirm-label="confirmModal.confirmLabel"
+  :loading="confirmModal.loading"
+  variant="danger"
+  @confirm="handleConfirm"
+  @cancel="handleCancel"
+/>
 </template>
 
 <style scoped>
