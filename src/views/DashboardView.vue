@@ -5,6 +5,7 @@ import { useAccountStore } from '@/stores/accountStore'
 import dashboardService from '@/services/dashboardService'
 import type { DashboardSummary } from '@/services/dashboardService'
 import type { FarmStatus } from '@/services/farmService'
+import WeatherCard from '@/components/WeatherCard.vue'
 
 const router       = useRouter()
 const accountStore = useAccountStore()
@@ -103,6 +104,9 @@ const paidPercent = computed(() => {
         </svg>
       </button>
     </div>
+
+    <!-- Previsão do tempo -->
+    <WeatherCard />
 
     <!-- Erro -->
     <div v-if="error" class="error-banner">{{ error }}</div>
