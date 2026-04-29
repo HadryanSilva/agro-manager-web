@@ -189,8 +189,14 @@ router.beforeEach(async (to) => {
   const auth = useAuthStore()
   const accountStore = useAccountStore()
 
+  // Tenta restaurar a sessão via refresh token antes de redirecionar para login
   if (to.meta.requiresAuth && !auth.isAuthenticated) {
-    return { name: 'login', query: { redirect: to.fullPath } }
+    await auth.restoreSession()
+
+    // Se após a restauração ainda não estiver autenticado, redireciona
+    if (!auth.isAuthenticated) {
+      return { name: 'login', query: { redirect: to.fullPath } }
+    }
   }
 
   if (to.meta.guestOnly && auth.isAuthenticated) {
