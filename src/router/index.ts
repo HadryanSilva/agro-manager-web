@@ -123,6 +123,21 @@ const router = createRouter({
           name: 'transactions',
           component: () => import('@/views/transactions/TransactionsView.vue')
         },
+        {
+          path: 'quotations',
+          name: 'quotations',
+          component: () => import('@/views/quotations/QuotationsView.vue')
+        },
+        {
+          path: 'quotations/new',
+          name: 'quotation-create',
+          component: () => import('@/views/quotations/QuotationFormView.vue')
+        },
+        {
+          path: 'quotations/:quotationId/edit',
+          name: 'quotation-edit',
+          component: () => import('@/views/quotations/QuotationFormView.vue')
+        },
       ]
     },
 
