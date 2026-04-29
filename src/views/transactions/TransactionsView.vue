@@ -617,11 +617,26 @@ const lastVisiblePage  = computed<number>(() => visiblePages.value[visiblePages.
 
 @media (max-width: 640px) {
   .transactions { padding: 1.25rem 1rem; }
-  .filters-bar  { gap: 0.5rem; }
+
+  /* Grade 2 colunas para os filtros — cada um tem espaço suficiente */
+  .filters-bar {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+  }
+
+  /* Botão Limpar ocupa a linha inteira */
+  .btn-clear { grid-column: 1 / -1; justify-content: center; }
+
   .filter-select,
-  .filter-input  { flex: 1; min-width: 0; }
-  .summary-row   { gap: 0.625rem; }
-  .summary-item  { flex: 1; }
+  .filter-input {
+    width: 100%;
+    min-width: 0;
+    font-size: 0.8125rem;
+  }
+
+  .summary-row  { gap: 0.625rem; }
+  .summary-item { flex: 1; }
 }
 
 .tx-card {

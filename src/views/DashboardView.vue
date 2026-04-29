@@ -376,6 +376,7 @@ const paidPercent = computed(() => {
   padding: 2rem 1.5rem;
   max-width: 1100px;
   margin: 0 auto;
+  overflow-x: hidden;
 }
 
 /* ── Cabeçalho ──────────────────────────────────────────────────── */
@@ -492,8 +493,16 @@ const paidPercent = computed(() => {
   letter-spacing: -0.03em;
   line-height: 1;
 }
-.metric-card__value--sm { font-size: 1.1rem; letter-spacing: -0.01em; }
-.metric-card__label { font-size: 0.8rem; color: var(--color-text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.metric-card__value--sm { 
+  font-size: 1.1rem; 
+  letter-spacing: -0.01em; 
+}
+
+.metric-card__label { 
+  font-size: 0.8rem; 
+  color: var(--color-text-muted); 
+  white-space: normal; line-height: 1.3; 
+}
 
 /* ── Seções ─────────────────────────────────────────────────────── */
 .section { margin-bottom: 2rem; }
@@ -562,6 +571,7 @@ const paidPercent = computed(() => {
   font-weight: 700;
   color: var(--color-text);
   letter-spacing: -0.02em;
+  word-break: break-word;
 }
 
 .finance-total--paid    .finance-total__value { color: #059669; }
@@ -747,6 +757,8 @@ const paidPercent = computed(() => {
   .metric-card__value--sm { font-size: 0.95rem; }
 
   .finance-card__totals { grid-template-columns: 1fr; gap: 0.75rem; margin-bottom: 1rem; }
+
+  .finance-total__value { font-size: 1.1rem; }
 
   .status-grid { grid-template-columns: repeat(2, 1fr); gap: 0.75rem; }
 
