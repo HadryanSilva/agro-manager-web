@@ -118,11 +118,15 @@ const router = createRouter({
           name: 'expense-edit',
           component: () => import('@/views/expenses/ExpenseFormView.vue')
         },
+
+        // ── Transações da conta ───────────────────────────────────
         {
           path: 'transactions',
           name: 'transactions',
           component: () => import('@/views/transactions/TransactionsView.vue')
         },
+
+        // ── Cotações de produtos ───────────────────────────────────
         {
           path: 'quotations',
           name: 'quotations',
@@ -137,6 +141,13 @@ const router = createRouter({
           path: 'quotations/:quotationId/edit',
           name: 'quotation-edit',
           component: () => import('@/views/quotations/QuotationFormView.vue')
+        },
+
+        // ── Vendas da produção ───────────────────────────────────
+        {
+          path: 'sales',
+          name: 'sales',
+          component: () => import('@/views/sales/SalesView.vue')
         },
       ]
     },
