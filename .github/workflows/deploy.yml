@@ -1,20 +1,20 @@
 # =============================================================================
 # .github/workflows/deploy.yml — Repositório: agro-manager-web (frontend)
 #
-# Trigger: push na branch main
+# Trigger: push na branch master
 # Etapas:  build da imagem Docker → push no GHCR → deploy no Lightsail
 #
 # Secrets necessários no repositório GitHub:
-#   LIGHTSAIL_HOST     → IP estático do servidor (ex: 54.123.45.67)
+#   LIGHTSAIL_HOST     → IP estático do servidor
 #   LIGHTSAIL_USER     → ubuntu
-#   LIGHTSAIL_SSH_KEY  → conteúdo da chave privada .pem (cat LightsailDefaultKey.pem)
+#   LIGHTSAIL_SSH_KEY  → conteúdo da chave privada
 # =============================================================================
 
 name: CI/CD — Frontend
 
 on:
   push:
-    branches: [main]
+    branches: [master]
 
 env:
   IMAGE_NAME: ghcr.io/${{ github.repository_owner }}/agro-manager-frontend
