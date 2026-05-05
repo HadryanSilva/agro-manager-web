@@ -16,6 +16,7 @@ export interface AccountInviteResponse {
   token: string
   accountName: string
   role: AccountRole
+  invitedEmail: string
   createdByName: string
   expiresAt: string
   used: boolean
@@ -38,8 +39,9 @@ const memberService = {
   listInvites: (accountId: string) =>
     api.get<{ data: AccountInviteResponse[] }>(`/accounts/${accountId}/invites`),
 
-  createInvite: (accountId: string, role: AccountRole = 'MEMBER') =>
-    api.post<{ data: AccountInviteResponse }>(`/accounts/${accountId}/invites`, { role }),
+  // Convite nominal — email obrigatório, papel opcional (padrão MEMBER)
+  createInvite: (accountId: string, email: string, role: AccountRole = 'MEMBER') =>
+    api.post<{ data: AccountInviteResponse }>(`/accounts/${accountId}/invites`, { email, role }),
 
   revokeInvite: (accountId: string, inviteId: string) =>
     api.delete(`/accounts/${accountId}/invites/${inviteId}`),
