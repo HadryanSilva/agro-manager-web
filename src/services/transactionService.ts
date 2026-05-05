@@ -3,8 +3,8 @@ import type { ExpenseCategory } from './expenseService'
 
 export interface TransactionResponse {
   id: string
-  farmId: string
-  farmName: string
+  farmId: string | null
+  farmName: string | null
   description: string
   category: ExpenseCategory
   value: number
@@ -17,6 +17,7 @@ export interface TransactionResponse {
 
 export interface TransactionFilters {
   farmId?: string
+  general?: boolean   // true = apenas despesas gerais sem lavoura
   category?: ExpenseCategory
   paid?: boolean
   startDate?: string

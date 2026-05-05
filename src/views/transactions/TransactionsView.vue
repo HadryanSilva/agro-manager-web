@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed, onMounted, watch } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useAccountStore } from '@/stores/accountStore'
 import transactionService from '@/services/transactionService'
@@ -19,6 +19,7 @@ const loading  = ref(true)
 const error    = ref('')
 
 // ── Filtros ───────────────────────────────────────────────────────
+// 'GENERAL' é valor especial para despesas sem lavoura
 const filterFarmId    = ref<string>('')
 const filterCategory  = ref<ExpenseCategory | ''>('')
 const filterPaid      = ref<'' | 'true' | 'false'>('')
@@ -32,7 +33,6 @@ const categoryConfig: Record<ExpenseCategory, { label: string; color: string; bg
   SERVICO: { label: 'Serviço', color: '#2563eb', bg: '#dbeafe' },
 }
 
-// Número de filtros ativos (para indicador visual)
 const activeFilterCount = computed(() =>
   [filterFarmId.value, filterCategory.value, filterPaid.value,
    filterStartDate.value, filterEndDate.value].filter(Boolean).length
@@ -48,7 +48,7 @@ async function loadFarms() {
   try {
     const { data } = await farmService.findAll(accountId.value)
     farms.value = data.data
-  } catch { /* silencia — filtro de lavoura apenas não aparece */ }
+  } catch { /* silencia */ }
 }
 
 async function fetchTransactions() {
@@ -57,9 +57,14 @@ async function fetchTransactions() {
   error.value   = ''
   try {
     const { data } = await transactionService.getTransactions(accountId.value, {
-      farmId:    filterFarmId.value    || undefined,
-      category:  (filterCategory.value || undefined) as ExpenseCategory | undefined,
-      paid:      filterPaid.value !== '' ? filterPaid.value === 'true' : undefined,
+      // Se filterFarmId é 'GENERAL', envia general=true e sem farmId
+      // Se filterFarmId é um UUID, envia farmId normalmente
+      farmId:   filterFarmId.value !== '' && filterFarmId.value !== 'GENERAL'
+                  ? filterFarmId.value
+                  : undefined,
+      general:  filterFarmId.value === 'GENERAL' ? true : undefined,
+      category: (filterCategory.value || undefined) as ExpenseCategory | undefined,
+      paid:     filterPaid.value !== '' ? filterPaid.value === 'true' : undefined,
       startDate: filterStartDate.value || undefined,
       endDate:   filterEndDate.value   || undefined,
       page:      currentPage.value,
@@ -73,7 +78,6 @@ async function fetchTransactions() {
   }
 }
 
-// Ao mudar qualquer filtro, volta para a página 0 e recarrega
 function applyFilters() {
   currentPage.value = 0
   fetchTransactions()
@@ -94,18 +98,23 @@ function goToPage(page: number) {
   fetchTransactions()
 }
 
-// Formata moeda BRL
+function handleRowClick(tx: TransactionResponse) {
+  if (tx.farmId) {
+    router.push({ name: 'farm-expenses', params: { farmId: tx.farmId } })
+  } else {
+    router.push({ name: 'general-expense-edit', params: { expenseId: tx.id } })
+  }
+}
+
 function formatCurrency(value: number): string {
   return Number(value).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
 }
 
-// Formata data pt-BR
 function formatDate(date: string | null): string {
   if (!date) return '—'
   return new Date(date + 'T00:00:00').toLocaleDateString('pt-BR')
 }
 
-// Páginas visíveis na paginação (janela de 5)
 const visiblePages = computed<number[]>(() => {
   if (!result.value) return []
   const total   = result.value.totalPages
@@ -127,18 +136,27 @@ const lastVisiblePage  = computed<number>(() => visiblePages.value[visiblePages.
 
     <!-- Cabeçalho -->
     <div class="transactions__header">
-      <h1 class="transactions__title">Transações</h1>
-      <p class="transactions__subtitle">
-        Todas as despesas da conta <strong>{{ accountStore.selectedAccount?.name }}</strong>
-      </p>
+      <div>
+        <h1 class="transactions__title">Transações</h1>
+        <p class="transactions__subtitle">
+          Todas as despesas da conta <strong>{{ accountStore.selectedAccount?.name }}</strong>
+        </p>
+      </div>
+      <button
+        class="btn-primary"
+        @click="router.push({ name: 'general-expense-create' })"
+      >
+        + Despesa geral
+      </button>
     </div>
 
     <!-- ── Barra de filtros ──────────────────────────────────────── -->
     <div class="filters-bar">
 
-      <!-- Lavoura -->
+      <!-- Lavoura / Conta geral -->
       <select class="filter-select" v-model="filterFarmId" @change="applyFilters">
-        <option value="">Todas as lavouras</option>
+        <option value="">Todas</option>
+        <option value="GENERAL">Conta geral</option>
         <option v-for="farm in farms" :key="farm.id" :value="farm.id">
           {{ farm.name }}
         </option>
@@ -213,7 +231,8 @@ const lastVisiblePage  = computed<number>(() => visiblePages.value[visiblePages.
       <!-- Sem resultados -->
       <div v-if="result.content.length === 0" class="empty-state">
         <span class="empty-state__icon">💸</span>
-        <p>Nenhuma transação encontrada com os filtros selecionados.</p>
+        <p v-if="activeFilterCount > 0">Nenhuma transação encontrada com os filtros selecionados.</p>
+        <p v-else>Nenhuma transação registrada ainda.</p>
         <button v-if="activeFilterCount > 0" class="btn-clear-center" @click="clearFilters">
           Limpar filtros
         </button>
@@ -241,10 +260,10 @@ const lastVisiblePage  = computed<number>(() => visiblePages.value[visiblePages.
                 v-for="tx in result.content"
                 :key="tx.id"
                 class="transactions-table__row"
-                @click="router.push({ name: 'farm-expenses', params: { farmId: tx.farmId } })"
+                @click="handleRowClick(tx)"
               >
                 <td class="col-desc">{{ tx.description }}</td>
-                <td class="col-farm">{{ tx.farmName }}</td>
+                <td class="col-farm">{{ tx.farmName ?? 'Conta geral' }}</td>
                 <td>
                   <span
                     class="badge"
@@ -281,14 +300,14 @@ const lastVisiblePage  = computed<number>(() => visiblePages.value[visiblePages.
             v-for="tx in result.content"
             :key="`mob-${tx.id}`"
             class="tx-card"
-            @click="router.push({ name: 'farm-expenses', params: { farmId: tx.farmId } })"
+            @click="handleRowClick(tx)"
           >
             <div class="tx-card__top">
               <span class="tx-card__desc">{{ tx.description }}</span>
               <span class="tx-card__value">{{ formatCurrency(Number(tx.value)) }}</span>
             </div>
             <div class="tx-card__meta">
-              <span class="tx-card__farm">{{ tx.farmName }}</span>
+              <span class="tx-card__farm">{{ tx.farmName ?? 'Conta geral' }}</span>
               <span
                 class="badge"
                 :style="{
@@ -317,11 +336,7 @@ const lastVisiblePage  = computed<number>(() => visiblePages.value[visiblePages.
             </svg>
           </button>
 
-          <button
-            v-if="firstVisiblePage > 0"
-            class="page-btn"
-            @click="goToPage(0)"
-          >1</button>
+          <button v-if="firstVisiblePage > 0" class="page-btn" @click="goToPage(0)">1</button>
           <span v-if="firstVisiblePage > 1" class="page-ellipsis">…</span>
 
           <button
@@ -368,6 +383,15 @@ const lastVisiblePage  = computed<number>(() => visiblePages.value[visiblePages.
 }
 
 /* ── Cabeçalho ──────────────────────────────────────────────────── */
+.transactions__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+
 .transactions__title {
   font-size: 1.5rem;
   font-weight: 700;
@@ -378,7 +402,6 @@ const lastVisiblePage  = computed<number>(() => visiblePages.value[visiblePages.
   margin-top: 0.25rem;
   font-size: 0.875rem;
   color: var(--color-text-muted);
-  margin-bottom: 1.5rem;
 }
 
 /* ── Barra de filtros ───────────────────────────────────────────── */
@@ -405,7 +428,6 @@ const lastVisiblePage  = computed<number>(() => visiblePages.value[visiblePages.
 }
 .filter-select:focus,
 .filter-input:focus { outline: none; border-color: var(--color-primary); }
-
 .filter-input { min-width: 130px; }
 
 .btn-clear {
@@ -425,6 +447,22 @@ const lastVisiblePage  = computed<number>(() => visiblePages.value[visiblePages.
   height: 36px;
 }
 .btn-clear:hover { opacity: 0.8; }
+
+/* ── Botão primário ─────────────────────────────────────────────── */
+.btn-primary {
+  padding: 0.6rem 1.25rem;
+  background: var(--color-primary);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-family: inherit;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: opacity 0.15s;
+}
+.btn-primary:hover { opacity: 0.85; }
 
 /* ── Utilitários ────────────────────────────────────────────────── */
 .error-banner {
@@ -466,20 +504,9 @@ const lastVisiblePage  = computed<number>(() => visiblePages.value[visiblePages.
   border-radius: var(--radius-sm);
   box-shadow: var(--shadow-card);
 }
-
 .summary-item--highlight { border-color: var(--color-primary); }
-
-.summary-item__label {
-  font-size: 0.8rem;
-  color: var(--color-text-muted);
-}
-
-.summary-item__value {
-  font-size: 1rem;
-  font-weight: 700;
-  color: var(--color-text);
-}
-
+.summary-item__label { font-size: 0.8rem; color: var(--color-text-muted); }
+.summary-item__value { font-size: 1rem; font-weight: 700; color: var(--color-text); }
 .summary-item--highlight .summary-item__value { color: var(--color-primary); }
 
 /* ── Estado vazio ───────────────────────────────────────────────── */
@@ -523,9 +550,7 @@ const lastVisiblePage  = computed<number>(() => visiblePages.value[visiblePages.
 }
 
 .transactions-table { width: 100%; border-collapse: collapse; font-size: 0.875rem; }
-
 .transactions-table thead { background: var(--color-background); }
-
 .transactions-table th {
   padding: 0.75rem 1rem;
   text-align: left;
@@ -536,17 +561,14 @@ const lastVisiblePage  = computed<number>(() => visiblePages.value[visiblePages.
   letter-spacing: 0.04em;
   border-bottom: 1.5px solid var(--color-border);
 }
-
 .transactions-table__row { cursor: pointer; transition: background 0.12s; }
 .transactions-table__row:hover { background: var(--color-background); }
-
 .transactions-table td {
   padding: 0.8rem 1rem;
   color: var(--color-text);
   border-bottom: 1px solid var(--color-border);
   vertical-align: middle;
 }
-
 .transactions-table tbody tr:last-child td { border-bottom: none; }
 
 .col-desc  { max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-weight: 500; }
@@ -617,23 +639,17 @@ const lastVisiblePage  = computed<number>(() => visiblePages.value[visiblePages.
 
 @media (max-width: 640px) {
   .transactions { padding: 1.25rem 1rem; }
+  .transactions__header { flex-direction: column; }
+  .btn-primary { width: 100%; text-align: center; }
 
-  /* Grade 2 colunas para os filtros — cada um tem espaço suficiente */
   .filters-bar {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 0.5rem;
   }
-
-  /* Botão Limpar ocupa a linha inteira */
   .btn-clear { grid-column: 1 / -1; justify-content: center; }
-
   .filter-select,
-  .filter-input {
-    width: 100%;
-    min-width: 0;
-    font-size: 0.8125rem;
-  }
+  .filter-input { width: 100%; min-width: 0; font-size: 0.8125rem; }
 
   .summary-row  { gap: 0.625rem; }
   .summary-item { flex: 1; }
@@ -648,7 +664,6 @@ const lastVisiblePage  = computed<number>(() => visiblePages.value[visiblePages.
   transition: background 0.12s;
 }
 .tx-card:hover { background: var(--color-background); }
-
 .tx-card__top {
   display: flex;
   justify-content: space-between;
@@ -658,7 +673,6 @@ const lastVisiblePage  = computed<number>(() => visiblePages.value[visiblePages.
 }
 .tx-card__desc  { font-weight: 600; font-size: 0.9rem; color: var(--color-text); }
 .tx-card__value { font-weight: 700; font-size: 0.9rem; white-space: nowrap; color: var(--color-text); }
-
 .tx-card__meta {
   display: flex;
   gap: 0.5rem;

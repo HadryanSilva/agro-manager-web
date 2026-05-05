@@ -11,6 +11,8 @@ export interface ExpenseResponse {
   paymentDate: string | null
   paid: boolean
   notes: string | null
+  farmId: string | null
+  farmName: string | null
   createdAt: string
   updatedAt: string
 }
@@ -22,9 +24,11 @@ export interface ExpenseRequest {
   competenceDate: string
   paymentDate?: string | null
   notes?: string
+  farmId?: string | null
 }
 
 const expenseService = {
+  // ── Despesas de lavoura ──────────────────────────────────────────
   create: (accountId: string, farmId: string, payload: ExpenseRequest) =>
     api.post<{ data: ExpenseResponse }>(
       `/accounts/${accountId}/farms/${farmId}/expenses`,
@@ -50,10 +54,35 @@ const expenseService = {
   delete: (accountId: string, farmId: string, expenseId: string) =>
     api.delete(`/accounts/${accountId}/farms/${farmId}/expenses/${expenseId}`),
 
-  // Registra pagamento com a data atual via PATCH semântico
   markAsPaid: (accountId: string, farmId: string, expenseId: string) =>
     api.patch<{ data: ExpenseResponse }>(
       `/accounts/${accountId}/farms/${farmId}/expenses/${expenseId}/pay`
+    ),
+
+  // ── Despesas gerais da conta (sem lavoura) ───────────────────────
+  createGeneral: (accountId: string, payload: ExpenseRequest) =>
+    api.post<{ data: ExpenseResponse }>(
+      `/accounts/${accountId}/expenses`,
+      payload
+    ),
+
+  findGeneralById: (accountId: string, expenseId: string) =>
+    api.get<{ data: ExpenseResponse }>(
+      `/accounts/${accountId}/expenses/${expenseId}`
+    ),
+
+  updateGeneral: (accountId: string, expenseId: string, payload: ExpenseRequest) =>
+    api.put<{ data: ExpenseResponse }>(
+      `/accounts/${accountId}/expenses/${expenseId}`,
+      payload
+    ),
+
+  deleteGeneral: (accountId: string, expenseId: string) =>
+    api.delete(`/accounts/${accountId}/expenses/${expenseId}`),
+
+  markGeneralAsPaid: (accountId: string, expenseId: string) =>
+    api.patch<{ data: ExpenseResponse }>(
+      `/accounts/${accountId}/expenses/${expenseId}/pay`
     ),
 }
 

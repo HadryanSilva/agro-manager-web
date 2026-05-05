@@ -85,6 +85,41 @@ const router = createRouter({
           component: () => import('@/views/DashboardView.vue')
         },
 
+        // ── Transações ─────────────────────────────────────────────
+        {
+          path: 'transactions',
+          name: 'transactions',
+          component: () => import('@/views/transactions/TransactionsView.vue')
+        },
+        // Despesas gerais da conta (sem lavoura)
+        {
+          path: 'transactions/expenses/new',
+          name: 'general-expense-create',
+          component: () => import('@/views/transactions/GeneralExpenseFormView.vue')
+        },
+        {
+          path: 'transactions/expenses/:expenseId/edit',
+          name: 'general-expense-edit',
+          component: () => import('@/views/transactions/GeneralExpenseFormView.vue')
+        },
+
+        // ── Cotações ───────────────────────────────────────────────
+        {
+          path: 'quotations',
+          name: 'quotations',
+          component: () => import('@/views/quotations/QuotationsView.vue')
+        },
+        {
+          path: 'quotations/new',
+          name: 'quotation-create',
+          component: () => import('@/views/quotations/QuotationFormView.vue')
+        },
+        {
+          path: 'quotations/:quotationId/edit',
+          name: 'quotation-edit',
+          component: () => import('@/views/quotations/QuotationFormView.vue')
+        },
+
         // ── Lavouras ──────────────────────────────────────────────
         {
           path: 'farms',
@@ -119,40 +154,16 @@ const router = createRouter({
           component: () => import('@/views/expenses/ExpenseFormView.vue')
         },
 
-        // ── Transações da conta ───────────────────────────────────
-        {
-          path: 'transactions',
-          name: 'transactions',
-          component: () => import('@/views/transactions/TransactionsView.vue')
-        },
-
-        // ── Cotações de produtos ───────────────────────────────────
-        {
-          path: 'quotations',
-          name: 'quotations',
-          component: () => import('@/views/quotations/QuotationsView.vue')
-        },
-        {
-          path: 'quotations/new',
-          name: 'quotation-create',
-          component: () => import('@/views/quotations/QuotationFormView.vue')
-        },
-        {
-          path: 'quotations/:quotationId/edit',
-          name: 'quotation-edit',
-          component: () => import('@/views/quotations/QuotationFormView.vue')
-        },
-
-        // ── Vendas da produção ───────────────────────────────────
+        // ── Vendas ────────────────────────────────────────────────
         {
           path: 'sales',
           name: 'sales',
           component: () => import('@/views/sales/SalesView.vue')
-        },
+        }
       ]
     },
 
-    // ── Relatórios — seção dedicada com próprio espaço no menu ────
+    // ── Relatórios ─────────────────────────────────────────────────
     {
       path: '/reports',
       component: AppLayout,
@@ -204,7 +215,6 @@ router.beforeEach(async (to) => {
   if (to.meta.requiresAuth && !auth.isAuthenticated) {
     await auth.restoreSession()
 
-    // Se após a restauração ainda não estiver autenticado, redireciona
     if (!auth.isAuthenticated) {
       return { name: 'login', query: { redirect: to.fullPath } }
     }
