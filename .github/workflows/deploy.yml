@@ -1,0 +1,101 @@
+# =============================================================================
+# .github/workflows/deploy.yml — Repositório: agro-manager-web (frontend)
+#
+# Trigger: push na branch main
+# Etapas:  build da imagem Docker → push no GHCR → deploy no Lightsail
+#
+# Secrets necessários no repositório GitHub:
+#   LIGHTSAIL_HOST     → IP estático do servidor (ex: 54.123.45.67)
+#   LIGHTSAIL_USER     → ubuntu
+#   LIGHTSAIL_SSH_KEY  → conteúdo da chave privada .pem (cat LightsailDefaultKey.pem)
+# =============================================================================
+
+name: CI/CD — Frontend
+
+on:
+  push:
+    branches: [main]
+
+env:
+  IMAGE_NAME: ghcr.io/${{ github.repository_owner }}/agro-manager-frontend
+
+jobs:
+
+  # ---------------------------------------------------------------------------
+  # JOB 1: Build da imagem Docker e push no GHCR
+  # ---------------------------------------------------------------------------
+  build:
+    name: Build e push da imagem
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v4
+
+      - name: Login no GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Configurar Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Extrair metadados da imagem
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.IMAGE_NAME }}
+          tags: |
+            type=sha,prefix=,format=short
+            type=raw,value=latest
+
+      - name: Build e push da imagem
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          # VITE_API_URL=/api — o nginx faz o proxy para o backend
+          build-args: |
+            VITE_API_URL=/api
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+  # ---------------------------------------------------------------------------
+  # JOB 2: Deploy no servidor via SSH
+  # ---------------------------------------------------------------------------
+  deploy:
+    name: Deploy no Lightsail
+    runs-on: ubuntu-latest
+    needs: build
+
+    steps:
+      - name: Deploy via SSH
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.LIGHTSAIL_HOST }}
+          username: ${{ secrets.LIGHTSAIL_USER }}
+          key: ${{ secrets.LIGHTSAIL_SSH_KEY }}
+          command_timeout: 5m
+          script: |
+            set -e
+
+            cd ~/agro-manager
+
+            echo "${{ secrets.GITHUB_TOKEN }}" | \
+              docker login ghcr.io -u ${{ github.actor }} --password-stdin
+
+            # Atualiza apenas o frontend sem derrubar o backend
+            docker compose -f docker-compose.prod.yaml pull frontend
+            docker compose -f docker-compose.prod.yaml up -d --no-deps frontend
+
+            docker image prune -f
+
+            echo "Deploy do frontend concluído: $(date)"
