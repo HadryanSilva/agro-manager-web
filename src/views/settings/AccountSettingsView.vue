@@ -32,6 +32,7 @@ function closeDeleteModal() {
   showDeleteModal.value  = false
   confirmationText.value = ''
   deleteError.value      = ''
+  deleting.value         = false
 }
 
 async function handleDeleteAccount() {
