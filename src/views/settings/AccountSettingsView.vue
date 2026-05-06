@@ -159,11 +159,12 @@ async function handleDeleteAccount() {
 
           <!-- Campo de confirmação -->
           <div class="modal__confirm-field">
-            <label class="modal__confirm-label">
+            <label for="delete-account-confirmation" class="modal__confirm-label">
               Para confirmar, digite o nome exato da conta:
               <strong class="modal__account-name">{{ account?.name }}</strong>
             </label>
             <input
+              id="delete-account-confirmation"
               v-model="confirmationText"
               type="text"
               class="modal__confirm-input"
