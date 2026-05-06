@@ -142,7 +142,7 @@ function savingsPercent(group: QuotationGroupResponse): number {
           <div class="group-card__info">
             <span class="group-card__name">{{ group.productName }}</span>
             <span class="group-card__count">
-              {{ group.quotationCount }} cotação{{ group.quotationCount !== 1 ? 'ões' : '' }}
+              {{ group.quotationCount }} {{ group.quotationCount !== 1 ? 'cotações' : 'cotação' }}
             </span>
           </div>
 
