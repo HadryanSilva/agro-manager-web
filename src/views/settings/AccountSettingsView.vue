@@ -48,15 +48,17 @@ async function handleDeleteAccount() {
     // caso contrário vai para o onboarding
     accountStore.reset()
     await accountStore.fetchUserAccounts()
+    closeDeleteModal()
 
     if (accountStore.hasAccounts) {
-      router.push({ name: 'dashboard' })
+      await router.push({ name: 'dashboard' })
     } else {
-      router.push({ name: 'onboarding' })
+      await router.push({ name: 'onboarding' })
     }
   } catch (e: any) {
     deleteError.value = e.response?.data?.message
       ?? 'Erro ao excluir a conta. Tente novamente.'
+  } finally {
     deleting.value = false
   }
 }
