@@ -50,14 +50,15 @@ async function handleDeleteAccount() {
     }
     
     try {
-      accountStore.reset()
       await accountStore.fetchUserAccounts()
       closeDeleteModal()
     } catch (e: any) {
       deleteError.value = e.response?.data?.message
-        ?? 'A conta foi excluída, mas não foi possível atualizar a lista de contas. Tente novamente.'
-        deleting.value = false
-        return
+        ?? 'A conta foi excluída, mas não foi possível atualizar a lista de contas. A página será recarregada.'
+      deleting.value = false
+      closeDeleteModal()
+      window.location.reload()
+      return
     }
   
     if (accountStore.hasAccounts) {
