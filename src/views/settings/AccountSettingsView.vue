@@ -129,7 +129,7 @@ async function handleDeleteAccount() {
 
     <!-- Modal de confirmação de exclusão ────────────────────────── -->
     <Teleport to="body">
-      <div v-if="showDeleteModal" class="modal-overlay" @click.self="closeDeleteModal">
+      <div v-if="showDeleteModal" class="modal-overlay" @click.self="!deleting && closeDeleteModal()">
         <div class="modal" role="dialog" aria-modal="true" aria-labelledby="delete-modal-title">
 
           <!-- Cabeçalho do modal -->
