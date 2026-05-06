@@ -198,7 +198,12 @@ const router = createRouter({
           path: 'members',
           name: 'settings-members',
           component: () => import('@/views/settings/MembersSettingsView.vue')
-        }
+        },
+        {
+          path: 'account',
+          name: 'settings-account',
+          component: () => import('@/views/settings/AccountSettingsView.vue')
+        },
       ]
     },
 

@@ -5,8 +5,9 @@ const route  = useRoute()
 const router = useRouter()
 
 const tabs = [
-  { name: 'settings-profile', label: 'Perfil' },
-  { name: 'settings-members', label: 'Membros' },
+  { name: 'settings-profile', label: 'Perfil'   },
+  { name: 'settings-account', label: 'Conta'    },
+  { name: 'settings-members', label: 'Membros'  },
 ]
 </script>
 

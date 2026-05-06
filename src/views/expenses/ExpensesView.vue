@@ -486,7 +486,7 @@ function formatDate(date: string | null): string {
   box-shadow: var(--shadow-card);
 }
 
-.total-card--paid    { border-color: #6ee7b7; background: #f0fdf4; }
+.total-card--paid { border-color: #6ee7b7; background: var(--color-primary-light); }
 .total-card--pending { border-color: var(--color-warning); background: var(--color-warning-light); }
 
 .total-card__label {
