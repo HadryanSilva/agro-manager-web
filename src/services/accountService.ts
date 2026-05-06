@@ -1,6 +1,5 @@
 import api from './api'
 
-// Tipo exportado separadamente para ser reutilizado em memberService, expenseService, etc.
 export type AccountRole = 'OWNER' | 'ADMIN' | 'MEMBER'
 
 export interface AccountResponse {
@@ -11,12 +10,25 @@ export interface AccountResponse {
   createdAt: string
 }
 
+export interface CreateAccountRequest {
+  name: string
+}
+
 const accountService = {
   getUserAccounts: () =>
-    api.get<{ data: AccountResponse[] }>('/accounts/me'),
+    api.get<{ data: AccountResponse[] }>('/accounts'),
 
-  createAccount: (payload: { name: string }) =>
-    api.post<{ data: AccountResponse }>('/accounts', payload)
+  createAccount: (data: CreateAccountRequest) =>
+    api.post<{ data: AccountResponse }>('/accounts', data),
+
+  /**
+   * Exclui permanentemente a conta.
+   * confirmationName deve ser idêntico ao nome da conta — validação no backend.
+   */
+  deleteAccount: (accountId: string, confirmationName: string) =>
+    api.delete(`/accounts/${accountId}`, {
+      data: { confirmationName }
+    }),
 }
 
 export default accountService
