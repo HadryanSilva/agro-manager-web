@@ -35,33 +35,37 @@ function closeDeleteModal() {
 }
 
 async function handleDeleteAccount() {
-  if (!canConfirmDelete.value || !account.value) return
+    if (!canConfirmDelete.value || !account.value) return
 
-  deleting.value    = true
-  deleteError.value = ''
+    deleting.value    = true
+    deleteError.value = ''
 
-  try {
-    await accountService.deleteAccount(account.value.id, confirmationText.value)
-
-    // Remove a conta do store e redireciona
-    // Se o usuário tiver outras contas, vai para o dashboard delas;
-    // caso contrário vai para o onboarding
-    accountStore.reset()
-    await accountStore.fetchUserAccounts()
-    closeDeleteModal()
-
-    if (accountStore.hasAccounts) {
-      await router.push({ name: 'dashboard' })
-    } else {
-      await router.push({ name: 'onboarding' })
+    try {
+      await accountService.deleteAccount(account.value.id, confirmationText.value)
+    } catch (e: any) {
+      deleteError.value = e.response?.data?.message
+        ?? 'Erro ao excluir a conta. Tente novamente.'
+      deleting.value = false
+      return
     }
-  } catch (e: any) {
-    deleteError.value = e.response?.data?.message
-      ?? 'Erro ao excluir a conta. Tente novamente.'
-  } finally {
-    deleting.value = false
+    
+    try {
+      accountStore.reset()
+      await accountStore.fetchUserAccounts()
+      closeDeleteModal()
+    } catch (e: any) {
+      deleteError.value = e.response?.data?.message
+        ?? 'A conta foi excluída, mas não foi possível atualizar a lista de contas. Tente novamente.'
+        deleting.value = false
+        return
+    }
+  
+    if (accountStore.hasAccounts) {
+      router.push({ name: 'dashboard' })
+    } else {
+      router.push({ name: 'onboarding' })
+    }
   }
-}
 </script>
 
 <template>
