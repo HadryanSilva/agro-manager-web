@@ -393,7 +393,7 @@ const lastVisiblePage  = computed<number>(() => visiblePages.value[visiblePages.
 }
 
 .transactions__title {
-  font-family: 'DM Serif Display', serif;
+  font-family: var(--font-display);
   font-size: 1.75rem;
   font-weight: 400;
   color: var(--color-text);
@@ -421,7 +421,7 @@ const lastVisiblePage  = computed<number>(() => visiblePages.value[visiblePages.
   border-radius: var(--radius-sm);
   background: var(--color-card);
   font-family: inherit;
-  font-size: 0.8125rem;
+  font-size: 0.875rem;
   color: var(--color-text);
   cursor: pointer;
   transition: border-color 0.15s;
@@ -440,7 +440,7 @@ const lastVisiblePage  = computed<number>(() => visiblePages.value[visiblePages.
   border-radius: var(--radius-sm);
   background: var(--color-error-light);
   font-family: inherit;
-  font-size: 0.8rem;
+  font-size: 0.875rem;
   font-weight: 600;
   color: var(--color-error);
   cursor: pointer;
@@ -506,7 +506,7 @@ const lastVisiblePage  = computed<number>(() => visiblePages.value[visiblePages.
   box-shadow: var(--shadow-card);
 }
 .summary-item--highlight { border-color: var(--color-primary); }
-.summary-item__label { font-size: 0.8rem; color: var(--color-text-muted); }
+.summary-item__label { font-size: 0.875rem; color: var(--color-text-muted); }
 .summary-item__value { font-size: 1rem; font-weight: 700; color: var(--color-text); }
 .summary-item--highlight .summary-item__value { color: var(--color-primary); }
 
@@ -522,7 +522,7 @@ const lastVisiblePage  = computed<number>(() => visiblePages.value[visiblePages.
   border-radius: var(--radius-md);
   text-align: center;
   color: var(--color-text-muted);
-  font-size: 0.9rem;
+  font-size: 0.875rem;
 }
 .empty-state__icon { font-size: 2.5rem; }
 
@@ -573,7 +573,7 @@ const lastVisiblePage  = computed<number>(() => visiblePages.value[visiblePages.
 .transactions-table tbody tr:last-child td { border-bottom: none; }
 
 .col-desc  { max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-weight: 500; }
-.col-farm  { max-width: 140px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--color-text-muted); font-size: 0.8125rem; }
+.col-farm  { max-width: 140px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--color-text-muted); font-size: 0.875rem; }
 .col-right { text-align: right; }
 .col-value { font-weight: 700; white-space: nowrap; }
 .col-arrow { color: var(--color-text-muted); text-align: right; width: 24px; }
@@ -614,7 +614,7 @@ const lastVisiblePage  = computed<number>(() => visiblePages.value[visiblePages.
   border-radius: var(--radius-sm);
   background: var(--color-card);
   font-family: inherit;
-  font-size: 0.8125rem;
+  font-size: 0.875rem;
   font-weight: 500;
   color: var(--color-text-muted);
   cursor: pointer;
@@ -627,7 +627,7 @@ const lastVisiblePage  = computed<number>(() => visiblePages.value[visiblePages.
 .page-ellipsis { color: var(--color-text-muted); font-size: 0.875rem; padding: 0 0.25rem; }
 
 .pagination__info {
-  font-size: 0.8rem;
+  font-size: 0.875rem;
   color: var(--color-text-muted);
   margin-left: 0.5rem;
 }
@@ -650,7 +650,7 @@ const lastVisiblePage  = computed<number>(() => visiblePages.value[visiblePages.
   }
   .btn-clear { grid-column: 1 / -1; justify-content: center; }
   .filter-select,
-  .filter-input { width: 100%; min-width: 0; font-size: 0.8125rem; }
+  .filter-input { width: 100%; min-width: 0; font-size: 0.875rem; }
 
   .summary-row  { gap: 0.625rem; }
   .summary-item { flex: 1; }
@@ -672,8 +672,8 @@ const lastVisiblePage  = computed<number>(() => visiblePages.value[visiblePages.
   gap: 0.5rem;
   margin-bottom: 0.5rem;
 }
-.tx-card__desc  { font-weight: 600; font-size: 0.9rem; color: var(--color-text); }
-.tx-card__value { font-weight: 700; font-size: 0.9rem; white-space: nowrap; color: var(--color-text); }
+.tx-card__desc  { font-weight: 600; font-size: 0.875rem; color: var(--color-text); }
+.tx-card__value { font-weight: 700; font-size: 0.875rem; white-space: nowrap; color: var(--color-text); }
 .tx-card__meta {
   display: flex;
   gap: 0.5rem;
@@ -681,6 +681,6 @@ const lastVisiblePage  = computed<number>(() => visiblePages.value[visiblePages.
   align-items: center;
   margin-bottom: 0.375rem;
 }
-.tx-card__farm  { font-size: 0.78rem; color: var(--color-text-muted); }
+.tx-card__farm  { font-size: 0.875rem; color: var(--color-text-muted); }
 .tx-card__date  { font-size: 0.75rem; color: var(--color-text-muted); }
 </style>

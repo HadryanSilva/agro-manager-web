@@ -2,6 +2,21 @@
 
 /* ── Light Mode Tokens ──────────────────────────────────────────── */
 :root {
+  /* Typography */
+  --font-body:    'DM Sans', sans-serif;
+  --font-display: 'DM Serif Display', serif;
+
+  /* Type Scale (base: 16px root) */
+  --text-xs:   0.75rem;   /* 12px */
+  --text-sm:   0.875rem;  /* 14px */
+  --text-base: 1rem;      /* 16px */
+  --text-md:   1.125rem;  /* 18px */
+  --text-lg:   1.25rem;   /* 20px */
+  --text-xl:   1.5rem;    /* 24px */
+  --text-2xl:  1.75rem;   /* 28px */
+  --text-3xl:  2rem;      /* 32px */
+  --text-4xl:  2.5rem;    /* 40px */
+  --text-5xl:  3rem;      /* 48px */
   /* Surfaces */
   --color-background:   #faf9f7;
   --color-surface:      #f5f2ed;
@@ -97,8 +112,8 @@ body {
   min-height: 100vh;
   color: var(--color-text);
   background: var(--color-background);
-  font-family: 'DM Sans', sans-serif;
-  font-size: 15px;
+  font-family: var(--font-body);
+  font-size: var(--text-base);
   line-height: 1.6;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;

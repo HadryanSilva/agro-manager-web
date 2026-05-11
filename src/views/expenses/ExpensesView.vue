@@ -429,7 +429,7 @@ function formatDate(date: string | null): string {
   background: none;
   border: none;
   font-family: inherit;
-  font-size: 0.85rem;
+  font-size: 0.875rem;
   font-weight: 500;
   color: var(--color-text-muted);
   cursor: pointer;
@@ -447,7 +447,7 @@ function formatDate(date: string | null): string {
 }
 
 .expenses__title {
-  font-family: 'DM Serif Display', serif;
+  font-family: var(--font-display);
   font-size: 1.75rem;
   font-weight: 400;
   color: var(--color-text);
@@ -492,7 +492,7 @@ function formatDate(date: string | null): string {
 
 .total-card__label {
   display: block;
-  font-size: 0.78rem;
+  font-size: 0.875rem;
   font-weight: 600;
   color: var(--color-text-muted);
   letter-spacing: 0.04em;
@@ -502,7 +502,7 @@ function formatDate(date: string | null): string {
 
 .total-card__value {
   display: block;
-  font-size: 1.375rem;
+  font-size: 1.5rem;
   font-weight: 700;
   color: var(--color-text);
   letter-spacing: -0.02em;
@@ -528,7 +528,7 @@ function formatDate(date: string | null): string {
   border-radius: 20px;
   background: var(--color-card);
   font-family: inherit;
-  font-size: 0.8125rem;
+  font-size: 0.875rem;
   font-weight: 500;
   color: var(--color-text-muted);
   cursor: pointer;
@@ -567,7 +567,7 @@ function formatDate(date: string | null): string {
   border-radius: var(--radius-md);
   text-align: center;
   color: var(--color-text-muted);
-  font-size: 0.9rem;
+  font-size: 0.875rem;
 }
 .empty-state__icon { font-size: 2.5rem; }
 
@@ -646,7 +646,7 @@ function formatDate(date: string | null): string {
   border-radius: var(--radius-sm);
   background: var(--color-card);
   font-family: inherit;
-  font-size: 0.8rem;
+  font-size: 0.875rem;
   font-weight: 500;
   color: var(--color-text-muted);
   cursor: pointer;
@@ -706,13 +706,13 @@ function formatDate(date: string | null): string {
 
 .expense-card__description {
   font-weight: 600;
-  font-size: 0.9rem;
+  font-size: 0.875rem;
   color: var(--color-text);
 }
 
 .expense-card__value {
   font-weight: 700;
-  font-size: 0.9rem;
+  font-size: 0.875rem;
   color: var(--color-text);
   white-space: nowrap;
 }
@@ -726,7 +726,7 @@ function formatDate(date: string | null): string {
 }
 
 .expense-card__date {
-  font-size: 0.78rem;
+  font-size: 0.875rem;
   color: var(--color-text-muted);
 }
 
@@ -752,7 +752,7 @@ function formatDate(date: string | null): string {
   border-bottom: 2px solid transparent;
   margin-bottom: -1px;
   font-family: inherit;
-  font-size: 0.9rem;
+  font-size: 0.875rem;
   font-weight: 500;
   color: var(--color-text-muted);
   cursor: pointer;

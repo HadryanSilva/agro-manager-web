@@ -157,9 +157,9 @@ const features = [
 }
 
 .panel-brand__name {
-  font-family: 'DM Serif Display', serif;
+  font-family: var(--font-display);
   font-style: italic;
-  font-size: 1.2rem;
+  font-size: 1.25rem;
   color: #e8f0ea;
   letter-spacing: -0.01em;
 }
@@ -171,7 +171,7 @@ const features = [
 }
 
 .panel-hero__title {
-  font-family: 'DM Serif Display', serif;
+  font-family: var(--font-display);
   font-size: 2rem;
   font-weight: 400;
   color: #e8f0ea;
@@ -186,7 +186,7 @@ const features = [
 }
 
 .panel-hero__desc {
-  font-size: 0.9375rem;
+  font-size: 1rem;
   color: rgba(255, 255, 255, 0.7);
   line-height: 1.65;
   max-width: 380px;
@@ -233,14 +233,14 @@ const features = [
 }
 
 .feature-item__desc {
-  font-size: 0.8125rem;
+  font-size: 0.875rem;
   color: rgba(255, 255, 255, 0.6);
   line-height: 1.5;
 }
 
 /* ── Rodapé do painel ───────────────────────────────────────────── */
 .panel-footer {
-  font-size: 0.78rem;
+  font-size: 0.875rem;
   color: rgba(255, 255, 255, 0.4);
   position: relative;
   z-index: 1;
@@ -274,7 +274,7 @@ const features = [
 }
 
 .mobile-brand__name {
-  font-family: 'DM Serif Display', serif;
+  font-family: var(--font-display);
   font-style: italic;
   font-size: 1.125rem;
   color: var(--color-text);
@@ -300,7 +300,7 @@ const features = [
     padding: 2.5rem 2.5rem;
   }
 
-  .panel-hero__title { font-size: 1.625rem; }
+  .panel-hero__title { font-size: 1.5rem; }
 
   .auth-panel--right {
     width: 420px;

@@ -269,7 +269,7 @@ async function handleSubmit() {
   background: none;
   border: none;
   font-family: inherit;
-  font-size: 0.85rem;
+  font-size: 0.875rem;
   font-weight: 500;
   color: var(--color-text-muted);
   cursor: pointer;
@@ -280,7 +280,7 @@ async function handleSubmit() {
 .back-btn:hover { color: var(--color-primary); }
 
 .expense-form__title {
-  font-family: 'DM Serif Display', serif;
+  font-family: var(--font-display);
   font-size: 1.75rem;
   font-weight: 400;
   color: var(--color-text);
@@ -335,7 +335,7 @@ async function handleSubmit() {
 }
 
 .form-section__title {
-  font-size: 0.8125rem;
+  font-size: 0.875rem;
   font-weight: 600;
   color: var(--color-text-muted);
   letter-spacing: 0.04em;
@@ -353,7 +353,7 @@ async function handleSubmit() {
 .form-field--grow { flex: 1; min-width: 180px; }
 
 .form-label {
-  font-size: 0.8125rem;
+  font-size: 0.875rem;
   font-weight: 600;
   color: var(--color-text);
   display: flex;
@@ -367,7 +367,7 @@ async function handleSubmit() {
   border: 1px solid var(--color-border);
   border-radius: var(--radius-sm);
   font-family: inherit;
-  font-size: 0.9rem;
+  font-size: 0.875rem;
   color: var(--color-text);
   transition: border-color 0.15s, box-shadow 0.15s;
   width: 100%;
@@ -412,7 +412,7 @@ async function handleSubmit() {
 .label-badge {
   padding: 0.15rem 0.5rem;
   border-radius: 12px;
-  font-size: 0.7rem;
+  font-size: 0.75rem;
   font-weight: 600;
 }
 
@@ -437,7 +437,7 @@ async function handleSubmit() {
   border: none;
   border-radius: var(--radius-sm);
   font-family: inherit;
-  font-size: 0.9rem;
+  font-size: 0.875rem;
   font-weight: 600;
   cursor: pointer;
   transition: opacity 0.15s;
@@ -451,7 +451,7 @@ async function handleSubmit() {
   border-radius: var(--radius-sm);
   background: var(--color-card);
   font-family: inherit;
-  font-size: 0.9rem;
+  font-size: 0.875rem;
   font-weight: 500;
   color: var(--color-text-muted);
   cursor: pointer;

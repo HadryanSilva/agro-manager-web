@@ -448,7 +448,7 @@ async function exportToExcel() {
   background: none;
   border: none;
   font-family: inherit;
-  font-size: 0.85rem;
+  font-size: 0.875rem;
   font-weight: 500;
   color: var(--color-text-muted);
   cursor: pointer;
@@ -467,7 +467,7 @@ async function exportToExcel() {
 }
 
 .report__title {
-  font-family: 'DM Serif Display', serif;
+  font-family: var(--font-display);
   font-size: 1.75rem;
   font-weight: 400;
   color: var(--color-text);
@@ -483,13 +483,13 @@ async function exportToExcel() {
 }
 
 .report__farm-name {
-  font-size: 0.9rem;
+  font-size: 0.875rem;
   font-weight: 600;
   color: var(--color-text);
 }
 
 .report__area {
-  font-size: 0.8rem;
+  font-size: 0.875rem;
   color: var(--color-text-muted);
 }
 
@@ -571,7 +571,7 @@ async function exportToExcel() {
 .kpi-card--servico { border-left: 3px solid var(--color-info); }
 
 .kpi-card__label {
-  font-size: 0.78rem;
+  font-size: 0.875rem;
   font-weight: 600;
   color: var(--color-text-muted);
   text-transform: uppercase;
@@ -579,8 +579,8 @@ async function exportToExcel() {
 }
 
 .kpi-card__value {
-  font-family: 'DM Serif Display', serif;
-  font-size: 1.375rem;
+  font-family: var(--font-display);
+  font-size: 1.5rem;
   font-weight: 400;
   color: var(--color-text);
   letter-spacing: -0.02em;
@@ -648,7 +648,7 @@ async function exportToExcel() {
 }
 
 .compare-item__label {
-  font-size: 0.78rem;
+  font-size: 0.875rem;
   font-weight: 600;
   color: var(--color-text-muted);
   text-transform: uppercase;
@@ -662,7 +662,7 @@ async function exportToExcel() {
 }
 .compare-item__value--lease    { color: #7c3aed; }
 .compare-item__value--expenses { color: var(--color-info); }
-.compare-item__value--total    { color: var(--color-text); font-size: 1.375rem; }
+.compare-item__value--total    { color: var(--color-text); font-size: 1.5rem; }
 
 .compare-item__period { font-size: 0.75rem; color: var(--color-text-muted); }
 
@@ -682,7 +682,7 @@ async function exportToExcel() {
   border-radius: 20px;
   background: var(--color-card);
   font-family: inherit;
-  font-size: 0.8rem;
+  font-size: 0.875rem;
   font-weight: 500;
   color: var(--color-text-muted);
   cursor: pointer;
@@ -769,7 +769,7 @@ async function exportToExcel() {
 @media (max-width: 640px) {
   .report        { padding: 1.25rem 1rem; }
   .kpi-grid      { grid-template-columns: repeat(2, 1fr); gap: 0.75rem; }
-  .kpi-card__value { font-size: 1.1rem; }
+  .kpi-card__value { font-size: 1.125rem; }
   .report__title-row { flex-direction: column; }
   .btn-export    { width: 100%; justify-content: center; }
 }
@@ -785,12 +785,12 @@ async function exportToExcel() {
   justify-content: space-between;
   margin-bottom: 0.5rem;
 }
-.monthly-card__label { font-weight: 700; font-size: 0.9rem; color: var(--color-text); }
-.monthly-card__total { font-weight: 700; font-size: 0.9rem; color: var(--color-text); }
+.monthly-card__label { font-weight: 700; font-size: 0.875rem; color: var(--color-text); }
+.monthly-card__total { font-weight: 700; font-size: 0.875rem; color: var(--color-text); }
 .monthly-card__row {
   display: flex;
   justify-content: space-between;
-  font-size: 0.8rem;
+  font-size: 0.875rem;
   color: var(--color-text-muted);
   margin-bottom: 0.25rem;
 }

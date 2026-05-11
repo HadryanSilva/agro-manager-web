@@ -127,7 +127,7 @@ async function handleCitySearch() {
   background: var(--color-card);
   border: 1.5px solid var(--color-border);
   border-radius: var(--radius-md);
-  font-size: 0.8125rem;
+  font-size: 0.875rem;
   color: var(--color-text-muted);
 }
 
@@ -144,7 +144,7 @@ async function handleCitySearch() {
 }
 
 .weather-compact__empty-text {
-  font-size: 0.8125rem;
+  font-size: 0.875rem;
   color: var(--color-text-muted);
   flex: 1;
   min-width: 0;
@@ -156,7 +156,7 @@ async function handleCitySearch() {
   border-radius: var(--radius-sm);
   background: var(--color-primary);
   font-family: inherit;
-  font-size: 0.8rem;
+  font-size: 0.875rem;
   font-weight: 600;
   color: #fff;
   cursor: pointer;
@@ -182,7 +182,7 @@ async function handleCitySearch() {
   border-radius: var(--radius-sm);
   background: var(--color-background);
   font-family: inherit;
-  font-size: 0.8125rem;
+  font-size: 0.875rem;
   color: var(--color-text);
   width: 160px;
 }
@@ -219,7 +219,7 @@ async function handleCitySearch() {
   min-width: 0;
 }
 
-.weather-compact__emoji { font-size: 1.875rem; line-height: 1; flex-shrink: 0; }
+.weather-compact__emoji { font-size: 2rem; line-height: 1; flex-shrink: 0; }
 
 .weather-compact__main {
   display: flex;
@@ -228,7 +228,7 @@ async function handleCitySearch() {
   flex-shrink: 0;
 }
 .weather-compact__temp  { font-size: 1.25rem; font-weight: 700; color: var(--color-text); letter-spacing: -0.02em; }
-.weather-compact__label { font-size: 0.78rem; color: var(--color-text-muted); }
+.weather-compact__label { font-size: 0.875rem; color: var(--color-text-muted); }
 
 .weather-compact__location-info {
   display: flex;
@@ -236,7 +236,7 @@ async function handleCitySearch() {
   gap: 0.05rem;
   min-width: 0;
 }
-.weather-compact__city  { font-size: 0.78rem; color: var(--color-text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.weather-compact__city  { font-size: 0.875rem; color: var(--color-text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .weather-compact__range { font-size: 0.75rem; color: var(--color-text-muted); }
 
 /* Mini dias */
@@ -262,14 +262,14 @@ async function handleCitySearch() {
 .mini-day--more {
   background: var(--color-primary-light);
   color: var(--color-primary);
-  font-size: 0.72rem;
+  font-size: 0.75rem;
   font-weight: 600;
 }
 
-.mini-day__label { font-size: 0.65rem; color: var(--color-text-muted); font-weight: 600; }
+.mini-day__label { font-size: 0.75rem; color: var(--color-text-muted); font-weight: 600; }
 .mini-day__emoji { font-size: 1rem; }
-.mini-day__temp  { font-size: 0.8rem; font-weight: 700; color: var(--color-text); }
-.mini-day__prob  { font-size: 0.65rem; color: var(--color-text-muted); }
+.mini-day__temp  { font-size: 0.875rem; font-weight: 700; color: var(--color-text); }
+.mini-day__prob  { font-size: 0.75rem; color: var(--color-text-muted); }
 
 /* ── Spinner ────────────────────────────────────────────────────── */
 .spinner {

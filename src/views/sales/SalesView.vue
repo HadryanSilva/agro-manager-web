@@ -50,7 +50,7 @@
 }
 
 .sales__title {
-  font-family: 'DM Serif Display', serif;
+  font-family: var(--font-display);
   font-size: 1.75rem;
   font-weight: 400;
   color: var(--color-text);
@@ -86,7 +86,7 @@
 }
 
 .sales__card-desc {
-  font-size: 0.9rem;
+  font-size: 0.875rem;
   color: var(--color-text-muted);
   line-height: 1.6;
   max-width: 480px;

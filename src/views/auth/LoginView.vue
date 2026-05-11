@@ -133,7 +133,7 @@ function handleGoogleLogin() {
 }
 
 .login__title {
-  font-family: 'DM Serif Display', serif;
+  font-family: var(--font-display);
   font-size: 1.5rem;
   font-weight: 400;
   color: var(--color-text);
@@ -143,7 +143,7 @@ function handleGoogleLogin() {
 
 .login__subtitle {
   margin-top: 0.375rem;
-  font-size: 0.9rem;
+  font-size: 0.875rem;
   color: var(--color-text-muted);
 }
 
@@ -180,7 +180,7 @@ function handleGoogleLogin() {
   border: 1.5px solid var(--color-border);
   border-radius: var(--radius-sm);
   font-family: inherit;
-  font-size: 0.9375rem;
+  font-size: 1rem;
   color: var(--color-text);
   background: var(--color-card);
   transition: border-color 0.15s, box-shadow 0.15s;
@@ -237,7 +237,7 @@ function handleGoogleLogin() {
   border: none;
   border-radius: var(--radius-sm);
   font-family: inherit;
-  font-size: 0.9375rem;
+  font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
   transition: background 0.15s, transform 0.1s;
@@ -280,7 +280,7 @@ function handleGoogleLogin() {
   gap: 0.875rem;
   margin: 1.5rem 0;
   color: var(--color-text-muted);
-  font-size: 0.8125rem;
+  font-size: 0.875rem;
 }
 
 .divider::before,
@@ -299,7 +299,7 @@ function handleGoogleLogin() {
   border: 1.5px solid var(--color-border);
   border-radius: var(--radius-sm);
   font-family: inherit;
-  font-size: 0.9375rem;
+  font-size: 1rem;
   font-weight: 500;
   cursor: pointer;
   transition: background 0.15s, border-color 0.15s;

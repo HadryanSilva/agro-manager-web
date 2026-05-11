@@ -212,7 +212,7 @@ async function handleDeleteAccount() {
 .account-settings { padding: 2rem 1.5rem; max-width: 640px; }
 .account-settings__header { margin-bottom: 1.5rem; }
 .account-settings__title {
-  font-family: 'DM Serif Display', serif; font-size: 1.75rem; font-weight: 400; color: var(--color-text); margin: 0;
+  font-family: var(--font-display); font-size: 1.75rem; font-weight: 400; color: var(--color-text); margin: 0;
 }
 
 /* ── Seções ─────────────────────────────────────────────────────── */
@@ -257,7 +257,7 @@ async function handleDeleteAccount() {
   color: var(--color-error); margin-bottom: 1rem;
 }
 .danger-zone__title {
-  font-size: 0.9375rem; font-weight: 600; color: var(--color-error); margin: 0;
+  font-size: 1rem; font-weight: 600; color: var(--color-error); margin: 0;
 }
 .danger-action {
   display: flex; align-items: center; justify-content: space-between;
@@ -267,7 +267,7 @@ async function handleDeleteAccount() {
   font-size: 0.875rem; font-weight: 600; color: var(--color-text); margin: 0 0 0.25rem;
 }
 .danger-action__description {
-  font-size: 0.8125rem; color: var(--color-text-muted); margin: 0;
+  font-size: 0.875rem; color: var(--color-text-muted); margin: 0;
 }
 .btn-danger {
   padding: 0.5rem 1.125rem; background: var(--color-error);
@@ -302,7 +302,7 @@ async function handleDeleteAccount() {
   font-size: 1rem; font-weight: 700; color: var(--color-text); margin: 0 0 0.2rem;
 }
 .modal__subtitle {
-  font-size: 0.8125rem; color: var(--color-text-muted); margin: 0;
+  font-size: 0.875rem; color: var(--color-text-muted); margin: 0;
 }
 
 /* Consequências */
@@ -311,17 +311,17 @@ async function handleDeleteAccount() {
   border-radius: var(--radius-md); padding: 1rem 1.125rem;
 }
 .modal__consequences-title {
-  font-size: 0.8125rem; color: var(--color-text); margin: 0 0 0.625rem; line-height: 1.5;
+  font-size: 0.875rem; color: var(--color-text); margin: 0 0 0.625rem; line-height: 1.5;
 }
 .modal__consequences-list {
   margin: 0; padding-left: 1.25rem;
-  font-size: 0.8125rem; color: var(--color-text-muted); line-height: 1.7;
+  font-size: 0.875rem; color: var(--color-text-muted); line-height: 1.7;
 }
 
 /* Campo de confirmação */
 .modal__confirm-field { display: flex; flex-direction: column; gap: 0.5rem; }
 .modal__confirm-label {
-  font-size: 0.8125rem; color: var(--color-text); line-height: 1.5;
+  font-size: 0.875rem; color: var(--color-text); line-height: 1.5;
 }
 .modal__account-name {
   display: inline-block; margin-top: 0.25rem;
@@ -332,7 +332,7 @@ async function handleDeleteAccount() {
 .modal__confirm-input {
   padding: 0.625rem 0.875rem;
   border: 1px solid var(--color-border); border-radius: var(--radius-sm);
-  font-family: inherit; font-size: 0.9rem; color: var(--color-text);
+  font-family: inherit; font-size: 0.875rem; color: var(--color-text);
   background: var(--color-surface); width: 100%; box-sizing: border-box;
   transition: border-color 0.15s;
 }
@@ -343,7 +343,7 @@ async function handleDeleteAccount() {
 .modal__error {
   padding: 0.625rem 0.875rem; border-radius: var(--radius-sm);
   background: var(--color-error-light); color: var(--color-error);
-  font-size: 0.8125rem; border: 1px solid #fecaca;
+  font-size: 0.875rem; border: 1px solid #fecaca;
 }
 
 /* Ações */

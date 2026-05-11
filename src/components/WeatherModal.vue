@@ -210,7 +210,7 @@ function precipColor(prob: number): string {
 }
 
 .modal__location {
-  font-size: 0.8rem;
+  font-size: 0.875rem;
   color: var(--color-text-muted);
   display: block;
   margin-top: 0.15rem;
@@ -270,7 +270,7 @@ function precipColor(prob: number): string {
 }
 .city-search__btn:disabled { opacity: 0.5; }
 .city-search__btn:not(:disabled):hover { opacity: 0.85; }
-.city-search__error { width: 100%; font-size: 0.78rem; color: var(--color-error); }
+.city-search__error { width: 100%; font-size: 0.875rem; color: var(--color-error); }
 
 /* ── Loading / Avisos ───────────────────────────────────────────── */
 .modal__loading {
@@ -293,14 +293,14 @@ function precipColor(prob: number): string {
 .spinner--sm { width: 14px; height: 14px; border-width: 2px; }
 @keyframes spin { to { transform: rotate(360deg); } }
 
-.notice { font-size: 0.8125rem; color: var(--color-text-muted); }
+.notice { font-size: 0.875rem; color: var(--color-text-muted); }
 .error-banner {
   background: var(--color-error-light);
   color: var(--color-error);
   border: 1px solid #fecaca;
   border-radius: var(--radius-sm);
   padding: 0.625rem 0.875rem;
-  font-size: 0.8125rem;
+  font-size: 0.875rem;
 }
 
 /* ── Condição atual ─────────────────────────────────────────────── */
@@ -313,11 +313,11 @@ function precipColor(prob: number): string {
   border-radius: var(--radius-sm);
   flex-wrap: wrap;
 }
-.current__emoji { font-size: 2.25rem; line-height: 1; }
+.current__emoji { font-size: 2.5rem; line-height: 1; }
 .current__info  { display: flex; flex-direction: column; gap: 0.1rem; flex: 1; }
 .current__temp  { font-size: 1.75rem; font-weight: 700; color: var(--color-text); letter-spacing: -0.03em; }
 .current__label { font-size: 0.875rem; color: var(--color-text-muted); }
-.current__wind  { font-size: 0.78rem; color: var(--color-text-muted); }
+.current__wind  { font-size: 0.875rem; color: var(--color-text-muted); }
 .current__today { display: flex; flex-direction: column; gap: 0.2rem; text-align: right; font-size: 0.875rem; color: var(--color-text-muted); }
 
 /* ── Lista de dias ──────────────────────────────────────────────── */
@@ -338,9 +338,9 @@ function precipColor(prob: number): string {
 .day-row--today { background: var(--color-primary-light); border-color: var(--color-primary); }
 .day-row--rain  { border-color: #bfdbfe; }
 
-.day-row__label { font-size: 0.8125rem; font-weight: 600; color: var(--color-text); }
+.day-row__label { font-size: 0.875rem; font-weight: 600; color: var(--color-text); }
 .day-row__emoji { font-size: 1.125rem; text-align: center; }
-.day-row__desc  { font-size: 0.78rem; color: var(--color-text-muted); }
+.day-row__desc  { font-size: 0.875rem; color: var(--color-text-muted); }
 
 .day-row__temps { display: flex; gap: 0.5rem; justify-content: flex-end; }
 .day-row__max   { font-size: 0.875rem; font-weight: 700; color: var(--color-text); }
@@ -361,8 +361,8 @@ function precipColor(prob: number): string {
   overflow: hidden;
 }
 .precip-bar__fill { height: 100%; border-radius: 3px; transition: width 0.4s ease; min-width: 2px; }
-.precip-prob { font-size: 0.78rem; font-weight: 600; min-width: 30px; text-align: right; }
-.precip-mm   { font-size: 0.72rem; color: var(--color-text-muted); min-width: 42px; }
+.precip-prob { font-size: 0.875rem; font-weight: 600; min-width: 30px; text-align: right; }
+.precip-mm   { font-size: 0.75rem; color: var(--color-text-muted); min-width: 42px; }
 
 /* ── Animação ───────────────────────────────────────────────────── */
 .modal-enter-active, .modal-leave-active { transition: opacity 0.2s ease; }

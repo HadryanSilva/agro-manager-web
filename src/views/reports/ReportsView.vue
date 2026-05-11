@@ -145,7 +145,7 @@ function formatArea(value: number, unit: string): string {
 
 /* ── Cabeçalho ──────────────────────────────────────────────────── */
 .reports__title {
-  font-family: 'DM Serif Display', serif;
+  font-family: var(--font-display);
   font-size: 1.75rem;
   font-weight: 400;
   color: var(--color-text);
@@ -235,7 +235,7 @@ function formatArea(value: number, unit: string): string {
 }
 
 .report-type-card__select-label {
-  font-size: 0.8125rem;
+  font-size: 0.875rem;
   font-weight: 600;
   color: var(--color-text-muted);
   text-transform: uppercase;
@@ -248,7 +248,7 @@ function formatArea(value: number, unit: string): string {
   display: inline-flex;
   padding: 0.15rem 0.625rem;
   border-radius: 20px;
-  font-size: 0.72rem;
+  font-size: 0.75rem;
   font-weight: 600;
   background: var(--color-background);
   color: var(--color-text-muted);
@@ -292,7 +292,7 @@ function formatArea(value: number, unit: string): string {
 }
 
 .farm-item__name {
-  font-size: 0.9rem;
+  font-size: 0.875rem;
   font-weight: 600;
   color: var(--color-text);
   white-space: nowrap;
@@ -301,7 +301,7 @@ function formatArea(value: number, unit: string): string {
 }
 
 .farm-item__area {
-  font-size: 0.78rem;
+  font-size: 0.875rem;
   color: var(--color-text-muted);
 }
 
@@ -309,7 +309,7 @@ function formatArea(value: number, unit: string): string {
   display: inline-flex;
   padding: 0.2rem 0.625rem;
   border-radius: 20px;
-  font-size: 0.72rem;
+  font-size: 0.75rem;
   font-weight: 600;
   white-space: nowrap;
   flex-shrink: 0;

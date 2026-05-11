@@ -133,7 +133,7 @@ async function handleSubmit() {
 }
 
 .create-account__title {
-  font-family: 'DM Serif Display', serif;
+  font-family: var(--font-display);
   font-size: 1.25rem;
   font-weight: 400;
   color: var(--color-text);
@@ -176,7 +176,7 @@ async function handleSubmit() {
   border: 1.5px solid var(--color-border);
   border-radius: var(--radius-sm);
   font-family: inherit;
-  font-size: 0.9375rem;
+  font-size: 1rem;
   color: var(--color-text);
   background: var(--color-card);
   transition: border-color 0.15s, box-shadow 0.15s;
@@ -212,7 +212,7 @@ async function handleSubmit() {
   border: none;
   border-radius: var(--radius-sm);
   font-family: inherit;
-  font-size: 0.9375rem;
+  font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
   transition: background 0.15s, transform 0.1s;

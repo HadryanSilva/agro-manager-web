@@ -318,7 +318,7 @@ function getInitials(name: string): string {
 }
 
 .profile__title {
-  font-family: 'DM Serif Display', serif;
+  font-family: var(--font-display);
   font-size: 1.75rem;
   font-weight: 400;
   color: var(--color-text);
@@ -394,7 +394,7 @@ function getInitials(name: string): string {
 .identity-card__info { display: flex; flex-direction: column; gap: 0.25rem; min-width: 0; }
 
 .identity-card__name {
-  font-size: 1.0625rem;
+  font-size: 1.125rem;
   font-weight: 700;
   color: var(--color-text);
 }
@@ -415,7 +415,7 @@ function getInitials(name: string): string {
   gap: 0.3rem;
   padding: 0.15rem 0.5rem;
   border-radius: 12px;
-  font-size: 0.72rem;
+  font-size: 0.75rem;
   font-weight: 600;
 }
 .provider-badge--local  { background: var(--color-primary-light); color: var(--color-primary); }
@@ -424,14 +424,14 @@ function getInitials(name: string): string {
 .verified-badge {
   padding: 0.15rem 0.5rem;
   border-radius: 12px;
-  font-size: 0.72rem;
+  font-size: 0.75rem;
   font-weight: 600;
   background: var(--color-success-light);
   color: var(--color-success);
 }
 
 .identity-card__since {
-  font-size: 0.78rem;
+  font-size: 0.875rem;
   color: var(--color-text-muted);
   margin-top: 0.1rem;
 }
@@ -452,7 +452,7 @@ function getInitials(name: string): string {
 .settings-section--muted { opacity: 0.7; }
 
 .settings-section__title {
-  font-size: 0.9rem;
+  font-size: 0.875rem;
   font-weight: 600;
   color: var(--color-text);
   letter-spacing: -0.01em;
@@ -462,7 +462,7 @@ function getInitials(name: string): string {
 .form-field { display: flex; flex-direction: column; gap: 0.375rem; }
 
 .form-label {
-  font-size: 0.8125rem;
+  font-size: 0.875rem;
   font-weight: 600;
   color: var(--color-text);
 }
@@ -473,7 +473,7 @@ function getInitials(name: string): string {
   border: 1px solid var(--color-border);
   border-radius: var(--radius-sm);
   font-family: inherit;
-  font-size: 0.9rem;
+  font-size: 0.875rem;
   color: var(--color-text);
   transition: border-color 0.15s, box-shadow 0.15s;
   width: 100%;

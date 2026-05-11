@@ -348,7 +348,7 @@ function getInitials(name: string): string {
 <style scoped>
 .members { padding: 2rem 1.5rem; max-width: 760px; }
 .members__header { margin-bottom: 1.5rem; }
-.members__title { font-family: 'DM Serif Display', serif; font-size: 1.75rem; font-weight: 400; color: var(--color-text); margin: 0; }
+.members__title { font-family: var(--font-display); font-size: 1.75rem; font-weight: 400; color: var(--color-text); margin: 0; }
 
 .error-banner {
   padding: 0.75rem 1rem;
@@ -381,11 +381,11 @@ function getInitials(name: string): string {
 .member-avatar--initials {
   background: var(--color-primary-light); color: var(--color-primary);
   display: flex; align-items: center; justify-content: center;
-  font-size: 0.8rem; font-weight: 700;
+  font-size: 0.875rem; font-weight: 700;
 }
 .member-text { display: flex; flex-direction: column; min-width: 0; }
 .member-name { font-size: 0.875rem; font-weight: 600; color: var(--color-text); }
-.member-email { font-size: 0.8rem; color: var(--color-text-muted); }
+.member-email { font-size: 0.875rem; color: var(--color-text-muted); }
 .member-actions { display: flex; align-items: center; gap: 0.5rem; flex-shrink: 0; }
 
 /* ── Formulário de convite ─────────────────────────────────────── */
@@ -404,7 +404,7 @@ function getInitials(name: string): string {
 }
 .invite-form__fields { display: grid; grid-template-columns: 1fr auto; gap: 0.75rem; align-items: end; }
 .invite-form__field { display: flex; flex-direction: column; gap: 0.375rem; }
-.invite-form__label { font-size: 0.8rem; font-weight: 600; color: var(--color-text-muted); }
+.invite-form__label { font-size: 0.875rem; font-weight: 600; color: var(--color-text-muted); }
 .invite-form__input, .invite-form__select {
   padding: 0.5rem 0.75rem; border: 1px solid var(--color-border);
   border-radius: var(--radius-sm); font-family: inherit; font-size: 0.875rem;
@@ -417,7 +417,7 @@ function getInitials(name: string): string {
 .invite-form__input { width: 100%; box-sizing: border-box; }
 .invite-form__select { min-width: 130px; }
 .invite-form__error {
-  margin-top: 0.625rem; font-size: 0.8rem; color: var(--color-error);
+  margin-top: 0.625rem; font-size: 0.875rem; color: var(--color-error);
 }
 .invite-form__success {
   text-align: center; padding: 0.75rem;
@@ -465,7 +465,7 @@ function getInitials(name: string): string {
   display: inline-block; padding: 0.2rem 0.6rem;
   border-radius: 999px; font-size: 0.75rem; font-weight: 600;
 }
-.role-badge--sm { font-size: 0.7rem; padding: 0.15rem 0.5rem; margin-left: 0.5rem; }
+.role-badge--sm { font-size: 0.75rem; padding: 0.15rem 0.5rem; margin-left: 0.5rem; }
 
 /* ── Botões de ação ────────────────────────────────────────────── */
 .icon-btn {
@@ -478,7 +478,7 @@ function getInitials(name: string): string {
 
 .role-select {
   padding: 0.3rem 0.6rem; border: 1px solid var(--color-border);
-  border-radius: var(--radius-sm); font-family: inherit; font-size: 0.8rem;
+  border-radius: var(--radius-sm); font-family: inherit; font-size: 0.875rem;
   color: var(--color-text); background: var(--color-background); cursor: pointer;
 }
 
