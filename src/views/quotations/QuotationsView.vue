@@ -283,14 +283,14 @@ function savingsPercent(group: QuotationGroupResponse): number {
   display: flex; align-items: flex-start; justify-content: space-between;
   gap: 1rem; margin-bottom: 1.5rem; flex-wrap: wrap;
 }
-.quotations__title { font-size: 1.5rem; font-weight: 700; color: var(--color-text); margin: 0 0 0.25rem; }
+.quotations__title { font-family: 'DM Serif Display', serif; font-size: 1.75rem; font-weight: 400; color: var(--color-text); margin: 0 0 0.25rem; }
 .quotations__subtitle { font-size: 0.875rem; color: var(--color-text-muted); margin: 0; }
 
 /* ── Banner de economia ─────────────────────────────────────────── */
 .savings-banner {
   display: flex; align-items: center; gap: 0.75rem; padding: 0.875rem 1.25rem;
-  background: #f0fdf4;
-  border: 1.5px solid #6ee7b7;
+  background: var(--color-success-light);
+  border: 1px solid var(--color-success);
   border-radius: var(--radius-md); margin-bottom: 1.25rem; flex-wrap: wrap;
 }
 .savings-banner__icon { font-size: 1.25rem; }
@@ -298,10 +298,10 @@ function savingsPercent(group: QuotationGroupResponse): number {
 .savings-banner__value {
   font-size: 1.25rem;
   font-weight: 700;
-  color: #059669;
+  color: var(--color-success);
   letter-spacing: -0.02em;
 }
-.savings-banner__label { font-size: 0.875rem; color: #065f46; }
+.savings-banner__label { font-size: 0.875rem; color: var(--color-success); }
 
 .error-banner {
   padding: 0.75rem 1rem; background: var(--color-error-light);
@@ -318,7 +318,7 @@ function savingsPercent(group: QuotationGroupResponse): number {
 
 .empty-state {
   display: flex; flex-direction: column; align-items: center; gap: 0.75rem;
-  padding: 3rem; background: var(--color-card); border: 1.5px dashed var(--color-border);
+  padding: 3rem; background: var(--color-card); border: 1px dashed var(--color-border);
   border-radius: var(--radius-md); text-align: center; color: var(--color-text-muted);
 }
 .empty-state__icon { font-size: 2.5rem; }
@@ -326,7 +326,7 @@ function savingsPercent(group: QuotationGroupResponse): number {
 /* ── Grupos ─────────────────────────────────────────────────────── */
 .groups-list { display: flex; flex-direction: column; gap: 0.75rem; }
 .group-card {
-  background: var(--color-card); border: 1.5px solid var(--color-border);
+  background: var(--color-card); border: 1px solid var(--color-border);
   border-radius: var(--radius-md); box-shadow: var(--shadow-card); overflow: hidden;
 }
 
@@ -345,21 +345,21 @@ function savingsPercent(group: QuotationGroupResponse): number {
 .metric { display: flex; flex-direction: column; gap: 0.1rem; }
 .metric__label { font-size: 0.72rem; font-weight: 600; color: var(--color-text-muted); text-transform: uppercase; letter-spacing: 0.04em; }
 .metric__value { font-size: 1rem; font-weight: 700; color: var(--color-text); }
-.metric__value--green   { color: #059669; }
-.metric__value--red     { color: #dc2626; }
-.metric__value--savings { color: #059669; }
+.metric__value--green   { color: var(--color-success); }
+.metric__value--red     { color: var(--color-error); }
+.metric__value--savings { color: var(--color-success); }
 .metric__supplier { font-size: 0.75rem; color: var(--color-text-muted); }
 
 .savings-pct {
-  font-size: 0.72rem; font-weight: 600; color: #059669;
-  background: #d1fae5; padding: 0.1rem 0.4rem; border-radius: 10px; width: fit-content;
+  font-size: 0.72rem; font-weight: 600; color: var(--color-success);
+  background: var(--color-success-light); padding: 0.1rem 0.4rem; border-radius: 10px; width: fit-content;
 }
 
 /* ── Botão "+ Fornecedor" ───────────────────────────────────────── */
 .btn-add-supplier {
   display: inline-flex; align-items: center; gap: 0.3rem;
   padding: 0.35rem 0.75rem;
-  border: 1.5px solid var(--color-primary);
+  border: 1px solid var(--color-primary);
   border-radius: var(--radius-sm);
   background: transparent;
   font-family: inherit; font-size: 0.78rem; font-weight: 600;
@@ -391,8 +391,8 @@ function savingsPercent(group: QuotationGroupResponse): number {
   min-width: 0; transition: width 0.4s ease;
 }
 .savings-bar__savings {
-  background: #d1fae5; display: flex; align-items: center;
-  padding: 0 0.5rem; color: #059669; white-space: nowrap;
+  background: var(--color-success-light); display: flex; align-items: center;
+  padding: 0 0.5rem; color: var(--color-success); white-space: nowrap;
   overflow: hidden; transition: width 0.4s ease;
 }
 
@@ -406,16 +406,16 @@ function savingsPercent(group: QuotationGroupResponse): number {
 .quotation-row:last-child { border-bottom: none; }
 .quotation-row:hover { background: var(--color-background); }
 
-.quotation-row--cheapest { background: #f0fdf4; }
+.quotation-row--cheapest { background: var(--color-success-light); }
 .quotation-row--cheapest .quotation-row__supplier,
 .quotation-row--cheapest .quotation-row__meta,
 .quotation-row--cheapest .quotation-row__unit-price,
 .quotation-row--cheapest .quotation-row__unit-label,
 .quotation-row--cheapest .quotation-row__qty,
-.quotation-row--cheapest .quotation-row__total { color: #14532d; }
-.quotation-row--cheapest .best-badge { background: #bbf7d0; color: #14532d; }
-.quotation-row--cheapest .icon-btn { background: #dcfce7; border-color: #86efac; color: #15803d; }
-.quotation-row--cheapest .icon-btn:hover { background: #bbf7d0; border-color: #4ade80; color: #14532d; }
+.quotation-row--cheapest .quotation-row__total { color: var(--color-success); }
+.quotation-row--cheapest .best-badge { background: var(--color-success-light); color: var(--color-success); }
+.quotation-row--cheapest .icon-btn { background: var(--color-success-light); border-color: var(--color-success); color: var(--color-success); }
+.quotation-row--cheapest .icon-btn:hover { background: var(--color-success-light); border-color: var(--color-success); color: var(--color-success); }
 
 .quotation-row__info { display: flex; flex-direction: column; gap: 0.2rem; flex: 1; min-width: 0; }
 .quotation-row__supplier {
@@ -424,7 +424,7 @@ function savingsPercent(group: QuotationGroupResponse): number {
 }
 .best-badge {
   display: inline-flex; padding: 0.1rem 0.5rem; border-radius: 10px;
-  font-size: 0.7rem; font-weight: 700; background: #d1fae5; color: #059669;
+  font-size: 0.7rem; font-weight: 700; background: var(--color-success-light); color: var(--color-success);
 }
 .quotation-row__meta {
   font-size: 0.78rem; color: var(--color-text-muted);
@@ -440,7 +440,7 @@ function savingsPercent(group: QuotationGroupResponse): number {
 
 .icon-btn {
   display: flex; align-items: center; justify-content: center;
-  width: 30px; height: 30px; border: 1.5px solid var(--color-border);
+  width: 30px; height: 30px; border: 1px solid var(--color-border);
   border-radius: var(--radius-sm); background: var(--color-card);
   color: var(--color-text-muted); cursor: pointer; font-family: inherit; transition: all 0.15s;
 }
