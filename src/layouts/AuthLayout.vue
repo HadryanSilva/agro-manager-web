@@ -33,16 +33,31 @@ const features = [
     <!-- ── Painel esquerdo — apresentação ─────────────────────── -->
     <div class="auth-panel auth-panel--left">
 
+      <!-- Decoração botânica SVG (fundo, 6% opacidade) -->
+      <svg class="panel-botanical" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M100 180 C60 160 20 130 20 90 C20 50 60 30 100 20 C140 30 180 50 180 90 C180 130 140 160 100 180Z" stroke="white" stroke-width="1" fill="none"/>
+        <path d="M100 20 Q130 60 100 100 Q70 60 100 20" stroke="white" stroke-width="0.8" fill="none"/>
+        <path d="M20 90 Q60 70 100 100 Q60 130 20 90" stroke="white" stroke-width="0.8" fill="none"/>
+        <path d="M180 90 Q140 70 100 100 Q140 130 180 90" stroke="white" stroke-width="0.8" fill="none"/>
+        <path d="M100 180 Q70 140 100 100 Q130 140 100 180" stroke="white" stroke-width="0.8" fill="none"/>
+      </svg>
+
       <!-- Marca -->
       <div class="panel-brand">
-        <span class="panel-brand__icon">🌱</span>
+        <div class="panel-brand__icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6dbf99" stroke-width="2.5">
+            <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z"/>
+            <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/>
+          </svg>
+        </div>
         <span class="panel-brand__name">Agro Manager</span>
       </div>
 
       <!-- Headline -->
       <div class="panel-hero">
         <h1 class="panel-hero__title">
-          Gerencie suas lavouras com inteligência
+          Gerencie suas lavouras<br>
+          com <em class="panel-hero__em">inteligência</em>
         </h1>
         <p class="panel-hero__desc">
           Controle financeiro, histórico de atividades e previsão do tempo — tudo em um único lugar para o produtor de melancia.
@@ -77,7 +92,6 @@ const features = [
 
       <!-- Marca mobile (oculta no desktop) -->
       <div class="mobile-brand">
-        <span>🌱</span>
         <span class="mobile-brand__name">Agro Manager</span>
       </div>
 
@@ -105,33 +119,20 @@ const features = [
   flex-direction: column;
   justify-content: space-between;
   padding: 3rem 3.5rem;
-  background: #1a3d2b;
+  background: #1b3a2d;
   position: relative;
   overflow: hidden;
 }
 
-/* Detalhe decorativo de fundo — círculos sutis */
-.auth-panel--left::before {
-  content: '';
+/* Botânica SVG de fundo */
+.panel-botanical {
   position: absolute;
-  top: -120px;
-  right: -120px;
-  width: 380px;
-  height: 380px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.06);
-  pointer-events: none;
-}
-
-.auth-panel--left::after {
-  content: '';
-  position: absolute;
-  bottom: -80px;
-  left: -80px;
-  width: 260px;
-  height: 260px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.04);
+  top: 50%;
+  right: 3rem;
+  transform: translateY(-50%);
+  width: 280px;
+  height: 280px;
+  opacity: 0.06;
   pointer-events: none;
 }
 
@@ -144,13 +145,23 @@ const features = [
   z-index: 1;
 }
 
-.panel-brand__icon { font-size: 1.625rem; }
+.panel-brand__icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
 
 .panel-brand__name {
-  font-size: 1.25rem;
-  font-weight: 700;
-  color: #fff;
-  letter-spacing: -0.02em;
+  font-family: 'DM Serif Display', serif;
+  font-style: italic;
+  font-size: 1.2rem;
+  color: #e8f0ea;
+  letter-spacing: -0.01em;
 }
 
 /* ── Hero ───────────────────────────────────────────────────────── */
@@ -160,17 +171,23 @@ const features = [
 }
 
 .panel-hero__title {
+  font-family: 'DM Serif Display', serif;
   font-size: 2rem;
-  font-weight: 700;
-  color: #fff;
-  letter-spacing: -0.03em;
+  font-weight: 400;
+  color: #e8f0ea;
+  letter-spacing: -0.02em;
   line-height: 1.25;
   margin-bottom: 1rem;
 }
 
+.panel-hero__em {
+  font-style: italic;
+  color: #c9a96e;
+}
+
 .panel-hero__desc {
-  font-size: 1rem;
-  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.9375rem;
+  color: rgba(255, 255, 255, 0.7);
   line-height: 1.65;
   max-width: 380px;
 }
@@ -197,8 +214,8 @@ const features = [
   width: 36px;
   height: 36px;
   border-radius: 8px;
-  background: rgba(255, 255, 255, 0.15);
-  color: #fff;
+  background: rgba(255, 255, 255, 0.1);
+  color: #6dbf99;
   flex-shrink: 0;
   margin-top: 0.1rem;
 }
@@ -210,21 +227,21 @@ const features = [
 }
 
 .feature-item__title {
-  font-size: 0.9rem;
+  font-size: 0.875rem;
   font-weight: 600;
-  color: #fff;
+  color: #e8f0ea;
 }
 
 .feature-item__desc {
   font-size: 0.8125rem;
-  color: rgba(255, 255, 255, 0.7);
+  color: rgba(255, 255, 255, 0.6);
   line-height: 1.5;
 }
 
 /* ── Rodapé do painel ───────────────────────────────────────────── */
 .panel-footer {
   font-size: 0.78rem;
-  color: rgba(255, 255, 255, 0.5);
+  color: rgba(255, 255, 255, 0.4);
   position: relative;
   z-index: 1;
 }
@@ -254,21 +271,24 @@ const features = [
   align-items: center;
   gap: 0.5rem;
   margin-bottom: 2rem;
-  font-size: 1.125rem;
-  font-weight: 700;
-  color: var(--color-text);
 }
 
-.mobile-brand__name { letter-spacing: -0.02em; }
+.mobile-brand__name {
+  font-family: 'DM Serif Display', serif;
+  font-style: italic;
+  font-size: 1.125rem;
+  color: var(--color-text);
+  letter-spacing: -0.01em;
+}
 
 /* Card do formulário */
 .auth-card {
   width: 100%;
   max-width: 400px;
   background: var(--color-card);
-  border: 1.5px solid var(--color-border);
+  border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-card);
+  box-shadow: var(--shadow-elevated);
   padding: 2.5rem;
 }
 
