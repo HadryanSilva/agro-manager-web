@@ -133,8 +133,9 @@ async function handleSubmit() {
 }
 
 .create-account__title {
+  font-family: 'DM Serif Display', serif;
   font-size: 1.25rem;
-  font-weight: 700;
+  font-weight: 400;
   color: var(--color-text);
   letter-spacing: -0.02em;
   line-height: 1.3;
