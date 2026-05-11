@@ -54,15 +54,15 @@
   --color-surface:      #131d17;
   --color-card:         #182318;
   --color-border:       #2d4a38;
-  --color-border-focus: #7b9e87;
+  --color-border-focus: #8fc0a3;
 
   --color-text:             #e8f0ea;
   --color-text-muted:       #7b9e87;
   --color-text-placeholder: #4d7a5e;
 
   /* In dark mode primary becomes sage green for readability over dark bg */
-  --color-primary:       #7b9e87;
-  --color-primary-dark:  #6a8a75;
+  --color-primary:       #8fc0a3;
+  --color-primary-dark:  #7aaa8e;
   --color-primary-light: #1a2e22;
 
   --color-accent:        #c9a96e;
