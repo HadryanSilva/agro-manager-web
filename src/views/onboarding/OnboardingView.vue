@@ -72,10 +72,11 @@ const router = useRouter()
 }
 
 .onboarding__title {
+  font-family: 'DM Serif Display', serif;
   font-size: 1.75rem;
-  font-weight: 700;
+  font-weight: 400;
   color: var(--color-text);
-  letter-spacing: -0.03em;
+  letter-spacing: -0.02em;
   line-height: 1.2;
 }
 
@@ -101,7 +102,7 @@ const router = useRouter()
   width: 100%;
   padding: 1.5rem;
   background: var(--color-card);
-  border: 1.5px solid var(--color-border);
+  border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-card);
   cursor: pointer;

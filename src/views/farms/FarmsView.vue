@@ -242,8 +242,9 @@ function formatArea(value: number, unit: string) {
 }
 
 .farms__title {
-  font-size: 1.5rem;
-  font-weight: 700;
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.75rem;
+  font-weight: 400;
   color: var(--color-text);
   letter-spacing: -0.02em;
 }
@@ -263,7 +264,7 @@ function formatArea(value: number, unit: string) {
 
 .filter-btn {
   padding: 0.4rem 0.875rem;
-  border: 1.5px solid var(--color-border);
+  border: 1px solid var(--color-border);
   border-radius: 20px;
   background: var(--color-card);
   font-family: inherit;
@@ -342,7 +343,7 @@ function formatArea(value: number, unit: string) {
 
 .farm-card {
   background: var(--color-card);
-  border: 1.5px solid var(--color-border);
+  border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
   padding: 1.25rem;
   box-shadow: var(--shadow-card);
