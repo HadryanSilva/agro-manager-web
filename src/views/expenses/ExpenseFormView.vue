@@ -280,8 +280,9 @@ async function handleSubmit() {
 .back-btn:hover { color: var(--color-primary); }
 
 .expense-form__title {
-  font-size: 1.5rem;
-  font-weight: 700;
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.75rem;
+  font-weight: 400;
   color: var(--color-text);
   letter-spacing: -0.02em;
 }
@@ -327,7 +328,7 @@ async function handleSubmit() {
 /* ── Seções do formulário ──────────────────────────────────────── */
 .form-section {
   background: var(--color-card);
-  border: 1.5px solid var(--color-border);
+  border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
   padding: 1.25rem;
   margin-bottom: 1rem;
@@ -362,18 +363,18 @@ async function handleSubmit() {
 
 .form-input {
   padding: 0.625rem 0.875rem;
-  background: var(--color-background);
-  border: 1.5px solid var(--color-border);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
   border-radius: var(--radius-sm);
   font-family: inherit;
   font-size: 0.9rem;
   color: var(--color-text);
-  transition: border-color 0.15s;
+  transition: border-color 0.15s, box-shadow 0.15s;
   width: 100%;
   box-sizing: border-box;
 }
 
-.form-input:focus { outline: none; border-color: var(--color-primary); }
+.form-input:focus { outline: none; border-color: var(--color-border-focus); box-shadow: 0 0 0 3px rgba(27, 58, 45, 0.1); background: var(--color-card); }
 .form-input--textarea { resize: vertical; min-height: 80px; }
 
 .form-hint {
@@ -392,7 +393,7 @@ async function handleSubmit() {
   align-items: center;
   gap: 0.4rem;
   padding: 0.55rem 1rem;
-  border: 1.5px solid var(--color-border);
+  border: 1px solid var(--color-border);
   border-radius: var(--radius-sm);
   background: var(--color-background);
   font-family: inherit;
@@ -404,8 +405,8 @@ async function handleSubmit() {
 }
 
 .category-btn--active     { font-weight: 600; }
-.category-btn--insumo     { border-color: #059669; color: #059669; background: #f0fdf4; }
-.category-btn--servico    { border-color: #2563eb; color: #2563eb; background: #eff6ff; }
+.category-btn--insumo     { border-color: var(--color-success); color: var(--color-success); background: var(--color-success-light); }
+.category-btn--servico    { border-color: var(--color-info);    color: var(--color-info);    background: var(--color-info-light); }
 
 /* ── Badges inline na label ────────────────────────────────────── */
 .label-badge {
@@ -415,7 +416,7 @@ async function handleSubmit() {
   font-weight: 600;
 }
 
-.label-badge--paid    { background: #d1fae5; color: #059669; }
+.label-badge--paid    { background: var(--color-success-light); color: var(--color-success); }
 .label-badge--pending { background: var(--color-warning-light); color: var(--color-warning); }
 
 /* ── Ações ────────────────────────────────────────────────────── */
