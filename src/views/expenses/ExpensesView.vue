@@ -68,8 +68,8 @@ const paymentFilter  = ref<PaymentFilter>(null)
 
 // Configuração visual das categorias
 const categoryConfig: Record<ExpenseCategory, { label: string; color: string; bg: string }> = {
-  INSUMO:  { label: 'Insumo',   color: '#059669', bg: '#d1fae5' },
-  SERVICO: { label: 'Serviço',  color: '#2563eb', bg: '#dbeafe' },
+  INSUMO:  { label: 'Insumo',   color: 'var(--color-success)', bg: 'var(--color-success-light)' },
+  SERVICO: { label: 'Serviço',  color: 'var(--color-info)',    bg: 'var(--color-info-light)' },
 }
 
 onMounted(async () => {
@@ -447,8 +447,9 @@ function formatDate(date: string | null): string {
 }
 
 .expenses__title {
-  font-size: 1.5rem;
-  font-weight: 700;
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.75rem;
+  font-weight: 400;
   color: var(--color-text);
   letter-spacing: -0.02em;
 }
@@ -481,12 +482,12 @@ function formatDate(date: string | null): string {
 .total-card {
   padding: 1.25rem;
   background: var(--color-card);
-  border: 1.5px solid var(--color-border);
+  border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
   box-shadow: var(--shadow-card);
 }
 
-.total-card--paid { border-color: #6ee7b7; background: var(--color-primary-light); }
+.total-card--paid { border-color: var(--color-success-light); background: var(--color-success-light); }
 .total-card--pending { border-color: var(--color-warning); background: var(--color-warning-light); }
 
 .total-card__label {
@@ -523,7 +524,7 @@ function formatDate(date: string | null): string {
 
 .filter-btn {
   padding: 0.35rem 0.875rem;
-  border: 1.5px solid var(--color-border);
+  border: 1px solid var(--color-border);
   border-radius: 20px;
   background: var(--color-card);
   font-family: inherit;
@@ -562,7 +563,7 @@ function formatDate(date: string | null): string {
   gap: 0.75rem;
   padding: 3rem 2rem;
   background: var(--color-card);
-  border: 1.5px solid var(--color-border);
+  border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
   text-align: center;
   color: var(--color-text-muted);
@@ -573,7 +574,7 @@ function formatDate(date: string | null): string {
 /* ── Tabela (desktop) ────────────────────────────────────────── */
 .table-wrapper {
   background: var(--color-card);
-  border: 1.5px solid var(--color-border);
+  border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
   overflow: hidden;
   box-shadow: var(--shadow-card);
@@ -585,7 +586,7 @@ function formatDate(date: string | null): string {
   font-size: 0.875rem;
 }
 
-.expenses-table thead { background: var(--color-background); }
+.expenses-table thead { background: var(--color-surface); }
 
 .expenses-table th {
   padding: 0.75rem 1rem;
@@ -595,7 +596,7 @@ function formatDate(date: string | null): string {
   color: var(--color-text-muted);
   letter-spacing: 0.04em;
   text-transform: uppercase;
-  border-bottom: 1.5px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
 }
 
 .expenses-table td {
@@ -631,7 +632,7 @@ function formatDate(date: string | null): string {
   white-space: nowrap;
 }
 
-.status-badge--paid    { background: #d1fae5; color: #059669; }
+.status-badge--paid    { background: var(--color-success-light); color: var(--color-success); }
 .status-badge--pending { background: var(--color-warning-light); color: var(--color-warning); }
 
 /* ── Botões de ação ──────────────────────────────────────────── */
@@ -641,7 +642,7 @@ function formatDate(date: string | null): string {
   justify-content: center;
   gap: 0.3rem;
   padding: 0.35rem 0.625rem;
-  border: 1.5px solid var(--color-border);
+  border: 1px solid var(--color-border);
   border-radius: var(--radius-sm);
   background: var(--color-card);
   font-family: inherit;
@@ -654,7 +655,7 @@ function formatDate(date: string | null): string {
 }
 
 .action-btn:hover         { border-color: var(--color-primary); color: var(--color-primary); }
-.action-btn--pay:hover    { border-color: #059669; color: #059669; }
+.action-btn--pay:hover    { border-color: var(--color-success); color: var(--color-success); }
 .action-btn--danger:hover { border-color: var(--color-error); color: var(--color-error); }
 
 /* ── Botão primário ──────────────────────────────────────────── */
@@ -691,7 +692,7 @@ function formatDate(date: string | null): string {
 .expense-card {
   padding: 1rem 1.125rem;
   background: var(--color-card);
-  border: 1.5px solid var(--color-border);
+  border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
 }
 
@@ -740,16 +741,16 @@ function formatDate(date: string | null): string {
 .expenses__tabs {
   display: flex;
   gap: 0.25rem;
-  border-bottom: 1.5px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
   margin-bottom: 1.5rem;
 }
- 
+
 .expenses__tab {
   padding: 0.5rem 1rem;
   background: none;
   border: none;
   border-bottom: 2px solid transparent;
-  margin-bottom: -1.5px;
+  margin-bottom: -1px;
   font-family: inherit;
   font-size: 0.9rem;
   font-weight: 500;
