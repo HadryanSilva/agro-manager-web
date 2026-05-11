@@ -318,8 +318,9 @@ function getInitials(name: string): string {
 }
 
 .profile__title {
-  font-size: 1.5rem;
-  font-weight: 700;
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.75rem;
+  font-weight: 400;
   color: var(--color-text);
   letter-spacing: -0.02em;
   margin-bottom: 1.5rem;
@@ -349,9 +350,9 @@ function getInitials(name: string): string {
 }
 
 .success-banner {
-  background: #f0fdf4;
-  color: #059669;
-  border: 1px solid #6ee7b7;
+  background: var(--color-success-light);
+  color: var(--color-success);
+  border: 1px solid var(--color-success);
   border-radius: var(--radius-sm);
   padding: 0.75rem 1rem;
   font-size: 0.875rem;
@@ -365,7 +366,7 @@ function getInitials(name: string): string {
   gap: 1.25rem;
   padding: 1.25rem;
   background: var(--color-card);
-  border: 1.5px solid var(--color-border);
+  border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
   box-shadow: var(--shadow-card);
   margin-bottom: 1.5rem;
@@ -425,8 +426,8 @@ function getInitials(name: string): string {
   border-radius: 12px;
   font-size: 0.72rem;
   font-weight: 600;
-  background: #d1fae5;
-  color: #059669;
+  background: var(--color-success-light);
+  color: var(--color-success);
 }
 
 .identity-card__since {
@@ -438,7 +439,7 @@ function getInitials(name: string): string {
 /* ── Seções de configuração ─────────────────────────────────────── */
 .settings-section {
   background: var(--color-card);
-  border: 1.5px solid var(--color-border);
+  border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
   padding: 1.375rem;
   margin-bottom: 1rem;
@@ -468,17 +469,17 @@ function getInitials(name: string): string {
 
 .form-input {
   padding: 0.625rem 0.875rem;
-  background: var(--color-background);
-  border: 1.5px solid var(--color-border);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
   border-radius: var(--radius-sm);
   font-family: inherit;
   font-size: 0.9rem;
   color: var(--color-text);
-  transition: border-color 0.15s;
+  transition: border-color 0.15s, box-shadow 0.15s;
   width: 100%;
   box-sizing: border-box;
 }
-.form-input:focus         { outline: none; border-color: var(--color-primary); }
+.form-input:focus         { outline: none; border-color: var(--color-border-focus); box-shadow: 0 0 0 3px rgba(27, 58, 45, 0.1); background: var(--color-card); }
 .form-input--readonly     { color: var(--color-text-muted); cursor: not-allowed; background: var(--color-background); }
 .form-input--password     { padding-right: 2.75rem; }
 .form-input--error        { border-color: var(--color-error); }

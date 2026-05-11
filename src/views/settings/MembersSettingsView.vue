@@ -87,9 +87,9 @@ const myRole    = computed(() => currentAccount.value?.userRole ?? 'MEMBER')
 const canManage = computed(() => myRole.value === 'OWNER' || myRole.value === 'ADMIN')
 
 const roleConfig: Record<AccountRole, { label: string; color: string; bg: string }> = {
-  OWNER:  { label: 'Owner',  color: '#7c3aed', bg: '#ede9fe' },
-  ADMIN:  { label: 'Admin',  color: '#2563eb', bg: '#dbeafe' },
-  MEMBER: { label: 'Membro', color: '#059669', bg: '#d1fae5' },
+  OWNER:  { label: 'Owner',  color: '#7c3aed',               bg: '#ede9fe' },
+  ADMIN:  { label: 'Admin',  color: 'var(--color-info)',      bg: 'var(--color-info-light)' },
+  MEMBER: { label: 'Membro', color: 'var(--color-success)',   bg: 'var(--color-success-light)' },
 }
 
 const assignableRoles: AccountRole[] = ['ADMIN', 'MEMBER']
@@ -348,12 +348,12 @@ function getInitials(name: string): string {
 <style scoped>
 .members { padding: 2rem 1.5rem; max-width: 760px; }
 .members__header { margin-bottom: 1.5rem; }
-.members__title { font-size: 1.375rem; font-weight: 700; color: var(--color-text); margin: 0; }
+.members__title { font-family: 'DM Serif Display', serif; font-size: 1.75rem; font-weight: 400; color: var(--color-text); margin: 0; }
 
 .error-banner {
   padding: 0.75rem 1rem;
-  background: #fef2f2; border: 1.5px solid #fecaca;
-  border-radius: var(--radius-md); color: #dc2626;
+  background: var(--color-error-light); border: 1px solid #fecaca;
+  border-radius: var(--radius-md); color: var(--color-error);
   font-size: 0.875rem; margin-bottom: 1rem;
 }
 
@@ -371,7 +371,7 @@ function getInitials(name: string): string {
 .member-row {
   display: flex; align-items: center; justify-content: space-between;
   padding: 0.875rem 1.25rem; background: var(--color-card);
-  border: 1.5px solid var(--color-border); border-radius: var(--radius-md); gap: 1rem;
+  border: 1px solid var(--color-border); border-radius: var(--radius-md); gap: 1rem;
 }
 .member-info { display: flex; align-items: center; gap: 0.75rem; min-width: 0; }
 .member-avatar {
@@ -391,7 +391,7 @@ function getInitials(name: string): string {
 /* ── Formulário de convite ─────────────────────────────────────── */
 .btn-outline {
   display: inline-flex; align-items: center; gap: 0.375rem;
-  padding: 0.5rem 1rem; border: 1.5px solid var(--color-primary);
+  padding: 0.5rem 1rem; border: 1px solid var(--color-primary);
   border-radius: var(--radius-sm); background: transparent;
   font-family: inherit; font-size: 0.875rem; font-weight: 600;
   color: var(--color-primary); cursor: pointer; transition: all 0.15s;
@@ -399,14 +399,14 @@ function getInitials(name: string): string {
 .btn-outline:hover { background: var(--color-primary-light); }
 
 .invite-form {
-  background: var(--color-card); border: 1.5px solid var(--color-border);
+  background: var(--color-card); border: 1px solid var(--color-border);
   border-radius: var(--radius-md); padding: 1.25rem; margin-bottom: 1rem;
 }
 .invite-form__fields { display: grid; grid-template-columns: 1fr auto; gap: 0.75rem; align-items: end; }
 .invite-form__field { display: flex; flex-direction: column; gap: 0.375rem; }
 .invite-form__label { font-size: 0.8rem; font-weight: 600; color: var(--color-text-muted); }
 .invite-form__input, .invite-form__select {
-  padding: 0.5rem 0.75rem; border: 1.5px solid var(--color-border);
+  padding: 0.5rem 0.75rem; border: 1px solid var(--color-border);
   border-radius: var(--radius-sm); font-family: inherit; font-size: 0.875rem;
   color: var(--color-text); background: var(--color-background);
   transition: border-color 0.15s;
@@ -417,16 +417,16 @@ function getInitials(name: string): string {
 .invite-form__input { width: 100%; box-sizing: border-box; }
 .invite-form__select { min-width: 130px; }
 .invite-form__error {
-  margin-top: 0.625rem; font-size: 0.8rem; color: #dc2626;
+  margin-top: 0.625rem; font-size: 0.8rem; color: var(--color-error);
 }
 .invite-form__success {
   text-align: center; padding: 0.75rem;
-  color: #059669; font-size: 0.875rem; font-weight: 600;
+  color: var(--color-success); font-size: 0.875rem; font-weight: 600;
 }
 .invite-form__actions { display: flex; justify-content: flex-end; gap: 0.5rem; margin-top: 0.875rem; }
 
 .btn-ghost {
-  padding: 0.5rem 1rem; border: 1.5px solid var(--color-border);
+  padding: 0.5rem 1rem; border: 1px solid var(--color-border);
   border-radius: var(--radius-sm); background: transparent;
   font-family: inherit; font-size: 0.875rem; color: var(--color-text-muted);
   cursor: pointer; transition: all 0.15s;
@@ -446,14 +446,14 @@ function getInitials(name: string): string {
 /* ── Lista de convites ─────────────────────────────────────────── */
 .empty-invites {
   padding: 1.5rem; background: var(--color-card);
-  border: 1.5px dashed var(--color-border); border-radius: var(--radius-md);
+  border: 1px dashed var(--color-border); border-radius: var(--radius-md);
   text-align: center; color: var(--color-text-muted); font-size: 0.875rem;
 }
 .invites-list { display: flex; flex-direction: column; gap: 0.625rem; }
 .invite-row {
   display: flex; align-items: center; justify-content: space-between;
   padding: 0.875rem 1.25rem; background: var(--color-card);
-  border: 1.5px solid var(--color-border); border-radius: var(--radius-md); gap: 1rem;
+  border: 1px solid var(--color-border); border-radius: var(--radius-md); gap: 1rem;
 }
 .invite-info { display: flex; align-items: center; gap: 0.75rem; min-width: 0; }
 .invite-icon { color: var(--color-text-muted); flex-shrink: 0; }
@@ -471,13 +471,13 @@ function getInitials(name: string): string {
 .icon-btn {
   display: inline-flex; align-items: center; justify-content: center;
   width: 30px; height: 30px; border-radius: var(--radius-sm);
-  border: 1.5px solid var(--color-border); background: transparent;
+  border: 1px solid var(--color-border); background: transparent;
   color: var(--color-text-muted); cursor: pointer; transition: all 0.15s;
 }
-.icon-btn--danger:hover { border-color: #dc2626; color: #dc2626; background: #fef2f2; }
+.icon-btn--danger:hover { border-color: var(--color-error); color: var(--color-error); background: var(--color-error-light); }
 
 .role-select {
-  padding: 0.3rem 0.6rem; border: 1.5px solid var(--color-border);
+  padding: 0.3rem 0.6rem; border: 1px solid var(--color-border);
   border-radius: var(--radius-sm); font-family: inherit; font-size: 0.8rem;
   color: var(--color-text); background: var(--color-background); cursor: pointer;
 }
