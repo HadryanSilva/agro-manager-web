@@ -416,7 +416,7 @@ function logout() {
 .sidebar__user-initials {
   font-family: 'DM Serif Display', serif;
   font-size: 0.7rem;
-  color: #e8f4ed;
+  color: var(--color-primary-light);
 }
 
 .sidebar__user-info {
