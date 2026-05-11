@@ -31,8 +31,8 @@ const statusConfig: Record<FarmStatus, { label: string; color: string; bg: strin
 }
 
 const categoryConfig = {
-  INSUMO:  { label: 'Insumo',  color: '#059669', bg: '#d1fae5' },
-  SERVICO: { label: 'Serviço', color: '#2563eb', bg: '#dbeafe' },
+  INSUMO:  { label: 'Insumo',  color: 'var(--color-success)', bg: 'var(--color-success-light)' },
+  SERVICO: { label: 'Serviço', color: 'var(--color-info)',    bg: 'var(--color-info-light)' },
 }
 
 onMounted(async () => {
@@ -467,8 +467,9 @@ async function exportToExcel() {
 }
 
 .report__title {
-  font-size: 1.5rem;
-  font-weight: 700;
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.75rem;
+  font-weight: 400;
   color: var(--color-text);
   letter-spacing: -0.02em;
 }
@@ -497,7 +498,7 @@ async function exportToExcel() {
   align-items: center;
   gap: 0.5rem;
   padding: 0.6rem 1.25rem;
-  background: #059669;
+  background: var(--color-success);
   color: #fff;
   border: none;
   border-radius: var(--radius-sm);
@@ -542,7 +543,7 @@ async function exportToExcel() {
   font-size: 0.875rem;
   color: var(--color-text-muted);
   background: var(--color-card);
-  border: 1.5px dashed var(--color-border);
+  border: 1px dashed var(--color-border);
   border-radius: var(--radius-md);
 }
 
@@ -560,14 +561,14 @@ async function exportToExcel() {
   gap: 0.3rem;
   padding: 1.25rem;
   background: var(--color-card);
-  border: 1.5px solid var(--color-border);
+  border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
   box-shadow: var(--shadow-card);
 }
 
-.kpi-card--alert   { border-color: #f59e0b; background: #fffbeb; }
-.kpi-card--insumo  { border-left: 3px solid #059669; }
-.kpi-card--servico { border-left: 3px solid #2563eb; }
+.kpi-card--alert   { border-color: var(--color-warning); background: var(--color-warning-light); }
+.kpi-card--insumo  { border-left: 3px solid var(--color-success); }
+.kpi-card--servico { border-left: 3px solid var(--color-info); }
 
 .kpi-card__label {
   font-size: 0.78rem;
@@ -578,8 +579,9 @@ async function exportToExcel() {
 }
 
 .kpi-card__value {
+  font-family: 'DM Serif Display', serif;
   font-size: 1.375rem;
-  font-weight: 700;
+  font-weight: 400;
   color: var(--color-text);
   letter-spacing: -0.02em;
 }
@@ -592,9 +594,9 @@ async function exportToExcel() {
   margin: 0.2rem 0;
 }
 .kpi-card__bar-fill { height: 100%; border-radius: 2px; transition: width 0.6s ease; }
-.kpi-card__bar-fill--insumo  { background: #059669; }
-.kpi-card__bar-fill--servico { background: #2563eb; }
-.kpi-card__bar-fill--paid    { background: #059669; }
+.kpi-card__bar-fill--insumo  { background: var(--color-success); }
+.kpi-card__bar-fill--servico { background: var(--color-info); }
+.kpi-card__bar-fill--paid    { background: var(--color-success); }
 
 .kpi-card__sub { font-size: 0.75rem; color: var(--color-text-muted); }
 
@@ -625,7 +627,7 @@ async function exportToExcel() {
   gap: 1rem;
   padding: 1.25rem;
   background: var(--color-card);
-  border: 1.5px solid var(--color-border);
+  border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
   box-shadow: var(--shadow-card);
   flex-wrap: wrap;
@@ -659,7 +661,7 @@ async function exportToExcel() {
   letter-spacing: -0.02em;
 }
 .compare-item__value--lease    { color: #7c3aed; }
-.compare-item__value--expenses { color: #2563eb; }
+.compare-item__value--expenses { color: var(--color-info); }
 .compare-item__value--total    { color: var(--color-text); font-size: 1.375rem; }
 
 .compare-item__period { font-size: 0.75rem; color: var(--color-text-muted); }
@@ -676,7 +678,7 @@ async function exportToExcel() {
 
 .filter-btn {
   padding: 0.3rem 0.75rem;
-  border: 1.5px solid var(--color-border);
+  border: 1px solid var(--color-border);
   border-radius: 20px;
   background: var(--color-card);
   font-family: inherit;
@@ -692,7 +694,7 @@ async function exportToExcel() {
 /* ── Tabelas ────────────────────────────────────────────────────── */
 .table-wrapper {
   background: var(--color-card);
-  border: 1.5px solid var(--color-border);
+  border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
   overflow: hidden;
   box-shadow: var(--shadow-card);
@@ -700,7 +702,7 @@ async function exportToExcel() {
 
 .report-table { width: 100%; border-collapse: collapse; font-size: 0.875rem; }
 
-.report-table thead { background: var(--color-background); }
+.report-table thead { background: var(--color-surface); }
 
 .report-table th {
   padding: 0.75rem 1rem;
@@ -710,7 +712,7 @@ async function exportToExcel() {
   color: var(--color-text-muted);
   letter-spacing: 0.04em;
   text-transform: uppercase;
-  border-bottom: 1.5px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
 }
 
 .report-table td {
@@ -725,14 +727,14 @@ async function exportToExcel() {
 .report-table__total td {
   font-weight: 700;
   background: var(--color-background);
-  border-top: 1.5px solid var(--color-border);
+  border-top: 1px solid var(--color-border);
   border-bottom: none;
 }
 
 .col-right   { text-align: right; }
 .col-bold    { font-weight: 600; }
-.col-paid    { color: #059669; font-weight: 600; }
-.col-pending { color: #d97706; }
+.col-paid    { color: var(--color-success); font-weight: 600; }
+.col-pending { color: var(--color-warning); }
 .col-month   { font-weight: 600; }
 .col-desc    { max-width: 220px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-weight: 500; }
 
@@ -746,8 +748,8 @@ async function exportToExcel() {
   font-weight: 600;
   white-space: nowrap;
 }
-.paid-badge    { background: #d1fae5; color: #059669; }
-.pending-badge { background: #fef3c7; color: #d97706; }
+.paid-badge    { background: var(--color-success-light); color: var(--color-success); }
+.pending-badge { background: var(--color-warning-light); color: var(--color-warning); }
 
 /* ── Cards mobile ───────────────────────────────────────────────── */
 .monthly-cards, .expense-cards { display: none; }
@@ -775,7 +777,7 @@ async function exportToExcel() {
 .monthly-card {
   padding: 1rem;
   background: var(--color-card);
-  border: 1.5px solid var(--color-border);
+  border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
 }
 .monthly-card__header {
@@ -796,7 +798,7 @@ async function exportToExcel() {
 .expense-card-mini {
   padding: 0.875rem 1rem;
   background: var(--color-card);
-  border: 1.5px solid var(--color-border);
+  border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
 }
 .expense-card-mini__top { display: flex; justify-content: space-between; gap: 0.5rem; margin-bottom: 0.5rem; }
