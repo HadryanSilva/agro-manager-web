@@ -1,50 +1,91 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=DM+Serif+Display:ital@0;1&display=swap');
+
+/* ── Light Mode Tokens ──────────────────────────────────────────── */
 :root {
-  --color-primary: #00bd7e;
-  --color-primary-dark: #00a06b;
-  --color-primary-light: #e6faf4;
+  /* Surfaces */
+  --color-background:   #faf9f7;
+  --color-surface:      #f5f2ed;
+  --color-card:         #ffffff;
+  --color-border:       #e4e0d8;
+  --color-border-focus: #1b3a2d;
 
-  --color-background: #f7f8fa;
-  --color-card: #ffffff;
-  --color-border: #e5e7eb;
-  --color-border-focus: #00bd7e;
+  /* Text */
+  --color-text:             #1b3a2d;
+  --color-text-muted:       #7b9e87;
+  --color-text-placeholder: #a3c4b5;
 
-  --color-text: #111827;
-  --color-text-muted: #6b7280;
-  --color-text-placeholder: #9ca3af;
+  /* Primary — deep forest green */
+  --color-primary:       #1b3a2d;
+  --color-primary-dark:  #142d22;
+  --color-primary-light: #e8f4ed;
 
-  --color-error: #ef4444;
-  --color-error-light: #fef2f2;
+  /* Accent — warm gold/wheat */
+  --color-accent:        #c9a96e;
+  --color-accent-light:  #f7f0e4;
 
-  --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.06), 0 4px 16px rgba(0, 0, 0, 0.06);
-  --shadow-card-hover: 0 2px 8px rgba(0, 0, 0, 0.08), 0 8px 24px rgba(0, 0, 0, 0.08);
+  /* Semantic */
+  --color-success:       #276749;
+  --color-success-light: #e8f4ed;
 
-  --radius-sm: 6px;
-  --radius-md: 10px;
-  --radius-lg: 16px;
+  --color-warning:       #b7791f;
+  --color-warning-light: #fef9ec;
+
+  --color-error:         #c0392b;
+  --color-error-light:   #fdf2f0;
+
+  --color-info:          #2b6cb0;
+  --color-info-light:    #ebf5ff;
+
+  /* Shadows */
+  --shadow-card:       0 1px 4px rgba(27, 58, 45, 0.06), 0 4px 16px rgba(27, 58, 45, 0.05);
+  --shadow-card-hover: 0 2px 8px rgba(27, 58, 45, 0.09), 0 8px 24px rgba(27, 58, 45, 0.08);
+  --shadow-elevated:   0 4px 24px rgba(27, 58, 45, 0.12);
+
+  /* Radii */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
+  --radius-xl: 24px;
 }
 
-/* Tema escuro — ativado via data-theme="dark" no elemento raiz */
+/* ── Dark Mode Tokens ───────────────────────────────────────────── */
 [data-theme="dark"] {
-  --color-background: #0d1117;
-  --color-card: #161b22;
-  --color-border: #30363d;
-  --color-border-focus: #00bd7e;
+  --color-background:   #0e1612;
+  --color-surface:      #131d17;
+  --color-card:         #182318;
+  --color-border:       #2d4a38;
+  --color-border-focus: #8fc0a3;
 
-  --color-text: #e6edf3;
-  --color-text-muted: #8b949e;
-  --color-text-placeholder: #6e7681;
+  --color-text:             #e8f0ea;
+  --color-text-muted:       #7b9e87;
+  --color-text-placeholder: #4d7a5e;
 
-  --color-error: #f85149;
-  --color-error-light: #1f0d0d;
+  /* In dark mode primary becomes sage green for readability over dark bg */
+  --color-primary:       #8fc0a3;
+  --color-primary-dark:  #7aaa8e;
+  --color-primary-light: #1a2e22;
 
-  --color-primary: #00bd7e;
-  --color-primary-dark: #00a06b;
-  --color-primary-light: #0d2218;
+  --color-accent:        #c9a96e;
+  --color-accent-light:  #2a2010;
 
-  --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.4), 0 4px 16px rgba(0, 0, 0, 0.4);
-  --shadow-card-hover: 0 2px 8px rgba(0, 0, 0, 0.5), 0 8px 24px rgba(0, 0, 0, 0.5);
+  --color-success:       #6dbf99;
+  --color-success-light: #0d2218;
+
+  --color-warning:       #e9a84c;
+  --color-warning-light: #2a1e08;
+
+  --color-error:         #e57373;
+  --color-error-light:   #2a0d0d;
+
+  --color-info:          #64b5f6;
+  --color-info-light:    #0a1929;
+
+  --shadow-card:       0 1px 3px rgba(0, 0, 0, 0.4), 0 4px 16px rgba(0, 0, 0, 0.35);
+  --shadow-card-hover: 0 2px 8px rgba(0, 0, 0, 0.5), 0 8px 24px rgba(0, 0, 0, 0.4);
+  --shadow-elevated:   0 4px 24px rgba(0, 0, 0, 0.5);
 }
 
+/* ── Global Reset ───────────────────────────────────────────────── */
 *,
 *::before,
 *::after {
@@ -57,13 +98,12 @@ body {
   min-height: 100vh;
   color: var(--color-text);
   background: var(--color-background);
-  font-family: 'Outfit', sans-serif;
+  font-family: 'DM Sans', sans-serif;
   font-size: 15px;
   line-height: 1.6;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  /* Transição suave ao trocar tema */
   transition: background-color 0.2s ease, color 0.2s ease;
 }
 

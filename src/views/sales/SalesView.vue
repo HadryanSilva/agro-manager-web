@@ -50,8 +50,9 @@
 }
 
 .sales__title {
-  font-size: 1.5rem;
-  font-weight: 700;
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.75rem;
+  font-weight: 400;
   color: var(--color-text);
   letter-spacing: -0.02em;
 }
@@ -70,7 +71,7 @@
   gap: 1rem;
   padding: 3rem 2rem;
   background: var(--color-card);
-  border: 1.5px dashed var(--color-border);
+  border: 1px dashed var(--color-border);
   border-radius: var(--radius-md);
   text-align: center;
 }

@@ -212,7 +212,7 @@ async function handleDeleteAccount() {
 .account-settings { padding: 2rem 1.5rem; max-width: 640px; }
 .account-settings__header { margin-bottom: 1.5rem; }
 .account-settings__title {
-  font-size: 1.375rem; font-weight: 700; color: var(--color-text); margin: 0;
+  font-family: 'DM Serif Display', serif; font-size: 1.75rem; font-weight: 400; color: var(--color-text); margin: 0;
 }
 
 /* ── Seções ─────────────────────────────────────────────────────── */
@@ -223,7 +223,7 @@ async function handleDeleteAccount() {
 
 /* ── Informações ────────────────────────────────────────────────── */
 .info-card {
-  background: var(--color-card); border: 1.5px solid var(--color-border);
+  background: var(--color-card); border: 1px solid var(--color-border);
   border-radius: var(--radius-md); overflow: hidden;
 }
 .info-row {
@@ -242,12 +242,12 @@ async function handleDeleteAccount() {
   font-size: 0.75rem; font-weight: 600;
 }
 .role-badge--owner  { background: #ede9fe; color: #7c3aed; }
-.role-badge--admin  { background: #dbeafe; color: #2563eb; }
-.role-badge--member { background: #d1fae5; color: #059669; }
+.role-badge--admin  { background: var(--color-info-light); color: var(--color-info); }
+.role-badge--member { background: var(--color-success-light); color: var(--color-success); }
 
 /* ── Zona de perigo ─────────────────────────────────────────────── */
 .danger-zone {
-  border: 1.5px solid #fca5a5;
+  border: 1px solid #fca5a5;
   border-radius: var(--radius-md);
   padding: 1.25rem;
   background: var(--color-error-light);
@@ -286,7 +286,7 @@ async function handleDeleteAccount() {
 }
 .modal {
   background: var(--color-card); border-radius: var(--radius-lg);
-  border: 1.5px solid var(--color-border);
+  border: 1px solid var(--color-border);
   width: 100%; max-width: 480px; padding: 1.75rem;
   display: flex; flex-direction: column; gap: 1.25rem;
 }
@@ -331,13 +331,13 @@ async function handleDeleteAccount() {
 }
 .modal__confirm-input {
   padding: 0.625rem 0.875rem;
-  border: 1.5px solid var(--color-border); border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border); border-radius: var(--radius-sm);
   font-family: inherit; font-size: 0.9rem; color: var(--color-text);
-  background: var(--color-background); width: 100%; box-sizing: border-box;
+  background: var(--color-surface); width: 100%; box-sizing: border-box;
   transition: border-color 0.15s;
 }
 .modal__confirm-input:focus { outline: none; border-color: var(--color-error); }
-.modal__confirm-input--valid { border-color: #059669; }
+.modal__confirm-input--valid { border-color: var(--color-success); }
 
 /* Erro */
 .modal__error {
@@ -349,7 +349,7 @@ async function handleDeleteAccount() {
 /* Ações */
 .modal__actions { display: flex; justify-content: flex-end; gap: 0.75rem; }
 .btn-secondary {
-  padding: 0.6rem 1.25rem; border: 1.5px solid var(--color-border);
+  padding: 0.6rem 1.25rem; border: 1px solid var(--color-border);
   border-radius: var(--radius-sm); background: var(--color-card);
   font-family: inherit; font-size: 0.875rem; font-weight: 500;
   color: var(--color-text-muted); cursor: pointer; transition: border-color 0.15s;

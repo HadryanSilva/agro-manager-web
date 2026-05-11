@@ -165,7 +165,7 @@ async function handleAccept() {
   width: 100%;
   max-width: 420px;
   background: var(--color-card);
-  border: 1.5px solid var(--color-border);
+  border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-card);
   padding: 2.5rem 2rem;
@@ -179,10 +179,12 @@ async function handleAccept() {
 }
 .invite-card__brand-icon { font-size: 1.25rem; }
 .invite-card__brand-name {
+  font-family: 'DM Serif Display', serif;
   font-size: 1rem;
-  font-weight: 700;
+  font-style: italic;
+  font-weight: 400;
   color: var(--color-text);
-  letter-spacing: -0.02em;
+  letter-spacing: -0.01em;
 }
 
 /* ── Loading ────────────────────────────────────────────────────── */
@@ -243,8 +245,9 @@ async function handleAccept() {
 .invite-card__body { display: flex; flex-direction: column; gap: 1rem; }
 
 .invite-card__title {
+  font-family: 'DM Serif Display', serif;
   font-size: 1.375rem;
-  font-weight: 700;
+  font-weight: 400;
   color: var(--color-text);
   letter-spacing: -0.02em;
 }
@@ -257,7 +260,7 @@ async function handleAccept() {
   gap: 0.25rem;
   padding: 1rem 1.25rem;
   background: var(--color-primary-light);
-  border: 1.5px solid var(--color-primary);
+  border: 1px solid var(--color-primary);
   border-radius: var(--radius-md);
 }
 

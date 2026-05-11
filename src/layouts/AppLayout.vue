@@ -90,11 +90,6 @@ function logout() {
 <template>
   <div class="app-layout">
 
-    <!-- Toggle de tema fixo no canto superior direito -->
-    <div class="theme-corner">
-      <ThemeToggle />
-    </div>
-
     <!-- Overlay mobile -->
     <div
       v-if="sidebarOpen"
@@ -106,7 +101,12 @@ function logout() {
     <aside class="sidebar" :class="{ 'sidebar--open': sidebarOpen }">
       <!-- Brand -->
       <div class="sidebar__brand">
-        <span class="sidebar__brand-icon">🌱</span>
+        <div class="sidebar__brand-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z"/>
+            <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/>
+          </svg>
+        </div>
         <span class="sidebar__brand-name">Agro Manager</span>
       </div>
 
@@ -129,6 +129,10 @@ function logout() {
 
       <!-- Rodapé da sidebar -->
       <div class="sidebar__footer">
+        <div class="sidebar__footer-theme">
+          <ThemeToggle />
+        </div>
+
         <button class="sidebar__user" @click="navigate('settings-profile')">
           <div class="sidebar__user-avatar">
             <img
@@ -164,7 +168,7 @@ function logout() {
             <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
           </svg>
         </button>
-        <span class="topbar__brand">🌱 Agro Manager</span>
+        <span class="topbar__brand">Agro Manager</span>
         <ThemeToggle />
       </header>
 
@@ -189,10 +193,10 @@ function logout() {
   width: 220px;
   flex-shrink: 0;
   background: var(--color-card);
-  border-right: 1.5px solid var(--color-border);
+  border-right: 1px solid var(--color-border);
   display: flex;
   flex-direction: column;
-  padding: 1.25rem 0.75rem;
+  padding: 1.5rem 0.875rem 1.25rem;
   gap: 0.25rem;
   position: sticky;
   top: 0;
@@ -204,50 +208,35 @@ function logout() {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0 0.5rem;
+  padding: 0 0.375rem;
   margin-bottom: 1.25rem;
 }
 
-.sidebar__brand-icon { font-size: 1.25rem; }
-
-.sidebar__brand-name {
-  font-size: 1rem;
-  font-weight: 700;
-  color: var(--color-text);
-  letter-spacing: -0.02em;
-}
-
-.sidebar__account {
+.sidebar__brand-icon {
+  width: 28px;
+  height: 28px;
+  background: var(--color-primary);
+  border-radius: 8px;
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  padding: 0.5rem 0.75rem;
-  background: var(--color-primary-light);
-  border-radius: var(--radius-sm);
-  margin-bottom: 0.75rem;
-}
-
-.sidebar__account-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--color-primary);
+  justify-content: center;
+  color: var(--color-primary-light);
   flex-shrink: 0;
 }
 
-.sidebar__account-name {
-  font-size: 0.8125rem;
-  font-weight: 600;
-  color: var(--color-primary);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+.sidebar__brand-name {
+  font-family: 'DM Serif Display', serif;
+  font-style: italic;
+  font-size: 1.05rem;
+  color: var(--color-text);
+  letter-spacing: -0.01em;
+  line-height: 1;
 }
 
 .sidebar__nav {
   display: flex;
   flex-direction: column;
-  gap: 0.125rem;
+  gap: 2px;
   flex: 1;
 }
 
@@ -256,27 +245,30 @@ function logout() {
   align-items: center;
   gap: 0.625rem;
   width: 100%;
-  padding: 0.625rem 0.75rem;
+  padding: 0.575rem 0.625rem;
   border: none;
+  border-left: 2px solid transparent;
   border-radius: var(--radius-sm);
   background: none;
   font-family: inherit;
-  font-size: 0.9rem;
+  font-size: 0.875rem;
   font-weight: 500;
   color: var(--color-text-muted);
   cursor: pointer;
   text-align: left;
-  transition: background 0.15s, color 0.15s;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
 }
 
 .sidebar__nav-item:hover {
-  background: var(--color-background);
+  background: var(--color-surface);
   color: var(--color-text);
 }
 
 .sidebar__nav-item--active {
   background: var(--color-primary-light);
   color: var(--color-primary);
+  border-left-color: var(--color-primary);
+  font-weight: 600;
 }
 
 .sidebar__nav-item--danger:hover {
@@ -290,26 +282,17 @@ function logout() {
   flex-shrink: 0;
 }
 
-.theme-corner {
-  position: fixed;
-  top: 1.25rem;
-  right: 1.25rem;
-  z-index: 15;
-}
-
-/* Em mobile o topbar já ocupa o topo, então escondemos o canto fixo */
-@media (max-width: 768px) {
-  .theme-corner {
-    display: none;
-  }
-}
-
 .sidebar__footer {
-  padding: 0.75rem;
+  padding-top: 0.875rem;
   border-top: 1px solid var(--color-border);
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 4px;
+  margin-top: 0.5rem;
+}
+
+.sidebar__footer-theme {
+  padding: 0 0.375rem 0.25rem;
 }
 
 /* ── Área principal ───────────────────────────────────────────────────────── */
@@ -333,7 +316,7 @@ function logout() {
   justify-content: space-between;
   padding: 0.875rem 1rem;
   background: var(--color-card);
-  border-bottom: 1.5px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
   position: sticky;
   top: 0;
   z-index: 10;
@@ -350,10 +333,11 @@ function logout() {
 }
 
 .topbar__brand {
+  font-family: 'DM Serif Display', serif;
+  font-style: italic;
   font-size: 1rem;
-  font-weight: 700;
   color: var(--color-text);
-  letter-spacing: -0.02em;
+  letter-spacing: -0.01em;
 }
 
 /* ── Overlay mobile ───────────────────────────────────────────────────────── */
@@ -406,53 +390,53 @@ function logout() {
   font-family: inherit;
   transition: background 0.15s;
 }
- 
+
 .sidebar__user:hover {
-  background: var(--color-background);
+  background: var(--color-surface);
 }
- 
+
 .sidebar__user-avatar {
-  width: 32px;
-  height: 32px;
+  width: 28px;
+  height: 28px;
   border-radius: 50%;
   flex-shrink: 0;
   overflow: hidden;
-  background: var(--color-primary-light);
+  background: var(--color-primary);
   display: flex;
   align-items: center;
   justify-content: center;
 }
- 
+
 .sidebar__user-avatar img {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
- 
+
 .sidebar__user-initials {
-  font-size: 0.75rem;
-  font-weight: 700;
-  color: var(--color-primary);
+  font-family: 'DM Serif Display', serif;
+  font-size: 0.7rem;
+  color: var(--color-primary-light);
 }
- 
+
 .sidebar__user-info {
   display: flex;
   flex-direction: column;
   gap: 0.05rem;
   min-width: 0;
 }
- 
+
 .sidebar__user-name {
-  font-size: 0.875rem;
+  font-size: 0.825rem;
   font-weight: 600;
   color: var(--color-text);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
- 
+
 .sidebar__user-label {
-  font-size: 0.7rem;
+  font-size: 0.68rem;
   color: var(--color-text-muted);
 }
 </style>

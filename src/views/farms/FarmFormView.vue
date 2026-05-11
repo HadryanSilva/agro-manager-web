@@ -358,7 +358,8 @@ async function handleSubmit() {
 
 .form-input:focus {
   border-color: var(--color-border-focus);
-  box-shadow: 0 0 0 3px rgba(0, 189, 126, 0.12);
+  box-shadow: 0 0 0 3px rgba(27, 58, 45, 0.1);
+  background: var(--color-card);
 }
 
 .form-input--textarea { resize: vertical; min-height: 80px; }

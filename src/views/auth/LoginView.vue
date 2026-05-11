@@ -133,8 +133,9 @@ function handleGoogleLogin() {
 }
 
 .login__title {
+  font-family: 'DM Serif Display', serif;
   font-size: 1.5rem;
-  font-weight: 700;
+  font-weight: 400;
   color: var(--color-text);
   letter-spacing: -0.02em;
   line-height: 1.3;
@@ -192,7 +193,8 @@ function handleGoogleLogin() {
 
 .form-input:focus {
   border-color: var(--color-border-focus);
-  box-shadow: 0 0 0 3px rgba(0, 189, 126, 0.12);
+  box-shadow: 0 0 0 3px rgba(27, 58, 45, 0.1);
+  background: var(--color-card);
 }
 
 .form-input:disabled {

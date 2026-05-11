@@ -223,7 +223,7 @@ async function handleSubmit() {
 .back-btn:hover { color: var(--color-primary); }
 
 .expense-form__title {
-  font-size: 1.5rem; font-weight: 700; color: var(--color-text); letter-spacing: -0.02em;
+  font-family: 'DM Serif Display', serif; font-size: 1.75rem; font-weight: 400; color: var(--color-text); letter-spacing: -0.02em;
 }
 .expense-form__subtitle {
   margin-top: 0.2rem; font-size: 0.875rem; color: var(--color-text-muted); margin-bottom: 1.75rem;
@@ -245,7 +245,7 @@ async function handleSubmit() {
 @keyframes spin { to { transform: rotate(360deg); } }
 
 .form-section {
-  background: var(--color-card); border: 1.5px solid var(--color-border);
+  background: var(--color-card); border: 1px solid var(--color-border);
   border-radius: var(--radius-md); padding: 1.25rem; margin-bottom: 1rem;
   display: flex; flex-direction: column; gap: 1rem;
 }
@@ -258,28 +258,28 @@ async function handleSubmit() {
 .form-field--grow { flex: 1; min-width: 180px; }
 .form-label { font-size: 0.8125rem; font-weight: 600; color: var(--color-text); display: flex; align-items: center; gap: 0.5rem; }
 .form-input {
-  padding: 0.625rem 0.875rem; background: var(--color-background);
-  border: 1.5px solid var(--color-border); border-radius: var(--radius-sm);
+  padding: 0.625rem 0.875rem; background: var(--color-surface);
+  border: 1px solid var(--color-border); border-radius: var(--radius-sm);
   font-family: inherit; font-size: 0.9rem; color: var(--color-text);
-  transition: border-color 0.15s; width: 100%; box-sizing: border-box;
+  transition: border-color 0.15s, box-shadow 0.15s; width: 100%; box-sizing: border-box;
 }
-.form-input:focus { outline: none; border-color: var(--color-primary); }
+.form-input:focus { outline: none; border-color: var(--color-border-focus); box-shadow: 0 0 0 3px rgba(27, 58, 45, 0.1); background: var(--color-card); }
 .form-input--textarea { resize: vertical; min-height: 80px; }
 .form-hint { font-size: 0.75rem; color: var(--color-text-muted); }
 
 .category-toggle { display: flex; gap: 0.5rem; }
 .category-btn {
   display: inline-flex; align-items: center; gap: 0.4rem;
-  padding: 0.55rem 1rem; border: 1.5px solid var(--color-border);
+  padding: 0.55rem 1rem; border: 1px solid var(--color-border);
   border-radius: var(--radius-sm); background: var(--color-background);
   font-family: inherit; font-size: 0.875rem; font-weight: 500;
   color: var(--color-text-muted); cursor: pointer; transition: all 0.15s;
 }
-.category-btn--insumo  { border-color: #059669; color: #059669; background: #f0fdf4; }
-.category-btn--servico { border-color: #2563eb; color: #2563eb; background: #eff6ff; }
+.category-btn--insumo  { border-color: var(--color-success); color: var(--color-success); background: var(--color-success-light); }
+.category-btn--servico { border-color: var(--color-info);    color: var(--color-info);    background: var(--color-info-light); }
 
 .label-badge { padding: 0.15rem 0.5rem; border-radius: 12px; font-size: 0.7rem; font-weight: 600; }
-.label-badge--paid    { background: #d1fae5; color: #059669; }
+.label-badge--paid    { background: var(--color-success-light); color: var(--color-success); }
 .label-badge--pending { background: var(--color-warning-light); color: var(--color-warning); }
 
 .form-actions { display: flex; justify-content: flex-end; gap: 0.75rem; margin-top: 1.5rem; }
@@ -292,7 +292,7 @@ async function handleSubmit() {
 .btn-primary:disabled { opacity: 0.5; cursor: default; }
 .btn-primary:not(:disabled):hover { opacity: 0.85; }
 .btn-secondary {
-  padding: 0.65rem 1.25rem; border: 1.5px solid var(--color-border);
+  padding: 0.65rem 1.25rem; border: 1px solid var(--color-border);
   border-radius: var(--radius-sm); background: var(--color-card);
   font-family: inherit; font-size: 0.9rem; font-weight: 500;
   color: var(--color-text-muted); cursor: pointer; transition: border-color 0.15s, color 0.15s;

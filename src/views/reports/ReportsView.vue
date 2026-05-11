@@ -145,8 +145,9 @@ function formatArea(value: number, unit: string): string {
 
 /* ── Cabeçalho ──────────────────────────────────────────────────── */
 .reports__title {
-  font-size: 1.5rem;
-  font-weight: 700;
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.75rem;
+  font-weight: 400;
   color: var(--color-text);
   letter-spacing: -0.02em;
 }
@@ -170,7 +171,7 @@ function formatArea(value: number, unit: string): string {
   gap: 1.25rem;
   padding: 1.5rem;
   background: var(--color-card);
-  border: 1.5px solid var(--color-border);
+  border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
   box-shadow: var(--shadow-card);
 }
@@ -268,7 +269,7 @@ function formatArea(value: number, unit: string): string {
   gap: 0.75rem;
   padding: 0.75rem 1rem;
   background: var(--color-background);
-  border: 1.5px solid var(--color-border);
+  border: 1px solid var(--color-border);
   border-radius: var(--radius-sm);
   cursor: pointer;
   text-align: left;
