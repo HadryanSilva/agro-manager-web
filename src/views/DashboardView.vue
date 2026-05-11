@@ -389,10 +389,12 @@ const paidPercent = computed(() => {
 }
 
 .dashboard__title {
-  font-size: 1.5rem;
-  font-weight: 700;
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.75rem;
+  font-weight: 400;
   color: var(--color-text);
   letter-spacing: -0.02em;
+  line-height: 1.2;
 }
 
 .dashboard__subtitle {
@@ -462,7 +464,7 @@ const paidPercent = computed(() => {
   gap: 1rem;
   padding: 1.25rem;
   background: var(--color-card);
-  border: 1.5px solid var(--color-border);
+  border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
   box-shadow: var(--shadow-card);
 }
@@ -478,24 +480,27 @@ const paidPercent = computed(() => {
   border-radius: var(--radius-sm);
   flex-shrink: 0;
 }
-.metric-card__icon--green   { background: #d1fae5; color: #059669; }
-.metric-card__icon--blue    { background: #dbeafe; color: #2563eb; }
+.metric-card__icon--green   { background: var(--color-success-light); color: var(--color-success); }
+.metric-card__icon--blue    { background: var(--color-info-light);    color: var(--color-info); }
 .metric-card__icon--primary { background: var(--color-primary-light); color: var(--color-primary); }
 .metric-card__icon--warning { background: var(--color-warning-light); color: var(--color-warning); }
-.metric-card__icon--muted   { background: var(--color-background); color: var(--color-text-muted); }
+.metric-card__icon--muted   { background: var(--color-surface);       color: var(--color-text-muted); }
 
 .metric-card__body { display: flex; flex-direction: column; gap: 0.2rem; min-width: 0; }
 
 .metric-card__value {
-  font-size: 1.625rem;
-  font-weight: 700;
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.75rem;
+  font-weight: 400;
   color: var(--color-text);
-  letter-spacing: -0.03em;
+  letter-spacing: -0.02em;
   line-height: 1;
 }
-.metric-card__value--sm { 
-  font-size: 1.1rem; 
-  letter-spacing: -0.01em; 
+.metric-card__value--sm {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.15rem;
+  font-weight: 400;
+  letter-spacing: -0.01em;
 }
 
 .metric-card__label { 
@@ -508,8 +513,9 @@ const paidPercent = computed(() => {
 .section { margin-bottom: 2rem; }
 
 .section__title {
-  font-size: 1rem;
-  font-weight: 600;
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.05rem;
+  font-weight: 400;
   color: var(--color-text);
   margin-bottom: 1rem;
   letter-spacing: -0.01em;
@@ -537,12 +543,11 @@ const paidPercent = computed(() => {
 .link-btn:hover { opacity: 0.7; }
 
 /* ── Resumo financeiro ──────────────────────────────────────────── */
+/* Finance card — dark inverted surface, always forest green background */
 .finance-card {
-  background: var(--color-card);
-  border: 1.5px solid var(--color-border);
+  background: #1b3a2d;
   border-radius: var(--radius-md);
-  box-shadow: var(--shadow-card);
-  padding: 1.25rem;
+  padding: 1.25rem 1.5rem;
 }
 
 .finance-card__totals {
@@ -559,51 +564,52 @@ const paidPercent = computed(() => {
 }
 
 .finance-total__label {
-  font-size: 0.78rem;
-  font-weight: 600;
-  color: var(--color-text-muted);
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: rgba(109, 191, 153, 0.75);
   text-transform: uppercase;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.08em;
 }
 
 .finance-total__value {
-  font-size: 1.375rem;
-  font-weight: 700;
-  color: var(--color-text);
-  letter-spacing: -0.02em;
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.35rem;
+  font-weight: 400;
+  color: #e8f0ea;
+  letter-spacing: -0.01em;
   word-break: break-word;
 }
 
-.finance-total--paid    .finance-total__value { color: #059669; }
-.finance-total--pending .finance-total__value { color: var(--color-warning); }
+.finance-total--paid    .finance-total__value { color: #6dbf99; }
+.finance-total--pending .finance-total__value { color: #c9a96e; }
 
 .finance-card__progress { display: flex; align-items: center; gap: 0.875rem; }
 
 .finance-bar-track {
   flex: 1;
-  height: 8px;
-  background: var(--color-background);
-  border-radius: 4px;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 2px;
   overflow: hidden;
 }
 
 .finance-bar-fill {
   height: 100%;
-  background: #059669;
-  border-radius: 4px;
+  background: #6dbf99;
+  border-radius: 2px;
   transition: width 0.6s ease;
 }
 
 .finance-bar-label {
-  font-size: 0.8rem;
+  font-size: 0.78rem;
   font-weight: 600;
-  color: #059669;
+  color: #6dbf99;
   white-space: nowrap;
 }
 
 .finance-card__empty {
   font-size: 0.875rem;
-  color: var(--color-text-muted);
+  color: rgba(255, 255, 255, 0.5);
   text-align: center;
   padding: 0.5rem 0;
 }
@@ -657,14 +663,14 @@ const paidPercent = computed(() => {
   border-radius: 12px;
   font-size: 0.75rem;
   font-weight: 600;
-  background: #d1fae5;
-  color: #059669;
+  background: var(--color-success-light);
+  color: var(--color-success);
 }
 
 /* ── Tabela ─────────────────────────────────────────────────────── */
 .table-wrapper {
   background: var(--color-card);
-  border: 1.5px solid var(--color-border);
+  border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
   overflow: hidden;
   box-shadow: var(--shadow-card);
@@ -672,7 +678,7 @@ const paidPercent = computed(() => {
 
 .farms-table { width: 100%; border-collapse: collapse; font-size: 0.875rem; }
 
-.farms-table thead { background: var(--color-background); }
+.farms-table thead { background: var(--color-surface); }
 
 .farms-table th {
   padding: 0.75rem 1rem;
@@ -735,11 +741,6 @@ const paidPercent = computed(() => {
   transition: opacity 0.15s;
 }
 .btn-primary:hover { opacity: 0.85; }
-
-.metric-card__icon--warning {
-  background: #fef3c7;
-  color: #d97706;
-}
 
 /* ── Responsividade ─────────────────────────────────────────────── */
 @media (max-width: 1024px) {
