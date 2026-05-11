@@ -29,8 +29,8 @@ const currentPage     = ref(0)
 const PAGE_SIZE       = 20
 
 const categoryConfig: Record<ExpenseCategory, { label: string; color: string; bg: string }> = {
-  INSUMO:  { label: 'Insumo',  color: '#059669', bg: '#d1fae5' },
-  SERVICO: { label: 'Serviço', color: '#2563eb', bg: '#dbeafe' },
+  INSUMO:  { label: 'Insumo',  color: 'var(--color-success)', bg: 'var(--color-success-light)' },
+  SERVICO: { label: 'Serviço', color: 'var(--color-info)',    bg: 'var(--color-info-light)' },
 }
 
 const activeFilterCount = computed(() =>
@@ -393,8 +393,9 @@ const lastVisiblePage  = computed<number>(() => visiblePages.value[visiblePages.
 }
 
 .transactions__title {
-  font-size: 1.5rem;
-  font-weight: 700;
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.75rem;
+  font-weight: 400;
   color: var(--color-text);
   letter-spacing: -0.02em;
 }
@@ -416,7 +417,7 @@ const lastVisiblePage  = computed<number>(() => visiblePages.value[visiblePages.
 .filter-select,
 .filter-input {
   padding: 0.5rem 0.75rem;
-  border: 1.5px solid var(--color-border);
+  border: 1px solid var(--color-border);
   border-radius: var(--radius-sm);
   background: var(--color-card);
   font-family: inherit;
@@ -435,7 +436,7 @@ const lastVisiblePage  = computed<number>(() => visiblePages.value[visiblePages.
   align-items: center;
   gap: 0.375rem;
   padding: 0.5rem 0.875rem;
-  border: 1.5px solid var(--color-error);
+  border: 1px solid var(--color-error);
   border-radius: var(--radius-sm);
   background: var(--color-error-light);
   font-family: inherit;
@@ -500,7 +501,7 @@ const lastVisiblePage  = computed<number>(() => visiblePages.value[visiblePages.
   gap: 0.625rem;
   padding: 0.625rem 1rem;
   background: var(--color-card);
-  border: 1.5px solid var(--color-border);
+  border: 1px solid var(--color-border);
   border-radius: var(--radius-sm);
   box-shadow: var(--shadow-card);
 }
@@ -517,7 +518,7 @@ const lastVisiblePage  = computed<number>(() => visiblePages.value[visiblePages.
   gap: 0.75rem;
   padding: 3rem;
   background: var(--color-card);
-  border: 1.5px solid var(--color-border);
+  border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
   text-align: center;
   color: var(--color-text-muted);
@@ -527,7 +528,7 @@ const lastVisiblePage  = computed<number>(() => visiblePages.value[visiblePages.
 
 .btn-clear-center {
   padding: 0.5rem 1.25rem;
-  border: 1.5px solid var(--color-primary);
+  border: 1px solid var(--color-primary);
   border-radius: var(--radius-sm);
   background: var(--color-primary-light);
   font-family: inherit;
@@ -542,7 +543,7 @@ const lastVisiblePage  = computed<number>(() => visiblePages.value[visiblePages.
 /* ── Tabela ─────────────────────────────────────────────────────── */
 .table-wrapper {
   background: var(--color-card);
-  border: 1.5px solid var(--color-border);
+  border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
   overflow: hidden;
   box-shadow: var(--shadow-card);
@@ -550,7 +551,7 @@ const lastVisiblePage  = computed<number>(() => visiblePages.value[visiblePages.
 }
 
 .transactions-table { width: 100%; border-collapse: collapse; font-size: 0.875rem; }
-.transactions-table thead { background: var(--color-background); }
+.transactions-table thead { background: var(--color-surface); }
 .transactions-table th {
   padding: 0.75rem 1rem;
   text-align: left;
@@ -559,7 +560,7 @@ const lastVisiblePage  = computed<number>(() => visiblePages.value[visiblePages.
   color: var(--color-text-muted);
   text-transform: uppercase;
   letter-spacing: 0.04em;
-  border-bottom: 1.5px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
 }
 .transactions-table__row { cursor: pointer; transition: background 0.12s; }
 .transactions-table__row:hover { background: var(--color-background); }
@@ -587,8 +588,8 @@ const lastVisiblePage  = computed<number>(() => visiblePages.value[visiblePages.
   font-weight: 600;
   white-space: nowrap;
 }
-.badge--paid    { background: #d1fae5; color: #059669; }
-.badge--pending { background: #fef3c7; color: #d97706; }
+.badge--paid    { background: var(--color-success-light); color: var(--color-success); }
+.badge--pending { background: var(--color-warning-light); color: var(--color-warning); }
 
 /* ── Cards mobile ───────────────────────────────────────────────── */
 .tx-cards { display: none; }
@@ -609,7 +610,7 @@ const lastVisiblePage  = computed<number>(() => visiblePages.value[visiblePages.
   min-width: 34px;
   height: 34px;
   padding: 0 0.5rem;
-  border: 1.5px solid var(--color-border);
+  border: 1px solid var(--color-border);
   border-radius: var(--radius-sm);
   background: var(--color-card);
   font-family: inherit;
@@ -658,7 +659,7 @@ const lastVisiblePage  = computed<number>(() => visiblePages.value[visiblePages.
 .tx-card {
   padding: 1rem;
   background: var(--color-card);
-  border: 1.5px solid var(--color-border);
+  border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
   cursor: pointer;
   transition: background 0.12s;
