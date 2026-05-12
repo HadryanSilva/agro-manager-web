@@ -1,4 +1,5 @@
 import api from './api'
+import { normalizeObjectResponse, type ObjectPayload } from './responseUtils'
 
 export interface RegisterPayload {
   name: string
@@ -20,13 +21,19 @@ export interface AuthTokens {
 
 const authService = {
   register: (payload: RegisterPayload) =>
-    api.post<{ data: AuthTokens }>('/auth/register', payload),
+    api
+      .post<{ data: ObjectPayload<AuthTokens> }>('/auth/register', payload)
+      .then(normalizeObjectResponse<AuthTokens>),
 
   login: (payload: LoginPayload) =>
-    api.post<{ data: AuthTokens }>('/auth/login', payload),
+    api
+      .post<{ data: ObjectPayload<AuthTokens> }>('/auth/login', payload)
+      .then(normalizeObjectResponse<AuthTokens>),
 
   refresh: (refreshToken: string) =>
-    api.post<{ data: AuthTokens }>('/auth/refresh', { refreshToken })
+    api
+      .post<{ data: ObjectPayload<AuthTokens> }>('/auth/refresh', { refreshToken })
+      .then(normalizeObjectResponse<AuthTokens>)
 }
 
 export default authService

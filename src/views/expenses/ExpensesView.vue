@@ -112,6 +112,7 @@ async function loadExpenses() {
     expenses.value = data.data
   } catch {
     error.value = 'Erro ao carregar despesas.'
+    expenses.value = []
   } finally {
     loading.value = false
   }

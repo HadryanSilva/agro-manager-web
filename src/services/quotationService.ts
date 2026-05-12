@@ -1,4 +1,10 @@
 import api from './api'
+import {
+  normalizeListResponse,
+  normalizeObjectResponse,
+  type ListPayload,
+  type ObjectPayload,
+} from './responseUtils'
 
 export interface QuotationResponse {
   id: string
@@ -39,16 +45,24 @@ export interface QuotationRequest {
 
 const quotationService = {
   create: (accountId: string, payload: QuotationRequest) =>
-    api.post<{ data: QuotationResponse }>(`/accounts/${accountId}/quotations`, payload),
+    api
+      .post<{ data: ObjectPayload<QuotationResponse> }>(`/accounts/${accountId}/quotations`, payload)
+      .then(normalizeObjectResponse<QuotationResponse>),
 
   listGrouped: (accountId: string) =>
-    api.get<{ data: QuotationGroupResponse[] }>(`/accounts/${accountId}/quotations`),
+    api
+      .get<{ data: ListPayload<QuotationGroupResponse> }>(`/accounts/${accountId}/quotations`)
+      .then(normalizeListResponse<QuotationGroupResponse>),
 
   getProductSuggestions: (accountId: string) =>
-    api.get<{ data: string[] }>(`/accounts/${accountId}/quotations/products`),
+    api
+      .get<{ data: ListPayload<string> }>(`/accounts/${accountId}/quotations/products`)
+      .then(normalizeListResponse<string>),
 
   update: (accountId: string, quotationId: string, payload: QuotationRequest) =>
-    api.put<{ data: QuotationResponse }>(`/accounts/${accountId}/quotations/${quotationId}`, payload),
+    api
+      .put<{ data: ObjectPayload<QuotationResponse> }>(`/accounts/${accountId}/quotations/${quotationId}`, payload)
+      .then(normalizeObjectResponse<QuotationResponse>),
 
   delete: (accountId: string, quotationId: string) =>
     api.delete(`/accounts/${accountId}/quotations/${quotationId}`),

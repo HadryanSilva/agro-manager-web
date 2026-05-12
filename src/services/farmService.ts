@@ -1,4 +1,5 @@
 import api from './api'
+import { normalizeListResponse, normalizeObjectResponse, type ListPayload, type ObjectPayload } from './responseUtils'
 
 export type AreaUnit = 'HECTARE' | 'ALQUEIRE'
 export type FarmStatus = 'EM_PREPARACAO' | 'EM_ANDAMENTO' | 'COLHIDA' | 'CANCELADA'
@@ -41,18 +42,26 @@ export interface FarmRequest {
 
 const farmService = {
   create: (accountId: string, payload: FarmRequest) =>
-    api.post<{ data: FarmResponse }>(`/accounts/${accountId}/farms`, payload),
+    api
+      .post<{ data: ObjectPayload<FarmResponse> }>(`/accounts/${accountId}/farms`, payload)
+      .then(normalizeObjectResponse<FarmResponse>),
 
   findAll: (accountId: string, status?: FarmStatus) =>
-    api.get<{ data: FarmResponse[] }>(`/accounts/${accountId}/farms`, {
-      params: status ? { status } : undefined
-    }),
+    api
+      .get<{ data: ListPayload<FarmResponse> }>(`/accounts/${accountId}/farms`, {
+        params: status ? { status } : undefined
+      })
+      .then(normalizeListResponse<FarmResponse>),
 
   findById: (accountId: string, farmId: string) =>
-    api.get<{ data: FarmResponse }>(`/accounts/${accountId}/farms/${farmId}`),
+    api
+      .get<{ data: ObjectPayload<FarmResponse> }>(`/accounts/${accountId}/farms/${farmId}`)
+      .then(normalizeObjectResponse<FarmResponse>),
 
   update: (accountId: string, farmId: string, payload: FarmRequest) =>
-    api.put<{ data: FarmResponse }>(`/accounts/${accountId}/farms/${farmId}`, payload),
+    api
+      .put<{ data: ObjectPayload<FarmResponse> }>(`/accounts/${accountId}/farms/${farmId}`, payload)
+      .then(normalizeObjectResponse<FarmResponse>),
 
   delete: (accountId: string, farmId: string) =>
     api.delete(`/accounts/${accountId}/farms/${farmId}`)

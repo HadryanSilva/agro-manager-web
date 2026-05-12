@@ -1,5 +1,6 @@
 import api from './api'
 import type { AreaUnit, FarmStatus } from './farmService'
+import { normalizeObjectResponse, type ObjectPayload } from './responseUtils'
 
 // Projeção leve de lavoura para o feed de atividade recente
 export interface RecentFarm {
@@ -40,7 +41,9 @@ export interface DashboardSummary {
 
 const dashboardService = {
   getSummary: (accountId: string) =>
-    api.get<{ data: DashboardSummary }>(`/accounts/${accountId}/dashboard`)
+    api
+      .get<{ data: ObjectPayload<DashboardSummary> }>(`/accounts/${accountId}/dashboard`)
+      .then(normalizeObjectResponse<DashboardSummary>)
 }
 
 export default dashboardService
