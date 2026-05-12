@@ -222,6 +222,15 @@ const paidPercent = computed(() => {
       <!-- ── Distribuição por status ────────────────────────────────── -->
       <div class="section">
         <h2 class="section__title">Distribuição por status</h2>
+        <div v-if="summary.totalFarms > 0" class="status-overview-bar">
+          <div
+            v-for="(cfg, key) in statusConfig"
+            :key="key"
+            class="status-overview-bar__segment"
+            :style="{ width: statusPercent(summary[cfg.summaryKey]) + '%', background: cfg.color }"
+            :title="`${cfg.label}: ${summary[cfg.summaryKey]} (${statusPercent(summary[cfg.summaryKey])}%)`"
+          />
+        </div>
         <div class="status-grid">
           <div
             v-for="(cfg, key) in statusConfig"
@@ -261,7 +270,12 @@ const paidPercent = computed(() => {
 
         <!-- Estado vazio -->
         <div v-if="summary.recentFarms.length === 0" class="empty-state">
-          <span class="empty-state__icon">🌱</span>
+          <span class="empty-state__icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z"/>
+              <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/>
+            </svg>
+          </span>
           <p>Nenhuma lavoura cadastrada ainda.</p>
           <button class="btn-primary" @click="router.push({ name: 'farm-create' })">
             Cadastrar primeira lavoura
@@ -288,7 +302,9 @@ const paidPercent = computed(() => {
                   v-for="farm in summary.recentFarms"
                   :key="farm.id"
                   class="farms-table__row"
+                  tabindex="0"
                   @click="router.push({ name: 'farm-edit', params: { farmId: farm.id } })"
+                  @keydown.enter="router.push({ name: 'farm-edit', params: { farmId: farm.id } })"
                 >
                   <td class="farms-table__name">{{ farm.name }}</td>
                   <td>{{ formatArea(farm.areaValue, farm.areaUnit) }}</td>
@@ -333,7 +349,9 @@ const paidPercent = computed(() => {
               v-for="farm in summary.recentFarms"
               :key="farm.id"
               class="farm-card-mini"
+              tabindex="0"
               @click="router.push({ name: 'farm-edit', params: { farmId: farm.id } })"
+              @keydown.enter="router.push({ name: 'farm-edit', params: { farmId: farm.id } })"
             >
               <div class="farm-card-mini__top">
                 <span class="farm-card-mini__name">{{ farm.name }}</span>
@@ -543,9 +561,8 @@ const paidPercent = computed(() => {
 .link-btn:hover { opacity: 0.7; }
 
 /* ── Resumo financeiro ──────────────────────────────────────────── */
-/* Finance card — dark inverted surface, always forest green background */
 .finance-card {
-  background: #1b3a2d;
+  background: var(--_fc-bg, #1b3a2d);
   border-radius: var(--radius-md);
   padding: 1.25rem 1.5rem;
 }
@@ -566,7 +583,7 @@ const paidPercent = computed(() => {
 .finance-total__label {
   font-size: 0.75rem;
   font-weight: 700;
-  color: rgba(109, 191, 153, 0.75);
+  color: var(--_fc-label-color, rgba(109, 191, 153, 0.75));
   text-transform: uppercase;
   letter-spacing: 0.08em;
 }
@@ -575,27 +592,27 @@ const paidPercent = computed(() => {
   font-family: var(--font-display);
   font-size: 1.25rem;
   font-weight: 400;
-  color: #e8f0ea;
+  color: var(--_fc-text-color, #e8f0ea);
   letter-spacing: -0.01em;
   word-break: break-word;
 }
 
-.finance-total--paid    .finance-total__value { color: #6dbf99; }
-.finance-total--pending .finance-total__value { color: #c9a96e; }
+.finance-total--paid    .finance-total__value { color: var(--_fc-paid-color, #6dbf99); }
+.finance-total--pending .finance-total__value { color: var(--_fc-pending-color, #c9a96e); }
 
 .finance-card__progress { display: flex; align-items: center; gap: 0.875rem; }
 
 .finance-bar-track {
   flex: 1;
   height: 4px;
-  background: rgba(255, 255, 255, 0.1);
+  background: var(--_fc-bar-track, rgba(255, 255, 255, 0.1));
   border-radius: 2px;
   overflow: hidden;
 }
 
 .finance-bar-fill {
   height: 100%;
-  background: #6dbf99;
+  background: var(--_fc-bar-fill, #6dbf99);
   border-radius: 2px;
   transition: width 0.6s ease;
 }
@@ -603,15 +620,32 @@ const paidPercent = computed(() => {
 .finance-bar-label {
   font-size: 0.875rem;
   font-weight: 600;
-  color: #6dbf99;
+  color: var(--_fc-bar-label, #6dbf99);
   white-space: nowrap;
 }
 
 .finance-card__empty {
   font-size: 0.875rem;
-  color: rgba(255, 255, 255, 0.5);
+  color: var(--_fc-empty-color, rgba(255, 255, 255, 0.5));
   text-align: center;
   padding: 0.5rem 0;
+}
+
+/* ── Barra de distribuição ──────────────────────────────────────── */
+.status-overview-bar {
+  display: flex;
+  height: 8px;
+  border-radius: 4px;
+  overflow: hidden;
+  background: var(--color-surface);
+  margin-bottom: 1rem;
+  gap: 2px;
+}
+
+.status-overview-bar__segment {
+  border-radius: 2px;
+  transition: width 0.6s ease;
+  min-width: 2px;
 }
 
 /* ── Grid de status ─────────────────────────────────────────────── */
@@ -627,7 +661,7 @@ const paidPercent = computed(() => {
 
 .status-card__header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.875rem; }
 
-.status-card__count { font-size: 1.5rem; font-weight: 700; color: var(--color-text); letter-spacing: -0.03em; }
+.status-card__count { font-family: var(--font-display); font-size: 1.5rem; font-weight: 400; color: var(--color-text); letter-spacing: -0.02em; }
 
 .status-card__bar-track { height: 6px; background: var(--color-background); border-radius: 3px; overflow: hidden; margin-bottom: 0.5rem; }
 
@@ -693,6 +727,7 @@ const paidPercent = computed(() => {
 
 .farms-table__row { cursor: pointer; transition: background 0.12s; }
 .farms-table__row:hover { background: var(--color-background); }
+.farms-table__row:focus-visible { outline: 2px solid var(--color-primary); outline-offset: -2px; background: var(--color-background); }
 
 .farms-table td {
   padding: 0.875rem 1rem;
@@ -726,7 +761,7 @@ const paidPercent = computed(() => {
   color: var(--color-text-muted);
   font-size: 0.875rem;
 }
-.empty-state__icon { font-size: 2.5rem; }
+.empty-state__icon { display: flex; color: var(--color-text-muted); opacity: 0.5; }
 
 .btn-primary {
   padding: 0.6rem 1.25rem;
@@ -776,6 +811,7 @@ const paidPercent = computed(() => {
     transition: background 0.12s;
   }
   .farm-card-mini:hover { background: var(--color-background); }
+  .farm-card-mini:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 2px; }
 
   .farm-card-mini__top {
     display: flex;
@@ -812,5 +848,21 @@ const paidPercent = computed(() => {
 @media (max-width: 400px) {
   .metrics-grid { grid-template-columns: 1fr; }
   .status-grid  { grid-template-columns: 1fr; }
+}
+</style>
+
+<style>
+[data-theme="dark"] .finance-card {
+  --_fc-bg: var(--color-card);
+  --_fc-label-color: var(--color-text-muted);
+  --_fc-text-color: var(--color-text);
+  --_fc-paid-color: var(--color-success);
+  --_fc-pending-color: var(--color-accent);
+  --_fc-bar-track: var(--color-border);
+  --_fc-bar-fill: var(--color-success);
+  --_fc-bar-label: var(--color-success);
+  --_fc-empty-color: var(--color-text-muted);
+  border: 1px solid var(--color-border);
+  border-left: 3px solid var(--color-primary);
 }
 </style>

@@ -112,7 +112,12 @@ function savingsPercent(group: QuotationGroupResponse): number {
 
     <!-- Card de economia total -->
     <div class="savings-banner" v-if="totalSavings > 0 && !loading">
-      <div class="savings-banner__icon">💰</div>
+      <div class="savings-banner__icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="12" y1="1" x2="12" y2="23"/>
+          <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+        </svg>
+      </div>
       <div class="savings-banner__text">
         <span class="savings-banner__value">{{ formatCurrency(totalSavings) }}</span>
         <span class="savings-banner__label">de economia potencial escolhendo os fornecedores mais baratos</span>
@@ -123,7 +128,13 @@ function savingsPercent(group: QuotationGroupResponse): number {
     <div v-if="loading" class="loading-state"><span class="spinner" /></div>
 
     <div v-else-if="groups.length === 0" class="empty-state">
-      <span class="empty-state__icon">📋</span>
+      <span class="empty-state__icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/>
+          <rect x="9" y="3" width="6" height="4" rx="2"/>
+          <line x1="9" y1="12" x2="15" y2="12"/><line x1="9" y1="16" x2="13" y2="16"/>
+        </svg>
+      </span>
       <p>Nenhuma cotação registrada ainda.</p>
       <button class="btn-primary" @click="router.push({ name: 'quotation-create' })">
         Registrar primeira cotação
@@ -293,7 +304,7 @@ function savingsPercent(group: QuotationGroupResponse): number {
   border: 1px solid var(--color-success);
   border-radius: var(--radius-md); margin-bottom: 1.25rem; flex-wrap: wrap;
 }
-.savings-banner__icon { font-size: 1.25rem; }
+.savings-banner__icon { display: flex; color: var(--color-success); }
 .savings-banner__text { display: flex; align-items: baseline; gap: 0.5rem; flex-wrap: wrap; }
 .savings-banner__value {
   font-size: 1.25rem;
@@ -321,7 +332,7 @@ function savingsPercent(group: QuotationGroupResponse): number {
   padding: 3rem; background: var(--color-card); border: 1px dashed var(--color-border);
   border-radius: var(--radius-md); text-align: center; color: var(--color-text-muted);
 }
-.empty-state__icon { font-size: 2.5rem; }
+.empty-state__icon { display: flex; color: var(--color-text-muted); opacity: 0.5; }
 
 /* ── Grupos ─────────────────────────────────────────────────────── */
 .groups-list { display: flex; flex-direction: column; gap: 0.75rem; }
