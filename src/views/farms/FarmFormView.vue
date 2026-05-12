@@ -348,7 +348,7 @@ async function handleSubmit() {
   border: 1.5px solid var(--color-border);
   border-radius: var(--radius-sm);
   font-family: inherit;
-  font-size: 0.9375rem;
+  font-size: 1rem;
   color: var(--color-text);
   background: var(--color-card);
   outline: none;
@@ -368,7 +368,7 @@ async function handleSubmit() {
   display: flex;
   align-items: center;
   gap: 0.625rem;
-  font-size: 0.9rem;
+  font-size: 0.875rem;
   color: var(--color-text);
   cursor: pointer;
 }
@@ -394,7 +394,7 @@ async function handleSubmit() {
   border: none;
   border-radius: var(--radius-sm);
   font-family: inherit;
-  font-size: 0.9375rem;
+  font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
   display: flex;
@@ -413,7 +413,7 @@ async function handleSubmit() {
   border: 1.5px solid var(--color-border);
   border-radius: var(--radius-sm);
   font-family: inherit;
-  font-size: 0.9375rem;
+  font-size: 1rem;
   font-weight: 500;
   cursor: pointer;
   transition: background 0.15s;

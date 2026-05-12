@@ -283,7 +283,7 @@ function savingsPercent(group: QuotationGroupResponse): number {
   display: flex; align-items: flex-start; justify-content: space-between;
   gap: 1rem; margin-bottom: 1.5rem; flex-wrap: wrap;
 }
-.quotations__title { font-family: 'DM Serif Display', serif; font-size: 1.75rem; font-weight: 400; color: var(--color-text); margin: 0 0 0.25rem; }
+.quotations__title { font-family: var(--font-display); font-size: 1.75rem; font-weight: 400; color: var(--color-text); margin: 0 0 0.25rem; }
 .quotations__subtitle { font-size: 0.875rem; color: var(--color-text-muted); margin: 0; }
 
 /* ── Banner de economia ─────────────────────────────────────────── */
@@ -338,12 +338,12 @@ function savingsPercent(group: QuotationGroupResponse): number {
 
 .group-card__info { display: flex; flex-direction: column; gap: 0.15rem; min-width: 140px; }
 .group-card__name { font-size: 1rem; font-weight: 700; color: var(--color-text); }
-.group-card__count { font-size: 0.78rem; color: var(--color-text-muted); }
+.group-card__count { font-size: 0.875rem; color: var(--color-text-muted); }
 
 .group-card__metrics { display: flex; gap: 1.5rem; flex: 1; flex-wrap: wrap; }
 
 .metric { display: flex; flex-direction: column; gap: 0.1rem; }
-.metric__label { font-size: 0.72rem; font-weight: 600; color: var(--color-text-muted); text-transform: uppercase; letter-spacing: 0.04em; }
+.metric__label { font-size: 0.75rem; font-weight: 600; color: var(--color-text-muted); text-transform: uppercase; letter-spacing: 0.04em; }
 .metric__value { font-size: 1rem; font-weight: 700; color: var(--color-text); }
 .metric__value--green   { color: var(--color-success); }
 .metric__value--red     { color: var(--color-error); }
@@ -351,7 +351,7 @@ function savingsPercent(group: QuotationGroupResponse): number {
 .metric__supplier { font-size: 0.75rem; color: var(--color-text-muted); }
 
 .savings-pct {
-  font-size: 0.72rem; font-weight: 600; color: var(--color-success);
+  font-size: 0.75rem; font-weight: 600; color: var(--color-success);
   background: var(--color-success-light); padding: 0.1rem 0.4rem; border-radius: 10px; width: fit-content;
 }
 
@@ -362,7 +362,7 @@ function savingsPercent(group: QuotationGroupResponse): number {
   border: 1px solid var(--color-primary);
   border-radius: var(--radius-sm);
   background: transparent;
-  font-family: inherit; font-size: 0.78rem; font-weight: 600;
+  font-family: inherit; font-size: 0.875rem; font-weight: 600;
   color: var(--color-primary);
   cursor: pointer; white-space: nowrap;
   transition: background 0.15s, color 0.15s;
@@ -383,7 +383,7 @@ function savingsPercent(group: QuotationGroupResponse): number {
 .group-card__bar { padding: 0 1.25rem 0.875rem; }
 .savings-bar {
   height: 24px; border-radius: var(--radius-sm); overflow: hidden;
-  display: flex; font-size: 0.72rem; font-weight: 600;
+  display: flex; font-size: 0.75rem; font-weight: 600;
 }
 .savings-bar__min {
   background: var(--color-primary); display: flex; align-items: center;
@@ -419,22 +419,22 @@ function savingsPercent(group: QuotationGroupResponse): number {
 
 .quotation-row__info { display: flex; flex-direction: column; gap: 0.2rem; flex: 1; min-width: 0; }
 .quotation-row__supplier {
-  font-size: 0.9rem; font-weight: 600; color: var(--color-text);
+  font-size: 0.875rem; font-weight: 600; color: var(--color-text);
   display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;
 }
 .best-badge {
   display: inline-flex; padding: 0.1rem 0.5rem; border-radius: 10px;
-  font-size: 0.7rem; font-weight: 700; background: var(--color-success-light); color: var(--color-success);
+  font-size: 0.75rem; font-weight: 700; background: var(--color-success-light); color: var(--color-success);
 }
 .quotation-row__meta {
-  font-size: 0.78rem; color: var(--color-text-muted);
+  font-size: 0.875rem; color: var(--color-text-muted);
   overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
 }
 .quotation-row__prices { display: flex; gap: 1.5rem; flex-shrink: 0; align-items: center; }
 .quotation-row__price-block { display: flex; flex-direction: column; gap: 0.1rem; text-align: right; }
 .quotation-row__unit-price { font-size: 1rem; font-weight: 700; color: var(--color-text); }
-.quotation-row__unit-label { font-size: 0.72rem; color: var(--color-text-muted); }
-.quotation-row__qty { font-size: 0.8rem; color: var(--color-text-muted); }
+.quotation-row__unit-label { font-size: 0.75rem; color: var(--color-text-muted); }
+.quotation-row__qty { font-size: 0.875rem; color: var(--color-text-muted); }
 .quotation-row__total { font-size: 0.875rem; font-weight: 600; color: var(--color-text); }
 .quotation-row__actions { display: flex; gap: 0.375rem; flex-shrink: 0; }
 

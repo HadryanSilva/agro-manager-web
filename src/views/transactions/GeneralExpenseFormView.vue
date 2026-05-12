@@ -217,13 +217,13 @@ async function handleSubmit() {
 .back-btn {
   display: inline-flex; align-items: center; gap: 0.375rem;
   background: none; border: none; font-family: inherit;
-  font-size: 0.85rem; font-weight: 500; color: var(--color-text-muted);
+  font-size: 0.875rem; font-weight: 500; color: var(--color-text-muted);
   cursor: pointer; padding: 0; margin-bottom: 0.75rem; transition: color 0.15s;
 }
 .back-btn:hover { color: var(--color-primary); }
 
 .expense-form__title {
-  font-family: 'DM Serif Display', serif; font-size: 1.75rem; font-weight: 400; color: var(--color-text); letter-spacing: -0.02em;
+  font-family: var(--font-display); font-size: 1.75rem; font-weight: 400; color: var(--color-text); letter-spacing: -0.02em;
 }
 .expense-form__subtitle {
   margin-top: 0.2rem; font-size: 0.875rem; color: var(--color-text-muted); margin-bottom: 1.75rem;
@@ -250,17 +250,17 @@ async function handleSubmit() {
   display: flex; flex-direction: column; gap: 1rem;
 }
 .form-section__title {
-  font-size: 0.8125rem; font-weight: 600; color: var(--color-text-muted);
+  font-size: 0.875rem; font-weight: 600; color: var(--color-text-muted);
   letter-spacing: 0.04em; text-transform: uppercase;
 }
 .form-row { display: flex; gap: 1rem; flex-wrap: wrap; }
 .form-field { display: flex; flex-direction: column; gap: 0.375rem; }
 .form-field--grow { flex: 1; min-width: 180px; }
-.form-label { font-size: 0.8125rem; font-weight: 600; color: var(--color-text); display: flex; align-items: center; gap: 0.5rem; }
+.form-label { font-size: 0.875rem; font-weight: 600; color: var(--color-text); display: flex; align-items: center; gap: 0.5rem; }
 .form-input {
   padding: 0.625rem 0.875rem; background: var(--color-surface);
   border: 1px solid var(--color-border); border-radius: var(--radius-sm);
-  font-family: inherit; font-size: 0.9rem; color: var(--color-text);
+  font-family: inherit; font-size: 0.875rem; color: var(--color-text);
   transition: border-color 0.15s, box-shadow 0.15s; width: 100%; box-sizing: border-box;
 }
 .form-input:focus { outline: none; border-color: var(--color-border-focus); box-shadow: 0 0 0 3px rgba(27, 58, 45, 0.1); background: var(--color-card); }
@@ -278,7 +278,7 @@ async function handleSubmit() {
 .category-btn--insumo  { border-color: var(--color-success); color: var(--color-success); background: var(--color-success-light); }
 .category-btn--servico { border-color: var(--color-info);    color: var(--color-info);    background: var(--color-info-light); }
 
-.label-badge { padding: 0.15rem 0.5rem; border-radius: 12px; font-size: 0.7rem; font-weight: 600; }
+.label-badge { padding: 0.15rem 0.5rem; border-radius: 12px; font-size: 0.75rem; font-weight: 600; }
 .label-badge--paid    { background: var(--color-success-light); color: var(--color-success); }
 .label-badge--pending { background: var(--color-warning-light); color: var(--color-warning); }
 
@@ -287,14 +287,14 @@ async function handleSubmit() {
   display: inline-flex; align-items: center; gap: 0.5rem;
   padding: 0.65rem 1.5rem; background: var(--color-primary); color: #fff;
   border: none; border-radius: var(--radius-sm); font-family: inherit;
-  font-size: 0.9rem; font-weight: 600; cursor: pointer; transition: opacity 0.15s;
+  font-size: 0.875rem; font-weight: 600; cursor: pointer; transition: opacity 0.15s;
 }
 .btn-primary:disabled { opacity: 0.5; cursor: default; }
 .btn-primary:not(:disabled):hover { opacity: 0.85; }
 .btn-secondary {
   padding: 0.65rem 1.25rem; border: 1px solid var(--color-border);
   border-radius: var(--radius-sm); background: var(--color-card);
-  font-family: inherit; font-size: 0.9rem; font-weight: 500;
+  font-family: inherit; font-size: 0.875rem; font-weight: 500;
   color: var(--color-text-muted); cursor: pointer; transition: border-color 0.15s, color 0.15s;
 }
 .btn-secondary:not(:disabled):hover { border-color: var(--color-primary); color: var(--color-primary); }

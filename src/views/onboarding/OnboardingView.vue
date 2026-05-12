@@ -72,7 +72,7 @@ const router = useRouter()
 }
 
 .onboarding__title {
-  font-family: 'DM Serif Display', serif;
+  font-family: var(--font-display);
   font-size: 1.75rem;
   font-weight: 400;
   color: var(--color-text);
@@ -82,7 +82,7 @@ const router = useRouter()
 
 .onboarding__subtitle {
   margin-top: 0.625rem;
-  font-size: 0.9375rem;
+  font-size: 1rem;
   color: var(--color-text-muted);
   max-width: 420px;
   margin-inline: auto;
@@ -160,7 +160,7 @@ const router = useRouter()
 }
 
 .option-card__badge {
-  font-size: 0.7rem;
+  font-size: 0.75rem;
   font-weight: 500;
   padding: 0.125rem 0.5rem;
   background: #f3f4f6;

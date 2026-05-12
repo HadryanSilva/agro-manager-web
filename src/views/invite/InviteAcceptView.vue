@@ -179,7 +179,7 @@ async function handleAccept() {
 }
 .invite-card__brand-icon { font-size: 1.25rem; }
 .invite-card__brand-name {
-  font-family: 'DM Serif Display', serif;
+  font-family: var(--font-display);
   font-size: 1rem;
   font-style: italic;
   font-weight: 400;
@@ -195,7 +195,7 @@ async function handleAccept() {
   gap: 1rem;
   padding: 2rem 0;
   color: var(--color-text-muted);
-  font-size: 0.9rem;
+  font-size: 0.875rem;
 }
 
 .spinner {
@@ -239,20 +239,20 @@ async function handleAccept() {
   font-weight: 700;
   color: var(--color-text);
 }
-.invite-card__success p { font-size: 0.9rem; color: var(--color-text-muted); }
+.invite-card__success p { font-size: 0.875rem; color: var(--color-text-muted); }
 
 /* ── Body principal ─────────────────────────────────────────────── */
 .invite-card__body { display: flex; flex-direction: column; gap: 1rem; }
 
 .invite-card__title {
-  font-family: 'DM Serif Display', serif;
-  font-size: 1.375rem;
+  font-family: var(--font-display);
+  font-size: 1.5rem;
   font-weight: 400;
   color: var(--color-text);
   letter-spacing: -0.02em;
 }
 
-.invite-card__desc { font-size: 0.9rem; color: var(--color-text-muted); margin-top: -0.5rem; }
+.invite-card__desc { font-size: 0.875rem; color: var(--color-text-muted); margin-top: -0.5rem; }
 
 .invite-card__account {
   display: flex;
@@ -273,7 +273,7 @@ async function handleAccept() {
 .invite-card__role { font-size: 0.875rem; color: var(--color-primary); }
 
 .invite-card__by {
-  font-size: 0.8125rem;
+  font-size: 0.875rem;
   color: var(--color-text-muted);
 }
 
@@ -298,7 +298,7 @@ async function handleAccept() {
   border: none;
   border-radius: var(--radius-sm);
   font-family: inherit;
-  font-size: 0.9375rem;
+  font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
   transition: opacity 0.15s;
@@ -321,7 +321,7 @@ async function handleAccept() {
 .btn-primary:hover { opacity: 0.85; }
 
 .invite-card__hint {
-  font-size: 0.78rem;
+  font-size: 0.875rem;
   color: var(--color-text-placeholder);
   text-align: center;
 }

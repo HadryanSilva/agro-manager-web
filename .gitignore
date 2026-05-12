@@ -40,3 +40,8 @@ __screenshots__/
 
 # Environment
 .env
+
+### IA Agents ###
+.claude
+CLAUDE.md
+.superpowers

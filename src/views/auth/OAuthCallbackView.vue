@@ -51,7 +51,7 @@ onMounted(() => {
   align-items: center;
   gap: 1rem;
   color: var(--color-text-muted);
-  font-size: 0.9rem;
+  font-size: 0.875rem;
 }
 
 .callback__spinner {
@@ -73,7 +73,7 @@ onMounted(() => {
   flex-direction: column;
   gap: 1rem;
   color: var(--color-error);
-  font-size: 0.9rem;
+  font-size: 0.875rem;
 }
 
 .callback__error a {

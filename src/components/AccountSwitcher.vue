@@ -191,7 +191,7 @@ function getInitials(name: string): string {
   border-radius: var(--radius-sm);
   background: var(--color-primary-light);
   color: var(--color-primary);
-  font-size: 0.7rem;
+  font-size: 0.75rem;
   font-weight: 700;
   display: flex;
   align-items: center;
@@ -208,7 +208,7 @@ function getInitials(name: string): string {
 }
 
 .switcher-name {
-  font-size: 0.8125rem;
+  font-size: 0.875rem;
   font-weight: 600;
   color: var(--color-text);
   white-space: nowrap;
@@ -217,7 +217,7 @@ function getInitials(name: string): string {
 }
 
 .switcher-role {
-  font-size: 0.7rem;
+  font-size: 0.75rem;
   font-weight: 500;
 }
 
@@ -247,7 +247,7 @@ function getInitials(name: string): string {
 
 .dropdown-section-label {
   padding: 0.5rem 0.875rem 0.25rem;
-  font-size: 0.7rem;
+  font-size: 0.75rem;
   font-weight: 600;
   color: var(--color-text-muted);
   text-transform: uppercase;
@@ -291,7 +291,7 @@ function getInitials(name: string): string {
   border-radius: var(--radius-sm);
   background: var(--color-primary-light);
   color: var(--color-primary);
-  font-size: 0.65rem;
+  font-size: 0.75rem;
   font-weight: 700;
   display: flex;
   align-items: center;
@@ -313,7 +313,7 @@ function getInitials(name: string): string {
 }
 
 .dropdown-item__name {
-  font-size: 0.8125rem;
+  font-size: 0.875rem;
   font-weight: 600;
   color: var(--color-text);
   white-space: nowrap;
@@ -325,7 +325,7 @@ function getInitials(name: string): string {
   display: inline-flex;
   padding: 0.1rem 0.4rem;
   border-radius: 10px;
-  font-size: 0.65rem;
+  font-size: 0.75rem;
   font-weight: 600;
   width: fit-content;
 }
@@ -337,7 +337,7 @@ function getInitials(name: string): string {
 
 .dropdown-item--create {
   color: var(--color-text-muted);
-  font-size: 0.8125rem;
+  font-size: 0.875rem;
   font-weight: 500;
 }
 

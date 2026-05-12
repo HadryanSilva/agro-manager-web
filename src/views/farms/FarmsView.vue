@@ -242,7 +242,7 @@ function formatArea(value: number, unit: string) {
 }
 
 .farms__title {
-  font-family: 'DM Serif Display', serif;
+  font-family: var(--font-display);
   font-size: 1.75rem;
   font-weight: 400;
   color: var(--color-text);
@@ -268,7 +268,7 @@ function formatArea(value: number, unit: string) {
   border-radius: 20px;
   background: var(--color-card);
   font-family: inherit;
-  font-size: 0.8125rem;
+  font-size: 0.875rem;
   font-weight: 500;
   color: var(--color-text-muted);
   cursor: pointer;
@@ -372,7 +372,7 @@ function formatArea(value: number, unit: string) {
 }
 
 .farm-card__area {
-  font-size: 0.8125rem;
+  font-size: 0.875rem;
   color: var(--color-text-muted);
   margin-top: 0.125rem;
   display: block;
@@ -429,7 +429,7 @@ function formatArea(value: number, unit: string) {
 }
 
 .farm-card__date-value {
-  font-size: 0.8125rem;
+  font-size: 0.875rem;
   color: var(--color-text);
 }
 
@@ -447,7 +447,7 @@ function formatArea(value: number, unit: string) {
   border-radius: var(--radius-sm);
   background: none;
   font-family: inherit;
-  font-size: 0.8125rem;
+  font-size: 0.875rem;
   font-weight: 500;
   color: var(--color-text-muted);
   cursor: pointer;
@@ -478,7 +478,7 @@ function formatArea(value: number, unit: string) {
   border: none;
   border-radius: var(--radius-sm);
   font-family: inherit;
-  font-size: 0.9375rem;
+  font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
   transition: background 0.15s;

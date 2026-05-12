@@ -389,7 +389,7 @@ const paidPercent = computed(() => {
 }
 
 .dashboard__title {
-  font-family: 'DM Serif Display', serif;
+  font-family: var(--font-display);
   font-size: 1.75rem;
   font-weight: 400;
   color: var(--color-text);
@@ -489,7 +489,7 @@ const paidPercent = computed(() => {
 .metric-card__body { display: flex; flex-direction: column; gap: 0.2rem; min-width: 0; }
 
 .metric-card__value {
-  font-family: 'DM Serif Display', serif;
+  font-family: var(--font-display);
   font-size: 1.75rem;
   font-weight: 400;
   color: var(--color-text);
@@ -497,14 +497,14 @@ const paidPercent = computed(() => {
   line-height: 1;
 }
 .metric-card__value--sm {
-  font-family: 'DM Serif Display', serif;
-  font-size: 1.15rem;
+  font-family: var(--font-display);
+  font-size: 1.125rem;
   font-weight: 400;
   letter-spacing: -0.01em;
 }
 
 .metric-card__label { 
-  font-size: 0.8rem; 
+  font-size: 0.875rem; 
   color: var(--color-text-muted); 
   white-space: normal; line-height: 1.3; 
 }
@@ -513,8 +513,8 @@ const paidPercent = computed(() => {
 .section { margin-bottom: 2rem; }
 
 .section__title {
-  font-family: 'DM Serif Display', serif;
-  font-size: 1.05rem;
+  font-family: var(--font-display);
+  font-size: 1rem;
   font-weight: 400;
   color: var(--color-text);
   margin-bottom: 1rem;
@@ -533,7 +533,7 @@ const paidPercent = computed(() => {
   background: none;
   border: none;
   font-family: inherit;
-  font-size: 0.85rem;
+  font-size: 0.875rem;
   font-weight: 500;
   color: var(--color-primary);
   cursor: pointer;
@@ -564,7 +564,7 @@ const paidPercent = computed(() => {
 }
 
 .finance-total__label {
-  font-size: 0.68rem;
+  font-size: 0.75rem;
   font-weight: 700;
   color: rgba(109, 191, 153, 0.75);
   text-transform: uppercase;
@@ -572,8 +572,8 @@ const paidPercent = computed(() => {
 }
 
 .finance-total__value {
-  font-family: 'DM Serif Display', serif;
-  font-size: 1.35rem;
+  font-family: var(--font-display);
+  font-size: 1.25rem;
   font-weight: 400;
   color: #e8f0ea;
   letter-spacing: -0.01em;
@@ -601,7 +601,7 @@ const paidPercent = computed(() => {
 }
 
 .finance-bar-label {
-  font-size: 0.78rem;
+  font-size: 0.875rem;
   font-weight: 600;
   color: #6dbf99;
   white-space: nowrap;
@@ -724,7 +724,7 @@ const paidPercent = computed(() => {
   border-radius: var(--radius-md);
   text-align: center;
   color: var(--color-text-muted);
-  font-size: 0.9rem;
+  font-size: 0.875rem;
 }
 .empty-state__icon { font-size: 2.5rem; }
 
@@ -754,12 +754,12 @@ const paidPercent = computed(() => {
   .metrics-grid { grid-template-columns: repeat(2, 1fr); gap: 0.75rem; }
   .metric-card  { padding: 1rem; gap: 0.75rem; }
   .metric-card__icon  { width: 36px; height: 36px; }
-  .metric-card__value { font-size: 1.375rem; }
-  .metric-card__value--sm { font-size: 0.95rem; }
+  .metric-card__value { font-size: 1.5rem; }
+  .metric-card__value--sm { font-size: 1rem; }
 
   .finance-card__totals { grid-template-columns: 1fr; gap: 0.75rem; margin-bottom: 1rem; }
 
-  .finance-total__value { font-size: 1.1rem; }
+  .finance-total__value { font-size: 1.125rem; }
 
   .status-grid { grid-template-columns: repeat(2, 1fr); gap: 0.75rem; }
 
@@ -786,7 +786,7 @@ const paidPercent = computed(() => {
   }
   .farm-card-mini__name {
     font-weight: 600;
-    font-size: 0.9rem;
+    font-size: 0.875rem;
     color: var(--color-text);
     overflow: hidden;
     text-overflow: ellipsis;
@@ -795,7 +795,7 @@ const paidPercent = computed(() => {
   .farm-card-mini__meta {
     display: flex;
     gap: 1rem;
-    font-size: 0.8rem;
+    font-size: 0.875rem;
     color: var(--color-text-muted);
     flex-wrap: wrap;
     margin-bottom: 0.5rem;
@@ -806,7 +806,7 @@ const paidPercent = computed(() => {
     align-items: center;
     flex-wrap: wrap;
   }
-  .finance-label { font-size: 0.8rem; color: var(--color-text-muted); }
+  .finance-label { font-size: 0.875rem; color: var(--color-text-muted); }
 }
 
 @media (max-width: 400px) {

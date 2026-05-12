@@ -82,7 +82,7 @@ function logout() {
   border-radius: var(--radius-sm);
   background: var(--color-card);
   font-family: inherit;
-  font-size: 0.8125rem;
+  font-size: 0.875rem;
   font-weight: 500;
   color: var(--color-text-muted);
   cursor: pointer;

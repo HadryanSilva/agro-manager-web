@@ -313,13 +313,13 @@ async function handleSubmit() {
 
 .back-btn {
   display: inline-flex; align-items: center; gap: 0.375rem; background: none; border: none;
-  font-family: inherit; font-size: 0.85rem; font-weight: 500; color: var(--color-text-muted);
+  font-family: inherit; font-size: 0.875rem; font-weight: 500; color: var(--color-text-muted);
   cursor: pointer; padding: 0; margin-bottom: 0.75rem; transition: color 0.15s;
 }
 .back-btn:hover { color: var(--color-primary); }
 
 .quotation-form__title {
-  font-family: 'DM Serif Display', serif; font-size: 1.75rem; font-weight: 400; color: var(--color-text);
+  font-family: var(--font-display); font-size: 1.75rem; font-weight: 400; color: var(--color-text);
   letter-spacing: -0.02em; margin-bottom: 1.75rem;
 }
 
@@ -345,7 +345,7 @@ async function handleSubmit() {
 }
 
 .form-section__title {
-  font-size: 0.8125rem; font-weight: 600; color: var(--color-text-muted);
+  font-size: 0.875rem; font-weight: 600; color: var(--color-text-muted);
   text-transform: uppercase; letter-spacing: 0.04em;
 }
 
@@ -353,14 +353,14 @@ async function handleSubmit() {
 .form-field { display: flex; flex-direction: column; gap: 0.375rem; }
 .form-field--grow { flex: 1; min-width: 150px; }
 .form-label {
-  font-size: 0.8125rem; font-weight: 600; color: var(--color-text);
+  font-size: 0.875rem; font-weight: 600; color: var(--color-text);
   display: flex; align-items: center; gap: 0.5rem;
 }
 
 .form-input {
   padding: 0.625rem 0.875rem; background: var(--color-surface);
   border: 1px solid var(--color-border); border-radius: var(--radius-sm);
-  font-family: inherit; font-size: 0.9rem; color: var(--color-text);
+  font-family: inherit; font-size: 0.875rem; color: var(--color-text);
   width: 100%; box-sizing: border-box; transition: border-color 0.15s, box-shadow 0.15s;
 }
 .form-input:focus { outline: none; border-color: var(--color-border-focus); box-shadow: 0 0 0 3px rgba(27, 58, 45, 0.1); background: var(--color-card); }
@@ -378,7 +378,7 @@ async function handleSubmit() {
 
 /* Badge "fixado" ao lado do label */
 .locked-badge {
-  display: inline-block; font-size: 0.7rem; font-weight: 600;
+  display: inline-block; font-size: 0.75rem; font-weight: 600;
   padding: 0.1rem 0.45rem; border-radius: 999px;
   background: var(--color-primary-light); color: var(--color-primary);
 }
@@ -412,7 +412,7 @@ async function handleSubmit() {
 .btn-primary {
   display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.65rem 1.5rem;
   background: var(--color-primary); color: #fff; border: none;
-  border-radius: var(--radius-sm); font-family: inherit; font-size: 0.9rem;
+  border-radius: var(--radius-sm); font-family: inherit; font-size: 0.875rem;
   font-weight: 600; cursor: pointer; transition: opacity 0.15s;
 }
 .btn-primary:disabled { opacity: 0.5; cursor: default; }
@@ -421,7 +421,7 @@ async function handleSubmit() {
 .btn-secondary {
   padding: 0.65rem 1.25rem; border: 1px solid var(--color-border);
   border-radius: var(--radius-sm); background: var(--color-card); font-family: inherit;
-  font-size: 0.9rem; font-weight: 500; color: var(--color-text-muted); cursor: pointer;
+  font-size: 0.875rem; font-weight: 500; color: var(--color-text-muted); cursor: pointer;
   transition: border-color 0.15s, color 0.15s;
 }
 .btn-secondary:not(:disabled):hover { border-color: var(--color-primary); color: var(--color-primary); }

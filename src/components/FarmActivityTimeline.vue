@@ -254,12 +254,12 @@ function formatDateTime(date: string): string {
 .note-box__btn:not(:disabled):hover { opacity: 0.85; }
 
 .note-box__hint {
-  font-size: 0.72rem;
+  font-size: 0.75rem;
   color: var(--color-text-placeholder);
 }
 
 .note-box__error {
-  font-size: 0.8rem;
+  font-size: 0.875rem;
   color: var(--color-error);
 }
 
@@ -295,7 +295,7 @@ function formatDateTime(date: string): string {
   border: 1.5px dashed var(--color-border);
   border-radius: var(--radius-md);
 }
-.empty-state__hint { margin-top: 0.375rem; font-size: 0.8rem; }
+.empty-state__hint { margin-top: 0.375rem; font-size: 0.875rem; }
 
 /* ── Timeline ───────────────────────────────────────────────────── */
 .timeline__list { display: flex; flex-direction: column; }
@@ -344,7 +344,7 @@ function formatDateTime(date: string): string {
 }
 
 .timeline__type-label {
-  font-size: 0.78rem;
+  font-size: 0.875rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.04em;
@@ -383,7 +383,7 @@ function formatDateTime(date: string): string {
 .author-avatar--initials {
   background: var(--color-primary-light);
   color: var(--color-primary);
-  font-size: 0.55rem;
+  font-size: 0.75rem;
   font-weight: 700;
   display: flex;
   align-items: center;

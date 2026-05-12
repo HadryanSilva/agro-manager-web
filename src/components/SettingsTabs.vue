@@ -41,7 +41,7 @@ const tabs = [
   border-bottom: 2px solid transparent;
   margin-bottom: -1.5px;
   font-family: inherit;
-  font-size: 0.9rem;
+  font-size: 0.875rem;
   font-weight: 500;
   color: var(--color-text-muted);
   cursor: pointer;

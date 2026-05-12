@@ -225,9 +225,9 @@ function logout() {
 }
 
 .sidebar__brand-name {
-  font-family: 'DM Serif Display', serif;
+  font-family: var(--font-display);
   font-style: italic;
-  font-size: 1.05rem;
+  font-size: 1rem;
   color: var(--color-text);
   letter-spacing: -0.01em;
   line-height: 1;
@@ -333,7 +333,7 @@ function logout() {
 }
 
 .topbar__brand {
-  font-family: 'DM Serif Display', serif;
+  font-family: var(--font-display);
   font-style: italic;
   font-size: 1rem;
   color: var(--color-text);
@@ -414,8 +414,8 @@ function logout() {
 }
 
 .sidebar__user-initials {
-  font-family: 'DM Serif Display', serif;
-  font-size: 0.7rem;
+  font-family: var(--font-display);
+  font-size: 0.75rem;
   color: var(--color-primary-light);
 }
 
@@ -427,7 +427,7 @@ function logout() {
 }
 
 .sidebar__user-name {
-  font-size: 0.825rem;
+  font-size: 0.875rem;
   font-weight: 600;
   color: var(--color-text);
   white-space: nowrap;
@@ -436,7 +436,7 @@ function logout() {
 }
 
 .sidebar__user-label {
-  font-size: 0.68rem;
+  font-size: 0.75rem;
   color: var(--color-text-muted);
 }
 </style>

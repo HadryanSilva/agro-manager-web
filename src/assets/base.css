@@ -2,6 +2,21 @@
 
 /* ── Light Mode Tokens ──────────────────────────────────────────── */
 :root {
+  /* Typography */
+  --font-body:    'DM Sans', sans-serif;
+  --font-display: 'DM Serif Display', serif;
+
+  /* Type Scale (base: 16px root) */
+  --text-xs:   0.75rem;   /* 12px */
+  --text-sm:   0.875rem;  /* 14px */
+  --text-base: 1rem;      /* 16px */
+  --text-md:   1.125rem;  /* 18px */
+  --text-lg:   1.25rem;   /* 20px */
+  --text-xl:   1.5rem;    /* 24px */
+  --text-2xl:  1.75rem;   /* 28px */
+  --text-3xl:  2rem;      /* 32px */
+  --text-4xl:  2.5rem;    /* 40px */
+  --text-5xl:  3rem;      /* 48px */
   /* Surfaces */
   --color-background:   #faf9f7;
   --color-surface:      #f5f2ed;
@@ -50,39 +65,38 @@
 
 /* ── Dark Mode Tokens ───────────────────────────────────────────── */
 [data-theme="dark"] {
-  --color-background:   #0e1612;
-  --color-surface:      #131d17;
-  --color-card:         #182318;
-  --color-border:       #2d4a38;
-  --color-border-focus: #8fc0a3;
+  --color-background:   #100f0d;
+  --color-surface:      #18170f;
+  --color-card:         #201f17;
+  --color-border:       #332f24;
+  --color-border-focus: #7ec49a;
 
-  --color-text:             #e8f0ea;
-  --color-text-muted:       #7b9e87;
-  --color-text-placeholder: #4d7a5e;
+  --color-text:             #eae8e0;
+  --color-text-muted:       #8a8272;
+  --color-text-placeholder: #524c3c;
 
-  /* In dark mode primary becomes sage green for readability over dark bg */
-  --color-primary:       #8fc0a3;
-  --color-primary-dark:  #7aaa8e;
-  --color-primary-light: #1a2e22;
+  --color-primary:       #7ec49a;
+  --color-primary-dark:  #68af84;
+  --color-primary-light: #101a12;
 
-  --color-accent:        #c9a96e;
-  --color-accent-light:  #2a2010;
+  --color-accent:        #d4aa5a;
+  --color-accent-light:  #221806;
 
-  --color-success:       #6dbf99;
-  --color-success-light: #0d2218;
+  --color-success:       #5cb87a;
+  --color-success-light: #0a1810;
 
   --color-warning:       #e9a84c;
-  --color-warning-light: #2a1e08;
+  --color-warning-light: #201506;
 
   --color-error:         #e57373;
-  --color-error-light:   #2a0d0d;
+  --color-error-light:   #1e0a0a;
 
   --color-info:          #64b5f6;
-  --color-info-light:    #0a1929;
+  --color-info-light:    #081525;
 
-  --shadow-card:       0 1px 3px rgba(0, 0, 0, 0.4), 0 4px 16px rgba(0, 0, 0, 0.35);
-  --shadow-card-hover: 0 2px 8px rgba(0, 0, 0, 0.5), 0 8px 24px rgba(0, 0, 0, 0.4);
-  --shadow-elevated:   0 4px 24px rgba(0, 0, 0, 0.5);
+  --shadow-card:       0 1px 3px rgba(0, 0, 0, 0.5), 0 4px 16px rgba(0, 0, 0, 0.4);
+  --shadow-card-hover: 0 2px 8px rgba(0, 0, 0, 0.6), 0 8px 24px rgba(0, 0, 0, 0.5);
+  --shadow-elevated:   0 4px 24px rgba(0, 0, 0, 0.6);
 }
 
 /* ── Global Reset ───────────────────────────────────────────────── */
@@ -98,8 +112,8 @@ body {
   min-height: 100vh;
   color: var(--color-text);
   background: var(--color-background);
-  font-family: 'DM Sans', sans-serif;
-  font-size: 15px;
+  font-family: var(--font-body);
+  font-size: var(--text-base);
   line-height: 1.6;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
