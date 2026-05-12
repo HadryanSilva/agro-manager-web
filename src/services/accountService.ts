@@ -1,4 +1,10 @@
 import api from './api'
+import {
+  normalizeListResponse,
+  normalizeObjectResponse,
+  type ListPayload,
+  type ObjectPayload,
+} from './responseUtils'
 
 export type AccountRole = 'OWNER' | 'ADMIN' | 'MEMBER'
 
@@ -16,10 +22,14 @@ export interface CreateAccountRequest {
 
 const accountService = {
   getUserAccounts: () =>
-    api.get<{ data: AccountResponse[] }>('/accounts'),
+    api
+      .get<{ data: ListPayload<AccountResponse> }>('/accounts')
+      .then(normalizeListResponse<AccountResponse>),
 
   createAccount: (data: CreateAccountRequest) =>
-    api.post<{ data: AccountResponse }>('/accounts', data),
+    api
+      .post<{ data: ObjectPayload<AccountResponse> }>('/accounts', data)
+      .then(normalizeObjectResponse<AccountResponse>),
 
   /**
    * Exclui permanentemente a conta.

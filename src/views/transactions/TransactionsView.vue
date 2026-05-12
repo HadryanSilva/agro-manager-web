@@ -154,7 +154,7 @@ const lastVisiblePage  = computed<number>(() => visiblePages.value[visiblePages.
     <div class="filters-bar">
 
       <!-- Lavoura / Conta geral -->
-      <select class="filter-select" v-model="filterFarmId" @change="applyFilters">
+      <select class="filter-select" v-model="filterFarmId" @change="applyFilters" aria-label="Filtrar por lavoura">
         <option value="">Todas</option>
         <option value="GENERAL">Conta geral</option>
         <option v-for="farm in farms" :key="farm.id" :value="farm.id">
@@ -163,14 +163,14 @@ const lastVisiblePage  = computed<number>(() => visiblePages.value[visiblePages.
       </select>
 
       <!-- Categoria -->
-      <select class="filter-select" v-model="filterCategory" @change="applyFilters">
+      <select class="filter-select" v-model="filterCategory" @change="applyFilters" aria-label="Filtrar por categoria">
         <option value="">Todas as categorias</option>
         <option value="INSUMO">Insumos</option>
         <option value="SERVICO">Serviços</option>
       </select>
 
       <!-- Status de pagamento -->
-      <select class="filter-select" v-model="filterPaid" @change="applyFilters">
+      <select class="filter-select" v-model="filterPaid" @change="applyFilters" aria-label="Status de pagamento">
         <option value="">Todos os status</option>
         <option value="false">A pagar</option>
         <option value="true">Pagas</option>
@@ -183,6 +183,7 @@ const lastVisiblePage  = computed<number>(() => visiblePages.value[visiblePages.
         v-model="filterStartDate"
         @change="applyFilters"
         title="Data de competência inicial"
+        aria-label="Data de competência inicial"
       />
 
       <!-- Data final -->
@@ -192,6 +193,7 @@ const lastVisiblePage  = computed<number>(() => visiblePages.value[visiblePages.
         v-model="filterEndDate"
         @change="applyFilters"
         title="Data de competência final"
+        aria-label="Data de competência final"
       />
 
       <!-- Limpar filtros -->
@@ -230,7 +232,12 @@ const lastVisiblePage  = computed<number>(() => visiblePages.value[visiblePages.
 
       <!-- Sem resultados -->
       <div v-if="result.content.length === 0" class="empty-state">
-        <span class="empty-state__icon">💸</span>
+        <span class="empty-state__icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <line x1="12" y1="1" x2="12" y2="23"/>
+              <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+            </svg>
+          </span>
         <p v-if="activeFilterCount > 0">Nenhuma transação encontrada com os filtros selecionados.</p>
         <p v-else>Nenhuma transação registrada ainda.</p>
         <button v-if="activeFilterCount > 0" class="btn-clear-center" @click="clearFilters">
@@ -260,7 +267,9 @@ const lastVisiblePage  = computed<number>(() => visiblePages.value[visiblePages.
                 v-for="tx in result.content"
                 :key="tx.id"
                 class="transactions-table__row"
+                tabindex="0"
                 @click="handleRowClick(tx)"
+                @keydown.enter="handleRowClick(tx)"
               >
                 <td class="col-desc">{{ tx.description }}</td>
                 <td class="col-farm">{{ tx.farmName ?? 'Conta geral' }}</td>
@@ -300,7 +309,9 @@ const lastVisiblePage  = computed<number>(() => visiblePages.value[visiblePages.
             v-for="tx in result.content"
             :key="`mob-${tx.id}`"
             class="tx-card"
+            tabindex="0"
             @click="handleRowClick(tx)"
+            @keydown.enter="handleRowClick(tx)"
           >
             <div class="tx-card__top">
               <span class="tx-card__desc">{{ tx.description }}</span>
@@ -524,7 +535,7 @@ const lastVisiblePage  = computed<number>(() => visiblePages.value[visiblePages.
   color: var(--color-text-muted);
   font-size: 0.875rem;
 }
-.empty-state__icon { font-size: 2.5rem; }
+.empty-state__icon { display: flex; color: var(--color-text-muted); opacity: 0.5; }
 
 .btn-clear-center {
   padding: 0.5rem 1.25rem;
@@ -564,6 +575,7 @@ const lastVisiblePage  = computed<number>(() => visiblePages.value[visiblePages.
 }
 .transactions-table__row { cursor: pointer; transition: background 0.12s; }
 .transactions-table__row:hover { background: var(--color-background); }
+.transactions-table__row:focus-visible { outline: 2px solid var(--color-primary); outline-offset: -2px; background: var(--color-background); }
 .transactions-table td {
   padding: 0.8rem 1rem;
   color: var(--color-text);
@@ -665,6 +677,7 @@ const lastVisiblePage  = computed<number>(() => visiblePages.value[visiblePages.
   transition: background 0.12s;
 }
 .tx-card:hover { background: var(--color-background); }
+.tx-card:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 2px; }
 .tx-card__top {
   display: flex;
   justify-content: space-between;

@@ -3,6 +3,7 @@ import { ref, computed, onMounted } from 'vue'
 import { RouterView, useRouter, useRoute } from 'vue-router'
 import { useAuthStore } from '@/stores/authStore'
 import { useUserStore } from '@/stores/userStore'
+import { useTraderStore } from '@/stores/traderStore'
 import ThemeToggle from '@/components/ThemeToggle.vue'
 import AccountSwitcher from '@/components/AccountSwitcher.vue'
 
@@ -11,8 +12,15 @@ const route = useRoute()
 const authStore = useAuthStore()
 
 // Controle da sidebar em mobile
-const sidebarOpen = ref(false)
-const userStore = useUserStore()
+const sidebarOpen  = ref(false)
+const userStore    = useUserStore()
+const traderStore  = useTraderStore()
+
+// Ativa o modo atravessador e navega para o dashboard do traversador
+function enterTraderMode() {
+  traderStore.enableTraderMode()
+  router.push({ name: 'trader-dashboard' })
+}
  
 onMounted(() => {
   userStore.fetchProfile()
@@ -37,6 +45,7 @@ const navItems = [
   {
     name: 'sales',
     label: 'Vendas',
+    comingSoon: true,
     icon: `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>`
   },
   {
@@ -63,7 +72,7 @@ function isActive(routeName: string): boolean {
     return current === 'reports' || current === 'farm-report'
   }
   if (routeName === 'settings-profile') {
-    return current === 'settings-profile' || current === 'settings-members'
+    return current === 'settings-profile' || current === 'settings-members' || current === 'settings-account'
   }
   if (routeName === 'farms') {
     return ['farms', 'farm-create', 'farm-edit', 'farm-expenses',
@@ -113,6 +122,24 @@ function logout() {
       <!-- Conta ativa -->
       <AccountSwitcher />
 
+      <!-- Botão de entrada no modo atravessador -->
+      <button class="trader-mode-btn" @click="enterTraderMode">
+        <span class="trader-mode-btn__icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <polyline points="17 1 21 5 17 9"/>
+            <path d="M3 11V9a4 4 0 0 1 4-4h14"/>
+            <polyline points="7 23 3 19 7 15"/>
+            <path d="M21 13v2a4 4 0 0 1-4 4H3"/>
+          </svg>
+        </span>
+        <span class="trader-mode-btn__text">Modo Atravessador</span>
+        <span class="trader-mode-btn__arrow">
+          <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <polyline points="9 18 15 12 9 6"/>
+          </svg>
+        </span>
+      </button>
+
       <!-- Navegação principal -->
       <nav class="sidebar__nav">
         <button
@@ -120,10 +147,12 @@ function logout() {
           :key="item.name"
           class="sidebar__nav-item"
           :class="{ 'sidebar__nav-item--active': isActive(item.name) }"
+          :disabled="item.comingSoon"
           @click="navigate(item.name)"
         >
           <span class="sidebar__nav-icon" v-html="item.icon" />
           <span>{{ item.label }}</span>
+          <span v-if="item.comingSoon" class="nav-badge">Em breve</span>
         </button>
       </nav>
 
@@ -274,6 +303,25 @@ function logout() {
 .sidebar__nav-item--danger:hover {
   background: var(--color-error-light);
   color: var(--color-error);
+}
+
+.sidebar__nav-item:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.nav-badge {
+  margin-left: auto;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 0.1rem 0.35rem;
+  border-radius: 4px;
+  background: var(--color-surface);
+  color: var(--color-text-muted);
+  border: 1px solid var(--color-border);
+  line-height: 1.4;
 }
 
 .sidebar__nav-icon {
@@ -438,5 +486,50 @@ function logout() {
 .sidebar__user-label {
   font-size: 0.75rem;
   color: var(--color-text-muted);
+}
+
+/* ── Botão modo atravessador ─────────────────────────────────────────────── */
+
+.trader-mode-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: calc(100% - 0.75rem);
+  margin: 0.25rem 0 0.75rem 0.375rem;
+  padding: 0.45rem 0.625rem;
+  border: 1px dashed var(--color-border);
+  border-radius: var(--radius-sm);
+  background: none;
+  font-family: inherit;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+  letter-spacing: 0.01em;
+}
+
+.trader-mode-btn:hover {
+  background: var(--color-warning-light, #fff8e6);
+  color: var(--color-warning, #b45309);
+  border-color: var(--color-warning-border, #fcd34d);
+  border-style: solid;
+}
+
+.trader-mode-btn__icon {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.trader-mode-btn__text {
+  flex: 1;
+}
+
+.trader-mode-btn__arrow {
+  display: flex;
+  align-items: center;
+  opacity: 0.5;
 }
 </style>

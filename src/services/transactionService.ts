@@ -1,5 +1,6 @@
 import api from './api'
 import type { ExpenseCategory } from './expenseService'
+import { normalizePagePayload } from './responseUtils'
 
 export interface TransactionResponse {
   id: string
@@ -33,7 +34,7 @@ export interface PageResponse<T> {
   totalElements: number
   totalPages: number
   last: boolean
-  totalValue: number
+  totalValue?: number
 }
 
 const transactionService = {
@@ -42,10 +43,17 @@ const transactionService = {
     const params = Object.fromEntries(
       Object.entries(filters).filter(([, v]) => v !== undefined && v !== '')
     )
-    return api.get<{ data: PageResponse<TransactionResponse> }>(
-      `/accounts/${accountId}/transactions`,
-      { params }
-    )
+    return api
+      .get<{ data: unknown }>(
+        `/accounts/${accountId}/transactions`,
+        { params }
+      )
+      .then((response) => ({
+        ...response,
+        data: {
+          data: normalizePagePayload<TransactionResponse>(response.data?.data) as PageResponse<TransactionResponse>,
+        },
+      }))
   }
 }
 
