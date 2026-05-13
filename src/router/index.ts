@@ -207,7 +207,7 @@ const router = createRouter({
         },
       ]
     },
-    // ── Modo Atravessador ──────────────────────────────────────────────────
+    // ── Modo Comprador ─────────────────────────────────────────────────────
     {
       path: '/trader',
       component: TraderLayout,
