@@ -16,7 +16,7 @@ const sidebarOpen  = ref(false)
 const userStore    = useUserStore()
 const traderStore  = useTraderStore()
 
-// Ativa o modo atravessador e navega para o dashboard do traversador
+// Ativa o modo comprador e navega para o dashboard do comprador
 function enterTraderMode() {
   traderStore.enableTraderMode()
   router.push({ name: 'trader-dashboard' })
@@ -122,7 +122,7 @@ function logout() {
       <!-- Conta ativa -->
       <AccountSwitcher />
 
-      <!-- Botão de entrada no modo atravessador -->
+      <!-- Botão de entrada no modo comprador -->
       <button class="trader-mode-btn" @click="enterTraderMode">
         <span class="trader-mode-btn__icon">
           <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
@@ -132,7 +132,7 @@ function logout() {
             <path d="M21 13v2a4 4 0 0 1-4 4H3"/>
           </svg>
         </span>
-        <span class="trader-mode-btn__text">Modo Atravessador</span>
+        <span class="trader-mode-btn__text">Modo Comprador</span>
         <span class="trader-mode-btn__arrow">
           <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
             <polyline points="9 18 15 12 9 6"/>
@@ -488,7 +488,7 @@ function logout() {
   color: var(--color-text-muted);
 }
 
-/* ── Botão modo atravessador ─────────────────────────────────────────────── */
+/* ── Botão modo comprador ───────────────────────────────────────────────── */
 
 .trader-mode-btn {
   display: flex;
