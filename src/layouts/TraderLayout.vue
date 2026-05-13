@@ -226,11 +226,10 @@ function logout() {
 }
 
 .sidebar__brand-name {
-  font-family: var(--font-display);
-  font-style: italic;
+  font-weight: 800;
   font-size: 1rem;
   color: var(--color-text);
-  letter-spacing: -0.01em;
+  letter-spacing: -0.02em;
   line-height: 1;
 }
 
@@ -377,7 +376,7 @@ function logout() {
 }
 
 .sidebar__user-initials {
-  font-family: var(--font-display);
+  font-weight: 700;
   font-size: 0.75rem;
   color: var(--color-primary-light);
 }
@@ -433,11 +432,10 @@ function logout() {
 }
 
 .topbar__brand {
-  font-family: var(--font-display);
-  font-style: italic;
+  font-weight: 800;
   font-size: 1rem;
   color: var(--color-text);
-  letter-spacing: -0.01em;
+  letter-spacing: -0.02em;
 }
 
 .topbar__mode-badge {
