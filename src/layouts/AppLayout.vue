@@ -254,11 +254,10 @@ function logout() {
 }
 
 .sidebar__brand-name {
-  font-family: var(--font-display);
-  font-style: italic;
   font-size: 1rem;
+  font-weight: 800;
   color: var(--color-text);
-  letter-spacing: -0.01em;
+  letter-spacing: -0.02em;
   line-height: 1;
 }
 
@@ -381,11 +380,10 @@ function logout() {
 }
 
 .topbar__brand {
-  font-family: var(--font-display);
-  font-style: italic;
   font-size: 1rem;
+  font-weight: 800;
   color: var(--color-text);
-  letter-spacing: -0.01em;
+  letter-spacing: -0.02em;
 }
 
 /* ── Overlay mobile ───────────────────────────────────────────────────────── */
@@ -462,8 +460,8 @@ function logout() {
 }
 
 .sidebar__user-initials {
-  font-family: var(--font-display);
   font-size: 0.75rem;
+  font-weight: 700;
   color: var(--color-primary-light);
 }
 
