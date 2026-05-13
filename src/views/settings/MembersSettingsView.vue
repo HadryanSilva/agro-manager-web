@@ -348,7 +348,7 @@ function getInitials(name: string): string {
 <style scoped>
 .members { padding: 2rem 1.5rem; max-width: 760px; }
 .members__header { margin-bottom: 1.5rem; }
-.members__title { font-family: var(--font-display); font-size: 1.75rem; font-weight: 400; color: var(--color-text); margin: 0; }
+.members__title { font-size: 1.75rem; font-weight: 700; color: var(--color-text); margin: 0; }
 
 .error-banner {
   padding: 0.75rem 1rem;

@@ -145,9 +145,8 @@ function formatArea(value: number, unit: string): string {
 
 /* ── Cabeçalho ──────────────────────────────────────────────────── */
 .reports__title {
-  font-family: var(--font-display);
   font-size: 1.75rem;
-  font-weight: 400;
+  font-weight: 700;
   color: var(--color-text);
   letter-spacing: -0.02em;
 }

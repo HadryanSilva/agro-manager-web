@@ -294,7 +294,7 @@ function savingsPercent(group: QuotationGroupResponse): number {
   display: flex; align-items: flex-start; justify-content: space-between;
   gap: 1rem; margin-bottom: 1.5rem; flex-wrap: wrap;
 }
-.quotations__title { font-family: var(--font-display); font-size: 1.75rem; font-weight: 400; color: var(--color-text); margin: 0 0 0.25rem; }
+.quotations__title { font-size: 1.75rem; font-weight: 700; color: var(--color-text); margin: 0 0 0.25rem; }
 .quotations__subtitle { font-size: 0.875rem; color: var(--color-text-muted); margin: 0; }
 
 /* ── Banner de economia ─────────────────────────────────────────── */
