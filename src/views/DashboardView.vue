@@ -407,9 +407,8 @@ const paidPercent = computed(() => {
 }
 
 .dashboard__title {
-  font-family: var(--font-display);
   font-size: 1.75rem;
-  font-weight: 400;
+  font-weight: 700;
   color: var(--color-text);
   letter-spacing: -0.02em;
   line-height: 1.2;
@@ -507,17 +506,15 @@ const paidPercent = computed(() => {
 .metric-card__body { display: flex; flex-direction: column; gap: 0.2rem; min-width: 0; }
 
 .metric-card__value {
-  font-family: var(--font-display);
   font-size: 1.75rem;
-  font-weight: 400;
+  font-weight: 700;
   color: var(--color-text);
   letter-spacing: -0.02em;
   line-height: 1;
 }
 .metric-card__value--sm {
-  font-family: var(--font-display);
   font-size: 1.125rem;
-  font-weight: 400;
+  font-weight: 700;
   letter-spacing: -0.01em;
 }
 
@@ -531,9 +528,8 @@ const paidPercent = computed(() => {
 .section { margin-bottom: 2rem; }
 
 .section__title {
-  font-family: var(--font-display);
   font-size: 1rem;
-  font-weight: 400;
+  font-weight: 700;
   color: var(--color-text);
   margin-bottom: 1rem;
   letter-spacing: -0.01em;
@@ -562,8 +558,9 @@ const paidPercent = computed(() => {
 
 /* ── Resumo financeiro ──────────────────────────────────────────── */
 .finance-card {
-  background: var(--_fc-bg, #1b3a2d);
+  background: var(--color-surface);
   border-radius: var(--radius-md);
+  border-left: 3px solid var(--color-primary);
   padding: 1.25rem 1.5rem;
 }
 
@@ -583,36 +580,35 @@ const paidPercent = computed(() => {
 .finance-total__label {
   font-size: 0.75rem;
   font-weight: 700;
-  color: var(--_fc-label-color, rgba(109, 191, 153, 0.75));
+  color: var(--color-text-muted);
   text-transform: uppercase;
   letter-spacing: 0.08em;
 }
 
 .finance-total__value {
-  font-family: var(--font-display);
   font-size: 1.25rem;
-  font-weight: 400;
-  color: var(--_fc-text-color, #e8f0ea);
+  font-weight: 700;
+  color: var(--color-text);
   letter-spacing: -0.01em;
   word-break: break-word;
 }
 
-.finance-total--paid    .finance-total__value { color: var(--_fc-paid-color, #6dbf99); }
-.finance-total--pending .finance-total__value { color: var(--_fc-pending-color, #c9a96e); }
+.finance-total--paid    .finance-total__value { color: var(--color-success); }
+.finance-total--pending .finance-total__value { color: var(--color-accent); }
 
 .finance-card__progress { display: flex; align-items: center; gap: 0.875rem; }
 
 .finance-bar-track {
   flex: 1;
   height: 4px;
-  background: var(--_fc-bar-track, rgba(255, 255, 255, 0.1));
+  background: var(--color-border);
   border-radius: 2px;
   overflow: hidden;
 }
 
 .finance-bar-fill {
   height: 100%;
-  background: var(--_fc-bar-fill, #6dbf99);
+  background: var(--color-success);
   border-radius: 2px;
   transition: width 0.6s ease;
 }
@@ -620,13 +616,13 @@ const paidPercent = computed(() => {
 .finance-bar-label {
   font-size: 0.875rem;
   font-weight: 600;
-  color: var(--_fc-bar-label, #6dbf99);
+  color: var(--color-success);
   white-space: nowrap;
 }
 
 .finance-card__empty {
   font-size: 0.875rem;
-  color: var(--_fc-empty-color, rgba(255, 255, 255, 0.5));
+  color: var(--color-text-muted);
   text-align: center;
   padding: 0.5rem 0;
 }
@@ -661,7 +657,7 @@ const paidPercent = computed(() => {
 
 .status-card__header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.875rem; }
 
-.status-card__count { font-family: var(--font-display); font-size: 1.5rem; font-weight: 400; color: var(--color-text); letter-spacing: -0.02em; }
+.status-card__count { font-size: 1.5rem; font-weight: 700; color: var(--color-text); letter-spacing: -0.02em; }
 
 .status-card__bar-track { height: 6px; background: var(--color-background); border-radius: 3px; overflow: hidden; margin-bottom: 0.5rem; }
 
@@ -848,21 +844,5 @@ const paidPercent = computed(() => {
 @media (max-width: 400px) {
   .metrics-grid { grid-template-columns: 1fr; }
   .status-grid  { grid-template-columns: 1fr; }
-}
-</style>
-
-<style>
-[data-theme="dark"] .finance-card {
-  --_fc-bg: var(--color-card);
-  --_fc-label-color: var(--color-text-muted);
-  --_fc-text-color: var(--color-text);
-  --_fc-paid-color: var(--color-success);
-  --_fc-pending-color: var(--color-accent);
-  --_fc-bar-track: var(--color-border);
-  --_fc-bar-fill: var(--color-success);
-  --_fc-bar-label: var(--color-success);
-  --_fc-empty-color: var(--color-text-muted);
-  border: 1px solid var(--color-border);
-  border-left: 3px solid var(--color-primary);
 }
 </style>
