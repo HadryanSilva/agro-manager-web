@@ -179,12 +179,10 @@ async function handleAccept() {
 }
 .invite-card__brand-icon { font-size: 1.25rem; }
 .invite-card__brand-name {
-  font-family: var(--font-display);
   font-size: 1rem;
-  font-style: italic;
   font-weight: 400;
   color: var(--color-text);
-  letter-spacing: -0.01em;
+  letter-spacing: -0.02em;
 }
 
 /* ── Loading ────────────────────────────────────────────────────── */
@@ -245,9 +243,8 @@ async function handleAccept() {
 .invite-card__body { display: flex; flex-direction: column; gap: 1rem; }
 
 .invite-card__title {
-  font-family: var(--font-display);
   font-size: 1.5rem;
-  font-weight: 400;
+  font-weight: 700;
   color: var(--color-text);
   letter-spacing: -0.02em;
 }
