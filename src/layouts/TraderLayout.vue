@@ -47,7 +47,7 @@ function navigate(name: string) {
   sidebarOpen.value = false
 }
 
-// Sai do modo atravessador e volta ao ambiente do produtor
+// Sai do modo comprador e volta ao ambiente do produtor
 function exitTraderMode() {
   traderStore.disableTraderMode()
   router.push({ name: 'dashboard' })
@@ -84,12 +84,12 @@ function logout() {
         <span class="sidebar__brand-name">Agro Manager</span>
       </div>
 
-      <!-- Badge do modo atravessador -->
+      <!-- Badge do modo comprador -->
       <div class="trader-badge">
         <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
           <polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/>
         </svg>
-        <span>Modo Atravessador</span>
+        <span>Modo Comprador</span>
       </div>
 
       <!-- Conta ativa -->
@@ -164,8 +164,8 @@ function logout() {
         </button>
         <div class="topbar__center">
           <span class="topbar__brand">Agro Manager</span>
-          <button class="topbar__exit-btn" @click="exitTraderMode" title="Sair do Modo Atravessador">
-            <span class="topbar__mode-badge">Atravessador</span>
+          <button class="topbar__exit-btn" @click="exitTraderMode" title="Sair do Modo Comprador">
+            <span class="topbar__mode-badge">Comprador</span>
             <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
               <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
             </svg>
@@ -234,7 +234,7 @@ function logout() {
   line-height: 1;
 }
 
-/* ── Badge modo atravessador ─────────────────────────────────────────────── */
+/* ── Badge modo comprador ───────────────────────────────────────────────── */
 .trader-badge {
   display: flex;
   align-items: center;

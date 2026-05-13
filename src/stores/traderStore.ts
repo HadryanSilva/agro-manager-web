@@ -4,7 +4,7 @@ import { defineStore } from 'pinia'
 const STORAGE_KEY = 'agro_trader_mode'
 
 /**
- * Store do modo atravessador.
+ * Store do modo comprador.
  * Controla se o usuário está operando no ambiente de compra/revenda.
  * A preferência é persistida no localStorage para sobreviver ao reload.
  */
