@@ -212,7 +212,7 @@ async function handleDeleteAccount() {
 .account-settings { padding: 2rem 1.5rem; max-width: 640px; }
 .account-settings__header { margin-bottom: 1.5rem; }
 .account-settings__title {
-  font-family: var(--font-display); font-size: 1.75rem; font-weight: 400; color: var(--color-text); margin: 0;
+  font-size: 1.75rem; font-weight: 700; color: var(--color-text); margin: 0;
 }
 
 /* ── Seções ─────────────────────────────────────────────────────── */

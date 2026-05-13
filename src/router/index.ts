@@ -4,6 +4,7 @@ import { useAccountStore } from '@/stores/accountStore'
 import AuthLayout from '@/layouts/AuthLayout.vue'
 import OnboardingLayout from '@/layouts/OnboardingLayout.vue'
 import AppLayout from '@/layouts/AppLayout.vue'
+import TraderLayout from '@/layouts/TraderLayout.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -203,6 +204,45 @@ const router = createRouter({
           path: 'account',
           name: 'settings-account',
           component: () => import('@/views/settings/AccountSettingsView.vue')
+        },
+      ]
+    },
+    // ── Modo Comprador ─────────────────────────────────────────────────────
+    {
+      path: '/trader',
+      component: TraderLayout,
+      meta: { requiresAuth: true, requiresAccount: true },
+      children: [
+        { path: '', redirect: { name: 'trader-dashboard' } },
+        {
+          path: 'dashboard',
+          name: 'trader-dashboard',
+          component: () => import('@/views/trader/TraderDashboardView.vue')
+        },
+        {
+          path: 'suppliers',
+          name: 'trader-suppliers',
+          component: () => import('@/views/trader/TradingSuppliersView.vue')
+        },
+        {
+          path: 'lots',
+          name: 'trader-lots',
+          component: () => import('@/views/trader/PurchaseLotsView.vue')
+        },
+        {
+          path: 'lots/new',
+          name: 'trader-lots-new',
+          component: () => import('@/views/trader/PurchaseLotFormView.vue')
+        },
+        {
+          path: 'lots/:lotId',
+          name: 'trader-lot-detail',
+          component: () => import('@/views/trader/PurchaseLotDetailView.vue')
+        },
+        {
+          path: 'lots/:lotId/edit',
+          name: 'trader-lot-edit',
+          component: () => import('@/views/trader/PurchaseLotFormView.vue')
         },
       ]
     },

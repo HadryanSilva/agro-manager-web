@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed, onMounted, watch } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { useAccountStore } from '@/stores/accountStore'
 import expenseService from '@/services/expenseService'
@@ -17,7 +17,7 @@ const accountId = computed(() => accountStore.selectedAccount?.id)
 
 const expenses   = ref<ExpenseResponse[]>([])
 const farmName   = ref('')
-const loading    = ref(true)
+const loading    = ref(false)
 const error      = ref('')
 const confirmModal = ref<{
   open: boolean
@@ -73,7 +73,21 @@ const categoryConfig: Record<ExpenseCategory, { label: string; color: string; bg
 }
 
 onMounted(async () => {
-  await Promise.all([loadFarm(), loadExpenses()])
+  // Se accountId não estiver disponível no mount (raro, mas defensivo),
+  // o watch abaixo dispara quando ele ficar disponível.
+  if (accountId.value) {
+    await Promise.all([loadFarm(), loadExpenses()])
+  } else {
+    loading.value = false
+  }
+})
+
+// Recarrega quando a conta ativa muda (ex.: troca via AccountSwitcher)
+watch(accountId, (newId, oldId) => {
+  if (newId && newId !== oldId) {
+    loadFarm()
+    loadExpenses()
+  }
 })
 
 async function loadFarm() {
@@ -87,7 +101,10 @@ async function loadFarm() {
 }
 
 async function loadExpenses() {
-  if (!accountId.value) return
+  if (!accountId.value) {
+    loading.value = false
+    return
+  }
   loading.value = true
   error.value   = ''
   try {
@@ -95,6 +112,7 @@ async function loadExpenses() {
     expenses.value = data.data
   } catch {
     error.value = 'Erro ao carregar despesas.'
+    expenses.value = []
   } finally {
     loading.value = false
   }
@@ -264,7 +282,12 @@ function formatDate(date: string | null): string {
 
       <!-- Vazio -->
       <div v-else-if="!loading && filtered.length === 0" class="empty-state">
-      <span class="empty-state__icon">💸</span>
+      <span class="empty-state__icon">
+      <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <line x1="12" y1="1" x2="12" y2="23"/>
+        <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+      </svg>
+      </span>
       <p v-if="expenses.length === 0">Nenhuma despesa registrada para esta lavoura.</p>
       <p v-else>Nenhuma despesa encontrada com os filtros selecionados.</p>
       <button
@@ -447,9 +470,8 @@ function formatDate(date: string | null): string {
 }
 
 .expenses__title {
-  font-family: var(--font-display);
   font-size: 1.75rem;
-  font-weight: 400;
+  font-weight: 700;
   color: var(--color-text);
   letter-spacing: -0.02em;
 }
@@ -569,7 +591,7 @@ function formatDate(date: string | null): string {
   color: var(--color-text-muted);
   font-size: 0.875rem;
 }
-.empty-state__icon { font-size: 2.5rem; }
+.empty-state__icon { display: flex; color: var(--color-text-muted); opacity: 0.5; }
 
 /* ── Tabela (desktop) ────────────────────────────────────────── */
 .table-wrapper {

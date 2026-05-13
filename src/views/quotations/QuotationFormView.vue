@@ -319,7 +319,7 @@ async function handleSubmit() {
 .back-btn:hover { color: var(--color-primary); }
 
 .quotation-form__title {
-  font-family: var(--font-display); font-size: 1.75rem; font-weight: 400; color: var(--color-text);
+  font-size: 1.75rem; font-weight: 700; color: var(--color-text);
   letter-spacing: -0.02em; margin-bottom: 1.75rem;
 }
 

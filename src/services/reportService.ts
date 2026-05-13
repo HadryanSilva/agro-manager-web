@@ -1,5 +1,6 @@
 import api from './api'
 import type { AreaUnit, FarmStatus } from './farmService'
+import { normalizeObjectResponse, type ObjectPayload } from './responseUtils'
 
 export interface MonthlyExpense {
   year: number
@@ -45,7 +46,9 @@ export interface FarmReportResponse {
 
 const reportService = {
   getFarmReport: (accountId: string, farmId: string) =>
-    api.get<{ data: FarmReportResponse }>(`/accounts/${accountId}/farms/${farmId}/report`)
+    api
+      .get<{ data: ObjectPayload<FarmReportResponse> }>(`/accounts/${accountId}/farms/${farmId}/report`)
+      .then(normalizeObjectResponse<FarmReportResponse>)
 }
 
 export default reportService

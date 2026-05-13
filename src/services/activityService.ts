@@ -1,4 +1,10 @@
 import api from './api'
+import {
+  normalizeListResponse,
+  normalizeObjectResponse,
+  type ListPayload,
+  type ObjectPayload,
+} from './responseUtils'
 
 export type FarmActivityType =
   | 'EXPENSE_CREATED'
@@ -20,15 +26,19 @@ export interface FarmActivityResponse {
 
 const activityService = {
   getActivities: (accountId: string, farmId: string) =>
-    api.get<{ data: FarmActivityResponse[] }>(
-      `/accounts/${accountId}/farms/${farmId}/activities`
-    ),
+    api
+      .get<{ data: ListPayload<FarmActivityResponse> }>(
+        `/accounts/${accountId}/farms/${farmId}/activities`
+      )
+      .then(normalizeListResponse<FarmActivityResponse>),
 
   addNote: (accountId: string, farmId: string, description: string) =>
-    api.post<{ data: FarmActivityResponse }>(
-      `/accounts/${accountId}/farms/${farmId}/activities/notes`,
-      { description }
-    ),
+    api
+      .post<{ data: ObjectPayload<FarmActivityResponse> }>(
+        `/accounts/${accountId}/farms/${farmId}/activities/notes`,
+        { description }
+      )
+      .then(normalizeObjectResponse<FarmActivityResponse>),
 }
 
 export default activityService

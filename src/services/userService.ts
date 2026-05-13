@@ -1,4 +1,5 @@
 import api from './api'
+import { normalizeObjectResponse, type ObjectPayload } from './responseUtils'
 
 export type AuthProvider = 'LOCAL' | 'GOOGLE'
 
@@ -14,10 +15,14 @@ export interface UserProfileResponse {
 
 const userService = {
   getProfile: () =>
-    api.get<{ data: UserProfileResponse }>('/users/me'),
+    api
+      .get<{ data: ObjectPayload<UserProfileResponse> }>('/users/me')
+      .then(normalizeObjectResponse<UserProfileResponse>),
 
   updateProfile: (payload: { name: string }) =>
-    api.put<{ data: UserProfileResponse }>('/users/me', payload),
+    api
+      .put<{ data: ObjectPayload<UserProfileResponse> }>('/users/me', payload)
+      .then(normalizeObjectResponse<UserProfileResponse>),
 
   changePassword: (payload: { currentPassword: string; newPassword: string }) =>
     api.put<{ data: null }>('/users/me/password', payload),

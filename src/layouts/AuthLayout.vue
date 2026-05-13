@@ -157,11 +157,9 @@ const features = [
 }
 
 .panel-brand__name {
-  font-family: var(--font-display);
-  font-style: italic;
   font-size: 1.25rem;
   color: #e8f0ea;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.02em;
 }
 
 /* ── Hero ───────────────────────────────────────────────────────── */
@@ -171,9 +169,8 @@ const features = [
 }
 
 .panel-hero__title {
-  font-family: var(--font-display);
   font-size: 2rem;
-  font-weight: 400;
+  font-weight: 700;
   color: #e8f0ea;
   letter-spacing: -0.02em;
   line-height: 1.25;
@@ -274,11 +271,9 @@ const features = [
 }
 
 .mobile-brand__name {
-  font-family: var(--font-display);
-  font-style: italic;
   font-size: 1.125rem;
   color: var(--color-text);
-  letter-spacing: -0.01em;
+  letter-spacing: -0.02em;
 }
 
 /* Card do formulário */
