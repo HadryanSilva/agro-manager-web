@@ -181,9 +181,8 @@ async function loadDashboard() {
 }
 
 .page-title {
-  font-family: var(--font-display);
   font-size: 1.75rem;
-  font-weight: 400;
+  font-weight: 700;
   color: var(--color-text);
   letter-spacing: -0.02em;
   line-height: 1.2;
@@ -229,9 +228,8 @@ async function loadDashboard() {
 }
 
 .kpi-card__value {
-  font-family: var(--font-display);
   font-size: 1.5rem;
-  font-weight: 400;
+  font-weight: 700;
   color: var(--color-text);
   letter-spacing: -0.02em;
   line-height: 1.2;
@@ -286,9 +284,8 @@ async function loadDashboard() {
 }
 
 .stat-card__value {
-  font-family: var(--font-display);
   font-size: 1.6rem;
-  font-weight: 400;
+  font-weight: 700;
   color: var(--color-text);
   letter-spacing: -0.02em;
   line-height: 1;
@@ -364,9 +361,8 @@ async function loadDashboard() {
 .section { margin-top: 1.5rem; }
 
 .section-title {
-  font-family: var(--font-display);
   font-size: 1rem;
-  font-weight: 400;
+  font-weight: 700;
   color: var(--color-text);
   letter-spacing: -0.01em;
   margin-bottom: 0.875rem;

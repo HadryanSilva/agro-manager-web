@@ -275,7 +275,7 @@ async function submit() {
 
 .back-btn:hover { color: var(--color-text); }
 
-.page-title { font-family: var(--font-display); font-size: 1.75rem; font-weight: 400; color: var(--color-text); letter-spacing: -0.02em; line-height: 1.2; margin: 0; }
+.page-title { font-size: 1.75rem; font-weight: 700; color: var(--color-text); letter-spacing: -0.02em; line-height: 1.2; margin: 0; }
 
 .form-layout { display: flex; flex-direction: column; gap: 1.25rem; }
 
@@ -290,7 +290,7 @@ async function submit() {
   box-shadow: var(--shadow-card);
 }
 
-.form-section-title { font-family: var(--font-display); font-size: 1rem; font-weight: 400; color: var(--color-text); letter-spacing: -0.01em; margin: 0; }
+.form-section-title { font-size: 1rem; font-weight: 700; color: var(--color-text); letter-spacing: -0.01em; margin: 0; }
 
 .section-header {
   display: flex;

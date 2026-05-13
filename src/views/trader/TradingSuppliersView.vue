@@ -245,7 +245,7 @@ async function confirmDelete() {
   margin-bottom: 1.5rem;
 }
 
-.page-title { font-family: var(--font-display); font-size: 1.75rem; font-weight: 400; color: var(--color-text); letter-spacing: -0.02em; line-height: 1.2; margin: 0 0 0.25rem; }
+.page-title { font-size: 1.75rem; font-weight: 700; color: var(--color-text); letter-spacing: -0.02em; line-height: 1.2; margin: 0 0 0.25rem; }
 .page-subtitle { font-size: 0.875rem; color: var(--color-text-muted); margin: 0; }
 
 /* Busca */

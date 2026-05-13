@@ -408,7 +408,7 @@ const saleTrucksTotal = (trucks: { quantityKg: number }[]) =>
   margin-bottom: 1.5rem;
 }
 
-.page-title { font-family: var(--font-display); font-size: 1.75rem; font-weight: 400; color: var(--color-text); letter-spacing: -0.02em; line-height: 1.2; margin: 0 0 0.25rem; }
+.page-title { font-size: 1.75rem; font-weight: 700; color: var(--color-text); letter-spacing: -0.02em; line-height: 1.2; margin: 0 0 0.25rem; }
 .page-subtitle { font-size: 0.875rem; color: var(--color-text-muted); margin: 0; }
 
 .header-actions { display: flex; align-items: center; gap: 0.625rem; }
@@ -448,7 +448,7 @@ const saleTrucksTotal = (trucks: { quantityKg: number }[]) =>
 .kpi-card--highlight.kpi-card--negative { background: var(--color-error-light); border-color: var(--color-error); }
 
 .kpi-card__label { font-size: 0.72rem; font-weight: 500; color: var(--color-text-muted); text-transform: uppercase; letter-spacing: 0.04em; }
-.kpi-card__value { font-family: var(--font-display); font-size: 1.25rem; font-weight: 400; color: var(--color-text); letter-spacing: -0.01em; }
+.kpi-card__value { font-size: 1.25rem; font-weight: 700; color: var(--color-text); letter-spacing: -0.01em; }
 .kpi-card__value--positive { color: var(--color-primary); }
 .kpi-card__value--negative { color: var(--color-error); }
 .kpi-card__value--warn { color: var(--color-warning, #b45309); }
@@ -483,7 +483,7 @@ const saleTrucksTotal = (trucks: { quantityKg: number }[]) =>
   margin-bottom: 1rem;
 }
 
-.section-title { font-family: var(--font-display); font-size: 1rem; font-weight: 400; color: var(--color-text); letter-spacing: -0.01em; margin: 0; }
+.section-title { font-size: 1rem; font-weight: 700; color: var(--color-text); letter-spacing: -0.01em; margin: 0; }
 
 /* Tabela caminhões compra */
 .trucks-table { border: 1px solid var(--color-border); border-radius: var(--radius-sm); overflow: hidden; }
