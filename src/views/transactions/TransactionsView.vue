@@ -226,7 +226,7 @@ const lastVisiblePage  = computed<number>(() => visiblePages.value[visiblePages.
         </div>
         <div class="summary-item summary-item--highlight">
           <span class="summary-item__label">Total filtrado</span>
-          <span class="summary-item__value">{{ formatCurrency(result.totalValue) }}</span>
+          <span class="summary-item__value">{{ formatCurrency(result.totalValue ?? 0) }}</span>
         </div>
       </div>
 
