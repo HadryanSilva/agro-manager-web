@@ -216,6 +216,22 @@ const saleTrucksTotal = (trucks: { quantityKg: number }[]) =>
         </span>
       </div>
 
+      <!-- Pedido do cliente vinculado -->
+      <div class="section-card customer-order-card">
+        <div class="customer-order-header">
+          <h2 class="section-title">Pedido do Cliente</h2>
+          <span class="order-status order-status--fulfilled">Atendido</span>
+        </div>
+        <div class="customer-order-info">
+          <div>
+            <p class="customer-order-name">{{ lot.customerName }}</p>
+            <p class="customer-order-sub">
+              Pedido vinculado · ID: {{ lot.customerOrderId.slice(0, 8) }}...
+            </p>
+          </div>
+        </div>
+      </div>
+
       <!-- Caminhões de compra -->
       <div class="section-card">
         <h2 class="section-title">Caminhões de Recebimento</h2>
@@ -475,6 +491,30 @@ const saleTrucksTotal = (trucks: { quantityKg: number }[]) =>
   margin-bottom: 1.25rem;
   box-shadow: var(--shadow-card);
 }
+
+.customer-order-card { border-left: 3px solid var(--color-primary); }
+
+.customer-order-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+}
+
+.customer-order-info { display: flex; align-items: center; gap: 1rem; }
+.customer-order-name { font-size: 1rem; font-weight: 700; color: var(--color-text); margin: 0 0 0.2rem; }
+.customer-order-sub { font-size: 0.8rem; color: var(--color-text-muted); margin: 0; }
+
+.order-status {
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 0.2rem 0.625rem;
+  border-radius: 20px;
+}
+
+.order-status--fulfilled { background: var(--color-primary-light); color: var(--color-primary); }
 
 .section-header {
   display: flex;
