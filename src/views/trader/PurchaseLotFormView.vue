@@ -21,7 +21,7 @@ const isEditing = computed(() => !!lotId.value)
 // Usar índice como :key em lista mutável causa bugs de DOM quando itens são removidos
 interface TruckRow extends PurchaseTruckRequest { _key: number }
 let _truckKeyCounter = 0
-const makeTruckRow = (): TruckRow => ({ truckPlate: '', quantityKg: 0, freightValue: 0, notes: '', _key: ++_truckKeyCounter })
+const makeTruckRow = (): TruckRow => ({ truckPlate: '', quantityKg: 0, freightValue: undefined, notes: '', _key: ++_truckKeyCounter })
 
 // Estado do formulário
 const supplierId   = ref('')
@@ -65,7 +65,7 @@ async function loadLot() {
     trucks.value = lot.purchaseTrucks.map(t => ({
       truckPlate: t.truckPlate,
       quantityKg: t.quantityKg,
-      freightValue: t.freightValue ?? 0,
+      freightValue: t.freightValue ?? undefined,
       notes: t.notes ?? '',
       _key: ++_truckKeyCounter,
     }))
@@ -113,6 +113,7 @@ async function submit() {
     trucks: trucks.value.map(t => ({
       truckPlate: t.truckPlate.toUpperCase().trim(),
       quantityKg: Number(t.quantityKg),
+      // freightValue omitted (undefined) when zero — backend treats absent key as "no freight"
       freightValue: Number(t.freightValue) > 0 ? Number(t.freightValue) : undefined,
       notes: t.notes || undefined,
     }))
