@@ -34,6 +34,7 @@ export interface TradingSupplierResponse {
 export interface PurchaseTruckRequest {
   truckPlate: string
   quantityKg: number
+  freightValue?: number
   notes?: string
 }
 
@@ -41,6 +42,7 @@ export interface PurchaseTruckResponse {
   id: string
   truckPlate: string
   quantityKg: number
+  freightValue: number | null
   notes: string | null
 }
 
