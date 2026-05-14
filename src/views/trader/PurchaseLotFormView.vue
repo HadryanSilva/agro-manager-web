@@ -21,7 +21,7 @@ const isEditing = computed(() => !!lotId.value)
 // Usar índice como :key em lista mutável causa bugs de DOM quando itens são removidos
 interface TruckRow extends PurchaseTruckRequest { _key: number }
 let _truckKeyCounter = 0
-const makeTruckRow = (): TruckRow => ({ truckPlate: '', quantityKg: 0, notes: '', _key: ++_truckKeyCounter })
+const makeTruckRow = (): TruckRow => ({ truckPlate: '', quantityKg: 0, freightValue: 0, notes: '', _key: ++_truckKeyCounter })
 
 // Estado do formulário
 const supplierId   = ref('')
@@ -65,6 +65,7 @@ async function loadLot() {
     trucks.value = lot.purchaseTrucks.map(t => ({
       truckPlate: t.truckPlate,
       quantityKg: t.quantityKg,
+      freightValue: t.freightValue ?? 0,
       notes: t.notes ?? '',
       _key: ++_truckKeyCounter,
     }))
@@ -84,8 +85,9 @@ function removeTruck(index: number) {
 }
 
 // Totais derivados reativamente — não duplicam estado
-const totalKg   = computed(() => trucks.value.reduce((sum, t) => sum + (Number(t.quantityKg) || 0), 0))
-const totalCost = computed(() => totalKg.value * (Number(pricePerKg.value) || 0))
+const totalKg      = computed(() => trucks.value.reduce((sum, t) => sum + (Number(t.quantityKg) || 0), 0))
+const totalCost    = computed(() => totalKg.value * (Number(pricePerKg.value) || 0))
+const totalFreight = computed(() => trucks.value.reduce((sum, t) => sum + (Number(t.freightValue) || 0), 0))
 
 // Validação e envio
 async function submit() {
@@ -111,6 +113,7 @@ async function submit() {
     trucks: trucks.value.map(t => ({
       truckPlate: t.truckPlate.toUpperCase().trim(),
       quantityKg: Number(t.quantityKg),
+      freightValue: Number(t.freightValue) > 0 ? Number(t.freightValue) : undefined,
       notes: t.notes || undefined,
     }))
   }
@@ -211,6 +214,10 @@ async function submit() {
                 <label class="form-label">Peso (Kg) *</label>
                 <input v-model="truck.quantityKg" type="number" step="0.01" min="0" class="form-input" placeholder="0,00" />
               </div>
+              <div class="form-group">
+                <label class="form-label">Frete (R$)</label>
+                <input v-model="truck.freightValue" type="number" step="0.01" min="0" class="form-input" placeholder="0,00" />
+              </div>
               <div class="form-group form-group--notes">
                 <label class="form-label">Obs.</label>
                 <input v-model="truck.notes" type="text" class="form-input" placeholder="Opcional" />
@@ -237,6 +244,10 @@ async function submit() {
         <div class="summary-item">
           <span class="summary-label">Total em Kg</span>
           <span class="summary-value">{{ kg(totalKg) }}</span>
+        </div>
+        <div class="summary-item">
+          <span class="summary-label">Total de Frete</span>
+          <span class="summary-value">{{ currency(totalFreight) }}</span>
         </div>
         <div class="summary-item summary-item--highlight">
           <span class="summary-label">Custo total estimado</span>
@@ -362,7 +373,7 @@ async function submit() {
 .truck-row__fields {
   flex: 1;
   display: grid;
-  grid-template-columns: 120px 1fr 1fr;
+  grid-template-columns: 120px 1fr 1fr 1fr;
   gap: 0.75rem;
 }
 
