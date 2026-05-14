@@ -10,6 +10,7 @@ import {
 // ── Tipos de status ───────────────────────────────────────────────────────────
 
 export type PurchaseLotStatus = 'OPEN' | 'CLOSED'
+export type CustomerOrderStatus = 'PENDING' | 'FULFILLED'
 
 // ── Fornecedores ──────────────────────────────────────────────────────────────
 
@@ -52,10 +53,21 @@ export interface PurchaseLotRequest {
   notes?: string
 }
 
+export interface CreatePurchaseLotRequest {
+  customerOrderId: string
+  supplierId: string
+  purchaseDate: string
+  pricePerKg: number
+  trucks: PurchaseTruckRequest[]
+  notes?: string
+}
+
 export interface PurchaseLotSummaryResponse {
   id: string
   supplierId: string
   supplierName: string
+  customerOrderId: string
+  customerName: string
   purchaseDate: string
   pricePerKg: number
   status: PurchaseLotStatus
@@ -91,6 +103,8 @@ export interface PurchaseLotDetailResponse {
   supplierId: string
   supplierName: string
   supplierCity: string | null
+  customerOrderId: string
+  customerName: string
   purchaseDate: string
   pricePerKg: number
   status: PurchaseLotStatus
@@ -134,6 +148,36 @@ export interface TradingDashboardResponse {
   totalRevenue: number
   grossMargin: number
   totalSuppliers: number
+}
+
+// ── Pedidos de clientes ───────────────────────────────────────────────────────
+
+export interface CustomerOrderRequest {
+  customerName: string
+  customerPhone?: string
+  customerDocument?: string
+  quantityKg: number
+  pricePerKg?: number
+  product: string
+  orderDate: string
+  deliveryDeadline?: string
+  notes?: string
+}
+
+export interface CustomerOrderResponse {
+  id: string
+  customerName: string
+  customerPhone: string | null
+  customerDocument: string | null
+  quantityKg: number
+  pricePerKg: number | null
+  product: string
+  orderDate: string
+  deliveryDeadline: string | null
+  status: CustomerOrderStatus
+  notes: string | null
+  createdAt: string
+  updatedAt: string
 }
 
 // ── PageResponse genérico (mesmo padrão do backend) ──────────────────────────
@@ -183,7 +227,7 @@ const tradingService = {
     api.delete(`/accounts/${accountId}/trading/suppliers/${supplierId}`),
 
   // Lotes de compra
-  createLot: (accountId: string, data: PurchaseLotRequest) =>
+  createLot: (accountId: string, data: CreatePurchaseLotRequest) =>
     api
       .post<{ data: ObjectPayload<PurchaseLotDetailResponse> }>(`/accounts/${accountId}/trading/purchases`, data)
       .then(normalizeObjectResponse<PurchaseLotDetailResponse>),
@@ -222,6 +266,30 @@ const tradingService = {
 
   deleteSale: (accountId: string, lotId: string, saleId: string) =>
     api.delete(`/accounts/${accountId}/trading/purchases/${lotId}/sales/${saleId}`),
+
+  // Pedidos de clientes
+  createOrder: (accountId: string, data: CustomerOrderRequest) =>
+    api
+      .post<{ data: ObjectPayload<CustomerOrderResponse> }>(`/accounts/${accountId}/trading/orders`, data)
+      .then(normalizeObjectResponse<CustomerOrderResponse>),
+
+  listOrders: (accountId: string, params?: { status?: CustomerOrderStatus }) =>
+    api
+      .get<{ data: ListPayload<CustomerOrderResponse> }>(`/accounts/${accountId}/trading/orders`, { params })
+      .then(normalizeListResponse<CustomerOrderResponse>),
+
+  getOrder: (accountId: string, orderId: string) =>
+    api
+      .get<{ data: ObjectPayload<CustomerOrderResponse> }>(`/accounts/${accountId}/trading/orders/${orderId}`)
+      .then(normalizeObjectResponse<CustomerOrderResponse>),
+
+  updateOrder: (accountId: string, orderId: string, data: CustomerOrderRequest) =>
+    api
+      .put<{ data: ObjectPayload<CustomerOrderResponse> }>(`/accounts/${accountId}/trading/orders/${orderId}`, data)
+      .then(normalizeObjectResponse<CustomerOrderResponse>),
+
+  deleteOrder: (accountId: string, orderId: string) =>
+    api.delete(`/accounts/${accountId}/trading/orders/${orderId}`),
 }
 
 export default tradingService
