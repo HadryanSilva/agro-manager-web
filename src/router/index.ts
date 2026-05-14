@@ -225,6 +225,21 @@ const router = createRouter({
           component: () => import('@/views/trader/TradingSuppliersView.vue')
         },
         {
+          path: 'orders',
+          name: 'trader-orders',
+          component: () => import('@/views/trader/CustomerOrdersView.vue')
+        },
+        {
+          path: 'orders/new',
+          name: 'trader-orders-new',
+          component: () => import('@/views/trader/CustomerOrderFormView.vue')
+        },
+        {
+          path: 'orders/:orderId/edit',
+          name: 'trader-orders-edit',
+          component: () => import('@/views/trader/CustomerOrderFormView.vue')
+        },
+        {
           path: 'lots',
           name: 'trader-lots',
           component: () => import('@/views/trader/PurchaseLotsView.vue')

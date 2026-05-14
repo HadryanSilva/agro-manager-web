@@ -4,7 +4,7 @@ import { useRouter, useRoute } from 'vue-router'
 import { useAccountStore } from '@/stores/accountStore'
 import { useTraderFormatters } from '@/composables/useTraderFormatters'
 import tradingService from '@/services/tradingService'
-import type { TradingSupplierResponse, PurchaseTruckRequest } from '@/services/tradingService'
+import type { TradingSupplierResponse, PurchaseTruckRequest, CustomerOrderResponse } from '@/services/tradingService'
 
 const router       = useRouter()
 const route        = useRoute()
@@ -30,6 +30,11 @@ const pricePerKg   = ref<number | ''>('')
 const notes        = ref('')
 const trucks       = ref<TruckRow[]>([makeTruckRow()])
 
+// Estado do picker de pedido
+const selectedOrder   = ref<CustomerOrderResponse | null>(null)
+const pendingOrders   = ref<CustomerOrderResponse[]>([])
+const showOrderPicker = ref(false)
+
 // Dados auxiliares
 const suppliers   = ref<TradingSupplierResponse[]>([])
 const loading     = ref(false)
@@ -39,7 +44,7 @@ const error       = ref('')
 // finally garante que loadingData sempre encerra, mesmo se loadSuppliers() lançar erro
 onMounted(async () => {
   try {
-    await loadSuppliers()
+    await Promise.all([loadSuppliers(), loadPendingOrders()])
     if (isEditing.value) await loadLot()
   } finally {
     loadingData.value = false
@@ -50,6 +55,12 @@ async function loadSuppliers() {
   if (!accountId.value) return
   const { data } = await tradingService.listSuppliers(accountId.value)
   suppliers.value = data.data
+}
+
+async function loadPendingOrders() {
+  if (!accountId.value) return
+  const { data } = await tradingService.listOrders(accountId.value, { status: 'PENDING' })
+  pendingOrders.value = data.data
 }
 
 async function loadLot() {
@@ -68,6 +79,11 @@ async function loadLot() {
       notes: t.notes ?? '',
       _key: ++_truckKeyCounter,
     }))
+    // Carrega o pedido vinculado para exibir no card-picker (somente leitura em edição)
+    if (lot.customerOrderId) {
+      const { data: orderData } = await tradingService.getOrder(accountId.value, lot.customerOrderId)
+      selectedOrder.value = orderData.data
+    }
   } catch {
     error.value = 'Erro ao carregar lote para edição.'
   }
@@ -91,36 +107,50 @@ const totalCost = computed(() => totalKg.value * (Number(pricePerKg.value) || 0)
 async function submit() {
   error.value = ''
 
+  if (!isEditing.value && !selectedOrder.value) {
+    error.value = 'Selecione um pedido de cliente.'
+    return
+  }
+
   if (!supplierId.value)   { error.value = 'Selecione o fornecedor.'; return }
   if (!purchaseDate.value) { error.value = 'Informe a data da compra.'; return }
   if (!pricePerKg.value || Number(pricePerKg.value) <= 0) { error.value = 'Informe o preço por Kg.'; return }
 
   for (const [i, t] of trucks.value.entries()) {
-    if (!t.truckPlate.trim())                             { error.value = `Informe a placa do caminhão ${i + 1}.`; return }
-    if (!t.quantityKg || Number(t.quantityKg) <= 0)      { error.value = `Informe o peso do caminhão ${i + 1}.`; return }
+    if (!t.truckPlate.trim())                        { error.value = `Informe a placa do caminhão ${i + 1}.`; return }
+    if (!t.quantityKg || Number(t.quantityKg) <= 0) { error.value = `Informe o peso do caminhão ${i + 1}.`; return }
   }
 
   if (!accountId.value) return
 
-  loading.value = true
-  const payload = {
-    supplierId: supplierId.value,
-    purchaseDate: purchaseDate.value,
-    pricePerKg: Number(pricePerKg.value),
-    notes: notes.value || undefined,
-    trucks: trucks.value.map(t => ({
-      truckPlate: t.truckPlate.toUpperCase().trim(),
-      quantityKg: Number(t.quantityKg),
-      notes: t.notes || undefined,
-    }))
-  }
+  const truckData = trucks.value.map(t => ({
+    truckPlate: t.truckPlate.toUpperCase().trim(),
+    quantityKg: Number(t.quantityKg),
+    notes: t.notes || undefined,
+  }))
 
+  loading.value = true
   try {
     if (isEditing.value && lotId.value) {
-      const { data } = await tradingService.updateLot(accountId.value, lotId.value, payload)
+      const updatePayload: import('@/services/tradingService').PurchaseLotRequest = {
+        supplierId:   supplierId.value,
+        purchaseDate: purchaseDate.value,
+        pricePerKg:   Number(pricePerKg.value),
+        notes:        notes.value || undefined,
+        trucks:       truckData,
+      }
+      const { data } = await tradingService.updateLot(accountId.value, lotId.value, updatePayload)
       router.push({ name: 'trader-lot-detail', params: { lotId: data.data.id } })
     } else {
-      const { data } = await tradingService.createLot(accountId.value, payload)
+      const createPayload: import('@/services/tradingService').CreatePurchaseLotRequest = {
+        customerOrderId: selectedOrder.value!.id,
+        supplierId:      supplierId.value,
+        purchaseDate:    purchaseDate.value,
+        pricePerKg:      Number(pricePerKg.value),
+        notes:           notes.value || undefined,
+        trucks:          truckData,
+      }
+      const { data } = await tradingService.createLot(accountId.value, createPayload)
       router.push({ name: 'trader-lot-detail', params: { lotId: data.data.id } })
     }
   } catch (e: any) {
@@ -145,6 +175,74 @@ async function submit() {
     <div v-if="loadingData" class="loading-state"><div class="spinner" /></div>
 
     <div v-else class="form-layout">
+
+      <!-- Card-picker de pedido (apenas no modo criação) -->
+      <div v-if="!isEditing" class="form-card">
+        <h2 class="form-section-title">Pedido do Cliente *</h2>
+
+        <!-- Estado: pedido não selecionado -->
+        <div v-if="!selectedOrder && !showOrderPicker" class="order-picker order-picker--empty" @click="showOrderPicker = true">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          <span>Selecionar pedido de cliente...</span>
+          <span class="order-picker__hint">Clique para ver pedidos disponíveis</span>
+        </div>
+
+        <!-- Lista de pedidos disponíveis -->
+        <div v-if="showOrderPicker" class="order-picker-list">
+          <div v-if="pendingOrders.length === 0" class="order-picker-empty">
+            <p>Nenhum pedido disponível.</p>
+            <button class="link-btn" @click="router.push({ name: 'trader-orders-new' })">Criar pedido de cliente</button>
+          </div>
+          <div
+            v-for="o in pendingOrders"
+            :key="o.id"
+            class="order-picker-item"
+            :class="{ 'order-picker-item--selected': selectedOrder?.id === o.id }"
+            @click="selectedOrder = o; showOrderPicker = false"
+          >
+            <div class="order-picker-item__info">
+              <span class="order-picker-item__name">{{ o.customerName }}</span>
+              <span class="order-picker-item__sub">
+                {{ o.product }} · {{ o.quantityKg.toLocaleString('pt-BR') }} Kg
+                <span v-if="o.deliveryDeadline"> · Prazo: {{ o.deliveryDeadline }}</span>
+              </span>
+            </div>
+            <span class="order-badge">PENDING</span>
+          </div>
+        </div>
+
+        <!-- Estado: pedido selecionado -->
+        <div v-if="selectedOrder && !showOrderPicker" class="order-picker order-picker--selected">
+          <div class="order-picker__check">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <div class="order-picker__detail">
+            <span class="order-picker__name">{{ selectedOrder.customerName }}</span>
+            <span class="order-picker__sub">
+              {{ selectedOrder.product }} · {{ selectedOrder.quantityKg.toLocaleString('pt-BR') }} Kg
+              <span v-if="selectedOrder.deliveryDeadline"> · Prazo: {{ selectedOrder.deliveryDeadline }}</span>
+            </span>
+          </div>
+          <button class="btn btn--secondary btn--sm" @click="showOrderPicker = true">Trocar</button>
+        </div>
+      </div>
+
+      <!-- Pedido vinculado (somente leitura em edição) -->
+      <div v-if="isEditing && selectedOrder" class="form-card order-card-readonly">
+        <h2 class="form-section-title">Pedido do Cliente</h2>
+        <div class="order-picker order-picker--selected order-picker--disabled">
+          <div class="order-picker__check">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <div class="order-picker__detail">
+            <span class="order-picker__name">{{ selectedOrder.customerName }}</span>
+            <span class="order-picker__sub">{{ selectedOrder.product }}</span>
+          </div>
+          <span class="order-badge order-badge--fulfilled">ATENDIDO</span>
+        </div>
+        <p class="form-hint">O pedido vinculado não pode ser alterado após a criação do lote.</p>
+      </div>
+
       <!-- Formulário principal -->
       <div class="form-card">
         <h2 class="form-section-title">Dados da Compra</h2>
@@ -434,6 +532,99 @@ async function submit() {
 .loading-state { display: flex; justify-content: center; padding: 4rem; }
 .spinner { width: 32px; height: 32px; border: 3px solid var(--color-border); border-top-color: var(--color-primary); border-radius: 50%; animation: spin 0.7s linear infinite; }
 @keyframes spin { to { transform: rotate(360deg); } }
+
+/* Card-picker de pedido */
+.order-picker {
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+  padding: 0.875rem 1rem;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: border-color 0.15s;
+}
+
+.order-picker--empty {
+  border: 1.5px dashed var(--color-border);
+  color: var(--color-text-muted);
+  font-size: 0.875rem;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 1.25rem;
+  gap: 0.25rem;
+}
+
+.order-picker--empty:hover { border-color: var(--color-primary); color: var(--color-primary); }
+
+.order-picker__hint { font-size: 0.75rem; color: var(--color-text-muted); }
+
+.order-picker--selected {
+  border: 1.5px solid var(--color-primary);
+  background: var(--color-primary-light);
+  cursor: default;
+}
+
+.order-picker--disabled { opacity: 0.75; }
+
+.order-picker__check {
+  width: 32px;
+  height: 32px;
+  background: var(--color-primary);
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.order-picker__detail { flex: 1; display: flex; flex-direction: column; gap: 0.15rem; }
+.order-picker__name { font-weight: 700; color: var(--color-text); font-size: 0.9rem; }
+.order-picker__sub { font-size: 0.78rem; color: var(--color-text-muted); }
+
+.order-picker-list {
+  border: 1px solid var(--color-primary);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+}
+
+.order-picker-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.625rem 0.875rem;
+  border-bottom: 1px solid var(--color-border);
+  cursor: pointer;
+  transition: background 0.12s;
+}
+
+.order-picker-item:last-child { border-bottom: none; }
+.order-picker-item:hover { background: var(--color-primary-light); }
+.order-picker-item--selected { background: var(--color-primary-light); }
+
+.order-picker-item__info { display: flex; flex-direction: column; gap: 0.125rem; }
+.order-picker-item__name { font-weight: 600; font-size: 0.875rem; color: var(--color-text); }
+.order-picker-item__sub { font-size: 0.75rem; color: var(--color-text-muted); }
+
+.order-picker-empty { padding: 1rem; text-align: center; color: var(--color-text-muted); font-size: 0.875rem; }
+
+.order-badge {
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 0.2rem 0.6rem;
+  border-radius: 20px;
+  background: #fff3e0;
+  color: #e65100;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.order-badge--fulfilled { background: var(--color-primary-light); color: var(--color-primary); }
+
+.order-card-readonly { opacity: 0.9; }
 
 /* Responsivo */
 @media (max-width: 768px) {
