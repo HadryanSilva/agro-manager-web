@@ -223,11 +223,13 @@ const saleTrucksTotal = (trucks: { quantityKg: number }[]) =>
           <div class="trucks-table__header">
             <span>Placa</span>
             <span>Quantidade</span>
+            <span>Frete</span>
             <span>Obs.</span>
           </div>
           <div v-for="truck in lot.purchaseTrucks" :key="truck.id" class="trucks-table__row">
             <span class="truck-plate">{{ truck.truckPlate }}</span>
             <span>{{ kg(truck.quantityKg) }}</span>
+            <span>{{ truck.freightValue != null ? currency(truck.freightValue) : '—' }}</span>
             <span class="text-muted">{{ truck.notes ?? '—' }}</span>
           </div>
         </div>
@@ -490,7 +492,7 @@ const saleTrucksTotal = (trucks: { quantityKg: number }[]) =>
 
 .trucks-table__header {
   display: grid;
-  grid-template-columns: 120px 1fr 1fr;
+  grid-template-columns: 120px 1fr 1fr 1fr;
   padding: 0.5rem 0.875rem;
   background: var(--color-surface);
   font-size: 0.75rem;
@@ -502,7 +504,7 @@ const saleTrucksTotal = (trucks: { quantityKg: number }[]) =>
 
 .trucks-table__row {
   display: grid;
-  grid-template-columns: 120px 1fr 1fr;
+  grid-template-columns: 120px 1fr 1fr 1fr;
   padding: 0.625rem 0.875rem;
   border-top: 1px solid var(--color-border);
   font-size: 0.875rem;
@@ -674,7 +676,8 @@ const saleTrucksTotal = (trucks: { quantityKg: number }[]) =>
   .lot-header { flex-direction: column; }
   .kpi-grid { grid-template-columns: repeat(2, 1fr); }
   .trucks-table__header, .trucks-table__row { grid-template-columns: 100px 1fr; }
-  .trucks-table__header span:last-child, .trucks-table__row span:last-child { display: none; }
+  .trucks-table__header span:nth-child(n+3),
+  .trucks-table__row span:nth-child(n+3) { display: none; }
   .form-row { grid-template-columns: 1fr; }
   .truck-modal-row { grid-template-columns: 24px 1fr 1fr auto; }
   .sale-card__header { flex-wrap: wrap; }
