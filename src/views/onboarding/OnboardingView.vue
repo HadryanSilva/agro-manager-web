@@ -8,7 +8,7 @@ const router = useRouter()
   <div class="onboarding">
 
     <!-- Ícone de marca elevado -->
-    <div class="onboarding__brand-icon">🌱</div>
+    <div class="onboarding__brand-icon" aria-hidden="true">🌱</div>
 
     <div class="onboarding__header">
       <h1 class="onboarding__title">Bem-vindo ao Agro Manager</h1>
@@ -170,7 +170,7 @@ const router = useRouter()
 }
 
 .option-card__icon--muted {
-  background: #f3f4f6;
+  background: var(--color-surface);
   color: var(--color-text-muted);
 }
 
@@ -192,7 +192,7 @@ const router = useRouter()
   font-size: 0.75rem;
   font-weight: 500;
   padding: 0.125rem 0.5rem;
-  background: #f3f4f6;
+  background: var(--color-surface);
   color: var(--color-text-muted);
   border-radius: 20px;
   letter-spacing: 0.02em;
