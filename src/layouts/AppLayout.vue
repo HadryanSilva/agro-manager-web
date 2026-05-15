@@ -56,6 +56,11 @@ const navItems: Array<{ name: string; label: string; icon: IconName; comingSoon?
     icon: 'leaf'
   },
   {
+    name: 'labor',
+    label: 'Mão de obra',
+    icon: 'users'
+  },
+  {
     name: 'reports',
     label: 'Relatórios',
     icon: 'bar-chart'
@@ -79,6 +84,9 @@ function isActive(routeName: string): boolean {
   if (routeName === 'farms') {
     return ['farms', 'farm-create', 'farm-edit', 'farm-expenses',
             'expense-create', 'expense-edit'].includes(current)
+  }
+  if (routeName === 'labor') {
+    return current === 'labor'
   }
   if (routeName === 'quotations') {
     return ['quotations', 'quotation-create', 'quotation-edit'].includes(current)
