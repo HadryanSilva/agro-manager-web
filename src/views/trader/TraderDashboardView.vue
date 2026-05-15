@@ -53,9 +53,9 @@ async function loadDashboard() {
         <h1 class="page-title">Dashboard</h1>
         <p class="page-subtitle">Visão geral das suas operações de compra e revenda</p>
       </div>
-      <button class="btn btn--primary" @click="router.push({ name: 'trader-lots-new' })">
+      <button class="btn btn--primary" @click="router.push({ name: 'trader-orders-new' })">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-        Registrar Lote
+        Novo Pedido
       </button>
     </div>
 
@@ -93,42 +93,42 @@ async function loadDashboard() {
           </span>
         </div>
         <div class="kpi-card">
-          <span class="kpi-card__label">Total Comprado</span>
-          <span class="kpi-card__value">{{ kg(dashboard.totalPurchasedKg) }}</span>
+          <span class="kpi-card__label">Total de Kg</span>
+          <span class="kpi-card__value">{{ kg(dashboard.totalKg) }}</span>
         </div>
         <div class="kpi-card">
-          <span class="kpi-card__label">Total Vendido</span>
-          <span class="kpi-card__value">{{ kg(dashboard.totalSoldKg) }}</span>
+          <span class="kpi-card__label">Pedidos Abertos</span>
+          <span class="kpi-card__value">{{ dashboard.openOrders }}</span>
         </div>
         <div class="kpi-card">
-          <span class="kpi-card__label">Estoque Restante</span>
-          <span class="kpi-card__value">{{ kg(dashboard.totalPurchasedKg - dashboard.totalSoldKg) }}</span>
+          <span class="kpi-card__label">Pedidos Fechados</span>
+          <span class="kpi-card__value">{{ dashboard.closedOrders }}</span>
         </div>
       </div>
 
-      <!-- Lotes e Fornecedores -->
+      <!-- Pedidos e Clientes -->
       <div class="stats-row">
-        <div class="stat-card" @click="router.push({ name: 'trader-lots' })">
+        <div class="stat-card" @click="router.push({ name: 'trader-orders' })">
           <div class="stat-card__icon stat-card__icon--amber">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
           </div>
           <div class="stat-card__content">
-            <span class="stat-card__value">{{ dashboard.totalLots }}</span>
-            <span class="stat-card__label">Lotes no total</span>
+            <span class="stat-card__value">{{ dashboard.totalOrders }}</span>
+            <span class="stat-card__label">Pedidos no total</span>
           </div>
           <div class="stat-card__badges">
-            <span class="badge badge--green">{{ dashboard.openLots }} abertos</span>
-            <span class="badge badge--gray">{{ dashboard.closedLots }} fechados</span>
+            <span class="badge badge--green">{{ dashboard.openOrders }} abertos</span>
+            <span class="badge badge--gray">{{ dashboard.closedOrders }} fechados</span>
           </div>
         </div>
 
-        <div class="stat-card" @click="router.push({ name: 'trader-suppliers' })">
+        <div class="stat-card" @click="router.push({ name: 'trader-clients' })">
           <div class="stat-card__icon stat-card__icon--teal">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
           </div>
           <div class="stat-card__content">
-            <span class="stat-card__value">{{ dashboard.totalSuppliers }}</span>
-            <span class="stat-card__label">Fornecedores cadastrados</span>
+            <span class="stat-card__value">{{ dashboard.totalClients }}</span>
+            <span class="stat-card__label">Clientes cadastrados</span>
           </div>
         </div>
       </div>

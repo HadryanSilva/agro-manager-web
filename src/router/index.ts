@@ -225,39 +225,29 @@ const router = createRouter({
           component: () => import('@/views/trader/TradingSuppliersView.vue')
         },
         {
+          path: 'clients',
+          name: 'trader-clients',
+          component: () => import('@/views/trader/TradingClientsView.vue')
+        },
+        {
           path: 'orders',
           name: 'trader-orders',
-          component: () => import('@/views/trader/CustomerOrdersView.vue')
+          component: () => import('@/views/trader/ClientOrdersView.vue')
         },
         {
           path: 'orders/new',
           name: 'trader-orders-new',
-          component: () => import('@/views/trader/CustomerOrderFormView.vue')
+          component: () => import('@/views/trader/ClientOrderFormView.vue')
+        },
+        {
+          path: 'orders/:orderId',
+          name: 'trader-order-detail',
+          component: () => import('@/views/trader/ClientOrderDetailView.vue')
         },
         {
           path: 'orders/:orderId/edit',
-          name: 'trader-orders-edit',
-          component: () => import('@/views/trader/CustomerOrderFormView.vue')
-        },
-        {
-          path: 'lots',
-          name: 'trader-lots',
-          component: () => import('@/views/trader/PurchaseLotsView.vue')
-        },
-        {
-          path: 'lots/new',
-          name: 'trader-lots-new',
-          component: () => import('@/views/trader/PurchaseLotFormView.vue')
-        },
-        {
-          path: 'lots/:lotId',
-          name: 'trader-lot-detail',
-          component: () => import('@/views/trader/PurchaseLotDetailView.vue')
-        },
-        {
-          path: 'lots/:lotId/edit',
-          name: 'trader-lot-edit',
-          component: () => import('@/views/trader/PurchaseLotFormView.vue')
+          name: 'trader-order-edit',
+          component: () => import('@/views/trader/ClientOrderFormView.vue')
         },
       ]
     },
