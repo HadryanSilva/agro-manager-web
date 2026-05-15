@@ -419,7 +419,7 @@ async function submit() {
 .trucks-section { margin-top: 1rem; display: flex; flex-direction: column; gap: 0.625rem; border-top: 1px solid var(--color-border); padding-top: 1rem; }
 
 .truck-row { display: flex; align-items: flex-end; gap: 0.5rem; }
-.truck-row__fields { display: grid; grid-template-columns: 100px 110px 100px 1fr; gap: 0.625rem; flex: 1; }
+.truck-row__fields { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.3fr) minmax(0, 1.1fr) minmax(0, 1.5fr); gap: 0.625rem; flex: 1; }
 
 .truck-remove { flex-shrink: 0; margin-bottom: 0.1rem; }
 
