@@ -10,15 +10,14 @@ const errorMessage = ref('')
 
 onMounted(() => {
   const accessToken = route.query.accessToken as string
-  const refreshToken = route.query.refreshToken as string
 
-  if (!accessToken || !refreshToken) {
-    errorMessage.value = 'Autenticação falhou. Tokens não encontrados.'
+  if (!accessToken) {
+    errorMessage.value = 'Autenticação falhou. Token não encontrado.'
     return
   }
 
-  // Armazena os tokens e limpa os parâmetros da URL
-  authStore.setTokens(accessToken, refreshToken)
+  // Armazena o access token em memória. O refresh token vem em cookie HttpOnly.
+  authStore.setAccessToken(accessToken)
   router.replace({ name: 'dashboard' })
 })
 </script>

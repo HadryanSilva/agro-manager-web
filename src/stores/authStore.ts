@@ -1,14 +1,12 @@
 import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
 import authService from '@/services/authService'
+import { createAuthRefreshCoordinator } from '@/services/authRefreshCoordinator'
 import type { RegisterPayload, LoginPayload } from '@/services/authService'
 
 export const useAuthStore = defineStore('auth', () => {
   // Access token mantido apenas em memória por segurança
   const accessToken = ref<string | null>(null)
-
-  // Refresh token persistido no localStorage para sobreviver ao reload
-  const refreshToken = ref<string | null>(localStorage.getItem('refreshToken'))
 
   // Controla se a tentativa de restauração inicial já foi feita
   // Evita múltiplas chamadas simultâneas ao /auth/refresh no startup
@@ -17,20 +15,16 @@ export const useAuthStore = defineStore('auth', () => {
 
   const isAuthenticated = computed(() => !!accessToken.value)
 
-  // Indica se há possibilidade de restaurar a sessão (tem refresh token salvo)
-  const hasStoredSession = computed(() => !!refreshToken.value)
+  // O refresh token é HttpOnly; o frontend tenta restaurar uma vez e deixa o backend decidir.
+  const hasStoredSession = computed(() => !sessionRestored.value)
 
-  function setTokens(access: string, refresh: string) {
+  function setAccessToken(access: string) {
     accessToken.value = access
-    refreshToken.value = refresh
-    localStorage.setItem('refreshToken', refresh)
   }
 
   function clearAuth() {
     accessToken.value    = null
-    refreshToken.value   = null
     sessionRestored.value = true  // marca como resolvido para não tentar restaurar
-    localStorage.removeItem('refreshToken')
 
     import('@/stores/accountStore').then(({ useAccountStore }) => {
       useAccountStore().reset()
@@ -42,21 +36,22 @@ export const useAuthStore = defineStore('auth', () => {
 
   async function register(payload: RegisterPayload) {
     const { data } = await authService.register(payload)
-    setTokens(data.data.accessToken, data.data.refreshToken)
+    setAccessToken(data.data.accessToken)
     sessionRestored.value = true
   }
 
   async function login(payload: LoginPayload) {
     const { data } = await authService.login(payload)
-    setTokens(data.data.accessToken, data.data.refreshToken)
+    setAccessToken(data.data.accessToken)
     sessionRestored.value = true
   }
 
   async function refreshSession() {
-    if (!refreshToken.value) throw new Error('Sem refresh token disponível')
-    const { data } = await authService.refresh(refreshToken.value)
-    setTokens(data.data.accessToken, data.data.refreshToken)
+    const { data } = await authService.refresh()
+    setAccessToken(data.data.accessToken)
   }
+
+  const refreshSessionOnce = createAuthRefreshCoordinator(refreshSession)
 
   /**
    * Tenta restaurar o access token usando o refresh token salvo.
@@ -68,10 +63,6 @@ export const useAuthStore = defineStore('auth', () => {
     if (restorePromise) return restorePromise
 
     restorePromise = (async () => {
-      if (!refreshToken.value) {
-        sessionRestored.value = true
-        return
-      }
       try {
         await refreshSession()
       } catch {
@@ -88,15 +79,15 @@ export const useAuthStore = defineStore('auth', () => {
 
   return {
     accessToken,
-    refreshToken,
     isAuthenticated,
     hasStoredSession,
     sessionRestored,
-    setTokens,
+    setAccessToken,
     clearAuth,
     register,
     login,
     refreshSession,
+    refreshSessionOnce,
     restoreSession,
   }
 })

@@ -8,6 +8,7 @@
     "build": "run-p type-check \"build-only {@}\" --",
     "preview": "vite preview",
     "build-only": "vite build",
+    "test:services": "node --experimental-strip-types src/services/__tests__/authRefreshCoordinator.test.ts && node --experimental-strip-types src/services/__tests__/responseUtils.test.ts",
     "type-check": "vue-tsc --build"
   },
   "dependencies": {

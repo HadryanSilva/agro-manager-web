@@ -14,7 +14,6 @@ export interface LoginPayload {
 
 export interface AuthTokens {
   accessToken: string
-  refreshToken: string
   tokenType: string
   expiresIn: number
 }
@@ -30,9 +29,9 @@ const authService = {
       .post<{ data: ObjectPayload<AuthTokens> }>('/auth/login', payload)
       .then(normalizeObjectResponse<AuthTokens>),
 
-  refresh: (refreshToken: string) =>
+  refresh: () =>
     api
-      .post<{ data: ObjectPayload<AuthTokens> }>('/auth/refresh', { refreshToken })
+      .post<{ data: ObjectPayload<AuthTokens> }>('/auth/refresh')
       .then(normalizeObjectResponse<AuthTokens>)
 }
 

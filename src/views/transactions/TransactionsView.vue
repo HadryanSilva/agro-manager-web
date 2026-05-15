@@ -48,7 +48,9 @@ async function loadFarms() {
   try {
     const { data } = await farmService.findAll(accountId.value)
     farms.value = data.data
-  } catch { /* silencia */ }
+  } catch {
+    error.value = 'Erro ao carregar lavouras para os filtros.'
+  }
 }
 
 async function fetchTransactions() {
