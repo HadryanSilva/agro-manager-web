@@ -172,13 +172,11 @@ async function submit() {
   if (Number(form.value.clientPricePerKg) <= 0) { formError.value = 'Preço/kg do cliente deve ser maior que zero.'; return }
   if (form.value.legs.length === 0)           { formError.value = 'Adicione ao menos um fornecedor.'; return }
 
-  for (let li = 0; li < form.value.legs.length; li++) {
-    const leg = form.value.legs[li]
+  for (const [li, leg] of form.value.legs.entries()) {
     if (!leg.supplierId)                         { formError.value = `Selecione o fornecedor na perna ${li + 1}.`; return }
     if (Number(leg.supplierPricePerKg) <= 0)     { formError.value = `Preço/kg do fornecedor na perna ${li + 1} deve ser maior que zero.`; return }
     if (leg.trucks.length === 0)                 { formError.value = `Adicione ao menos um caminhão na perna ${li + 1}.`; return }
-    for (let ti = 0; ti < leg.trucks.length; ti++) {
-      const t = leg.trucks[ti]
+    for (const [ti, t] of leg.trucks.entries()) {
       if (!t.truckPlate.trim())            { formError.value = `Informe a placa do caminhão ${ti + 1} na perna ${li + 1}.`; return }
       if (t.truckPlate.trim().length > 10) { formError.value = `Placa do caminhão ${ti + 1} na perna ${li + 1} deve ter no máximo 10 caracteres.`; return }
       if (Number(t.quantityKg) <= 0)       { formError.value = `Quantidade (kg) do caminhão ${ti + 1} na perna ${li + 1} deve ser maior que zero.`; return }
