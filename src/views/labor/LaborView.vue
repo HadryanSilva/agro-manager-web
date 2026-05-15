@@ -31,6 +31,8 @@ const payingEmployee = ref(false)
 const error = ref('')
 const notice = ref('')
 
+const globalPendingCount = ref(0)
+
 const entryPage = ref(0)
 const paymentPage = ref(0)
 const pageSize = 10
@@ -80,12 +82,6 @@ const tabs: Array<{ key: TabKey; label: string }> = [
 ]
 
 const activeEmployees = computed(() => employees.value.filter((employee) => employee.active))
-const pendingEntriesCount = computed(() => entries.value?.content.filter((entry) => !entry.paid).length ?? 0)
-const pendingEntriesTotal = computed(() =>
-  entries.value?.content
-    .filter((entry) => !entry.paid)
-    .reduce((total, entry) => total + Number(entry.dailyRate), 0) ?? 0
-)
 const selectedEntryEmployee = computed(() =>
   employees.value.find((employee) => employee.id === entryForm.value.employeeId)
 )
@@ -109,7 +105,7 @@ async function loadInitialData() {
   error.value = ''
   try {
     await Promise.all([loadEmployees(), loadFarms()])
-    await Promise.all([loadEntries(), loadPayments()])
+    await Promise.all([loadEntries(), loadPayments(), loadGlobalPendingCount()])
   } catch {
     error.value = 'Não foi possível carregar a mão de obra.'
   } finally {
@@ -127,6 +123,16 @@ async function loadFarms() {
   if (!accountId.value) return
   const { data } = await farmService.findAll(accountId.value)
   farms.value = data.data
+}
+
+async function loadGlobalPendingCount() {
+  if (!accountId.value) return
+  try {
+    const { data } = await laborService.findWorkEntries(accountId.value, { paid: false, size: 1 })
+    globalPendingCount.value = data.data.totalElements
+  } catch {
+    // non-critical — pill shows last known value
+  }
 }
 
 async function loadEntries() {
@@ -242,7 +248,7 @@ async function saveEntry() {
       notice.value = 'Diária registrada como pendente.'
     }
     resetEntryForm()
-    await loadEntries()
+    await Promise.all([loadEntries(), loadGlobalPendingCount()])
   } catch {
     error.value = 'Não foi possível salvar a diária. Verifique se já existe diária para este funcionário na data.'
   } finally {
@@ -268,7 +274,7 @@ async function deleteEntry(entry: EmployeeWorkEntryResponse) {
   try {
     await laborService.deleteWorkEntry(accountId.value, entry.id)
     notice.value = 'Diária removida.'
-    await loadEntries()
+    await Promise.all([loadEntries(), loadGlobalPendingCount()])
   } catch {
     error.value = 'Não foi possível remover a diária.'
   }
@@ -288,7 +294,7 @@ async function payEmployee() {
     })
     notice.value = `Pagamento efetivado: ${formatCurrency(Number(data.data.totalAmount))} em ${data.data.paidEntriesCount} diária(s).`
     resetPaymentForm()
-    await Promise.all([loadEntries(), loadPayments()])
+    await Promise.all([loadEntries(), loadPayments(), loadGlobalPendingCount()])
   } catch {
     error.value = 'Não foi possível efetivar o pagamento. Confira se há diárias pendentes no período.'
   } finally {
@@ -406,12 +412,8 @@ function formatCurrency(value: number) {
       </div>
       <div class="labor__summary">
         <div class="summary-pill">
-          <span class="summary-pill__label">Pendentes na lista</span>
-          <strong>{{ pendingEntriesCount }}</strong>
-        </div>
-        <div class="summary-pill summary-pill--money">
-          <span class="summary-pill__label">Valor aberto</span>
-          <strong>{{ formatCurrency(pendingEntriesTotal) }}</strong>
+          <span class="summary-pill__label">Diárias pendentes</span>
+          <strong>{{ globalPendingCount }}</strong>
         </div>
       </div>
     </div>
@@ -481,7 +483,7 @@ function formatCurrency(value: number) {
           </label>
 
           <button class="btn-primary" type="submit" :disabled="savingEntry">
-            {{ savingEntry ? 'Salvando...' : entryForm.id ? 'Atualizar diária' : 'Registrar pendência' }}
+            {{ savingEntry ? 'Registrando...' : entryForm.id ? 'Atualizar diária' : 'Registrar diária' }}
           </button>
         </form>
 
@@ -491,7 +493,7 @@ function formatCurrency(value: number) {
           </div>
 
           <div class="filters-bar">
-            <select v-model="entryFilters.employeeId" class="filter-control" @change="applyEntryFilters">
+            <select v-model="entryFilters.employeeId" class="filter-control filter-control--wide" @change="applyEntryFilters">
               <option value="">Todos funcionários</option>
               <option v-for="employee in employees" :key="employee.id" :value="employee.id">
                 {{ employee.name }}
@@ -543,12 +545,14 @@ function formatCurrency(value: number) {
                     </td>
                     <td class="col-right value-cell">{{ formatCurrency(Number(entry.dailyRate)) }}</td>
                     <td class="actions-cell">
-                      <button class="btn-action" type="button" :disabled="entry.paid" @click="editEntry(entry)">
-                        Editar
-                      </button>
-                      <button class="btn-action btn-action--danger" type="button" :disabled="entry.paid" @click="deleteEntry(entry)">
-                        Remover
-                      </button>
+                      <div class="actions-inner" role="group" aria-label="Ações da diária">
+                        <button class="btn-action" type="button" :disabled="entry.paid" @click="editEntry(entry)">
+                          Editar
+                        </button>
+                        <button class="btn-action btn-action--danger" type="button" :disabled="entry.paid" @click="deleteEntry(entry)">
+                          Remover
+                        </button>
+                      </div>
                     </td>
                   </tr>
                 </tbody>
@@ -602,7 +606,7 @@ function formatCurrency(value: number) {
                 <span v-if="employee.notes" class="muted-line">{{ employee.notes }}</span>
               </div>
               <div class="row-actions">
-                <span class="badge" :class="employee.active ? 'badge--paid' : 'badge--inactive'">
+                <span class="badge" :class="employee.active ? 'badge--active' : 'badge--inactive'">
                   {{ employee.active ? 'Ativo' : 'Inativo' }}
                 </span>
                 <button class="btn-action" type="button" @click="editEmployee(employee)">Editar</button>
@@ -657,7 +661,7 @@ function formatCurrency(value: number) {
           </div>
 
           <button class="btn-primary" type="submit" :disabled="payingEmployee">
-            {{ payingEmployee ? 'Efetivando...' : 'Pagar e gerar despesa' }}
+            {{ payingEmployee ? 'Registrando...' : 'Registrar pagamento' }}
           </button>
         </form>
 
@@ -667,7 +671,7 @@ function formatCurrency(value: number) {
           </div>
 
           <div class="filters-bar">
-            <select v-model="paymentFilters.employeeId" class="filter-control" @change="applyPaymentFilters">
+            <select v-model="paymentFilters.employeeId" class="filter-control filter-control--wide" @change="applyPaymentFilters">
               <option value="">Todos funcionários</option>
               <option v-for="employee in employees" :key="employee.id" :value="employee.id">
                 {{ employee.name }}
@@ -767,14 +771,6 @@ function formatCurrency(value: number) {
   font-size: 1rem;
 }
 
-.summary-pill--money {
-  border-color: var(--color-primary);
-}
-
-.summary-pill--money strong {
-  color: var(--color-primary);
-}
-
 .tabs {
   display: inline-flex;
   gap: 0.25rem;
@@ -857,6 +853,11 @@ function formatCurrency(value: number) {
   gap: 0.75rem;
 }
 
+.panel--list .panel__header {
+  padding: 1rem;
+  border-bottom: 1px solid var(--color-border);
+}
+
 .panel__header h2 {
   font-size: 1rem;
   font-weight: 700;
@@ -917,11 +918,15 @@ function formatCurrency(value: number) {
 
 .filters-bar {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(138px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(138px, 1fr));
   gap: 0.5rem;
   padding: 1rem;
   border-bottom: 1px solid var(--color-border);
   background: var(--color-surface);
+}
+
+.filter-control--wide {
+  grid-column: span 2;
 }
 
 .btn-primary,
@@ -1053,10 +1058,13 @@ function formatCurrency(value: number) {
 }
 
 .actions-cell {
+  white-space: nowrap;
+}
+
+.actions-inner {
   display: flex;
   gap: 0.375rem;
   justify-content: flex-end;
-  white-space: nowrap;
 }
 
 .muted-line {
@@ -1084,6 +1092,11 @@ function formatCurrency(value: number) {
 .badge--pending {
   background: var(--color-warning-light);
   color: var(--color-warning);
+}
+
+.badge--active {
+  background: var(--color-success-light);
+  color: var(--color-success);
 }
 
 .badge--inactive {
