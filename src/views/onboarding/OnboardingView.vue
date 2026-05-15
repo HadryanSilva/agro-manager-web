@@ -6,6 +6,10 @@ const router = useRouter()
 
 <template>
   <div class="onboarding">
+
+    <!-- Ícone de marca elevado -->
+    <div class="onboarding__brand-icon" aria-hidden="true">🌱</div>
+
     <div class="onboarding__header">
       <h1 class="onboarding__title">Bem-vindo ao Agro Manager</h1>
       <p class="onboarding__subtitle">
@@ -66,6 +70,23 @@ const router = useRouter()
 </template>
 
 <style scoped>
+.onboarding__brand-icon {
+  width: 72px;
+  height: 72px;
+  background: linear-gradient(135deg, #059669, #10b981);
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  box-shadow: 0 8px 28px rgba(5, 150, 105, 0.38);
+  margin: 0 auto 1.5rem;
+}
+
+:global([data-theme="dark"]) .onboarding__brand-icon {
+  box-shadow: 0 8px 28px rgba(52, 211, 153, 0.30);
+}
+
 .onboarding__header {
   text-align: center;
   margin-bottom: 2.5rem;
@@ -83,7 +104,7 @@ const router = useRouter()
   margin-top: 0.625rem;
   font-size: 1rem;
   color: var(--color-text-muted);
-  max-width: 420px;
+  max-width: 280px;
   margin-inline: auto;
   line-height: 1.6;
 }
@@ -97,16 +118,26 @@ const router = useRouter()
 .option-card {
   display: flex;
   align-items: center;
-  gap: 1.25rem;
+  gap: 1rem;
   width: 100%;
-  padding: 1.5rem;
+  padding: 1rem 1.125rem;
   background: var(--color-card);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-card);
   cursor: pointer;
   text-align: left;
+  font-family: inherit;
   transition: border-color 0.15s, box-shadow 0.15s, transform 0.1s;
+}
+
+.option-card:not(.option-card--disabled) {
+  border-color: var(--color-primary);
+  box-shadow: 0 4px 16px rgba(5, 150, 105, 0.18);
+}
+
+:global([data-theme="dark"]) .option-card:not(.option-card--disabled) {
+  box-shadow: 0 4px 16px rgba(52, 211, 153, 0.15);
 }
 
 .option-card:hover:not(:disabled) {
@@ -120,7 +151,7 @@ const router = useRouter()
 }
 
 .option-card--disabled {
-  opacity: 0.55;
+  opacity: 0.5;
   cursor: not-allowed;
 }
 
@@ -140,7 +171,7 @@ const router = useRouter()
 }
 
 .option-card__icon--muted {
-  background: #f3f4f6;
+  background: var(--color-surface);
   color: var(--color-text-muted);
 }
 
@@ -162,7 +193,7 @@ const router = useRouter()
   font-size: 0.75rem;
   font-weight: 500;
   padding: 0.125rem 0.5rem;
-  background: #f3f4f6;
+  background: var(--color-surface);
   color: var(--color-text-muted);
   border-radius: 20px;
   letter-spacing: 0.02em;

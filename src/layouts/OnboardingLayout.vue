@@ -16,6 +16,11 @@ function logout() {
 <template>
   <div class="onboarding-wrapper">
 
+    <!-- Blobs decorativos -->
+    <div class="blob blob-1" aria-hidden="true"></div>
+    <div class="blob blob-2" aria-hidden="true"></div>
+    <div class="blob blob-3" aria-hidden="true"></div>
+
     <!-- Toolbar fixa: logout à esquerda, theme toggle à direita -->
     <div class="onboarding-toolbar">
       <button class="logout-btn" @click="logout" title="Sair da conta" aria-label="Sair da conta">
@@ -29,12 +34,6 @@ function logout() {
       </button>
 
       <ThemeToggle />
-    </div>
-
-    <!-- Brand centralizada -->
-    <div class="onboarding-brand">
-      <span class="onboarding-brand__icon">🌱</span>
-      <span class="onboarding-brand__name">Agro Manager</span>
     </div>
 
     <div class="onboarding-content">
@@ -52,8 +51,53 @@ function logout() {
   align-items: center;
   justify-content: center;
   padding: 2rem 1rem;
-  background: var(--color-background);
+  background: linear-gradient(160deg, #f0fdf4 0%, #ecfdf5 55%, #d1fae5 100%);
+  position: relative;
+  overflow: hidden;
 }
+
+:global([data-theme="dark"]) .onboarding-wrapper {
+  background: linear-gradient(160deg, #0f172a 0%, #0f2419 55%, #022c22 100%);
+}
+
+/* ── Blobs decorativos ── */
+.blob {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.blob-1 {
+  top: -60px;
+  right: -60px;
+  width: 220px;
+  height: 220px;
+  background: rgba(5, 150, 105, 0.13);
+  filter: blur(30px);
+}
+
+.blob-2 {
+  bottom: -50px;
+  left: -50px;
+  width: 170px;
+  height: 170px;
+  background: rgba(217, 119, 6, 0.10);
+  filter: blur(22px);
+}
+
+.blob-3 {
+  top: 100px;
+  left: 30px;
+  width: 70px;
+  height: 70px;
+  background: rgba(5, 150, 105, 0.07);
+  filter: blur(12px);
+}
+
+:global([data-theme="dark"]) .onboarding-wrapper .blob-1 { background: rgba(52, 211, 153, 0.10); }
+:global([data-theme="dark"]) .onboarding-wrapper .blob-2 { background: rgba(251, 191, 36, 0.07); }
+:global([data-theme="dark"]) .onboarding-wrapper .blob-3 { background: rgba(52, 211, 153, 0.05); }
 
 /* Toolbar fixa no topo com logout e theme toggle */
 .onboarding-toolbar {
@@ -66,6 +110,7 @@ function logout() {
   justify-content: space-between;
   /* Garante que o toolbar não interfira com o conteúdo centralizado */
   pointer-events: none;
+  z-index: 10;
 }
 
 /* Reativa eventos apenas nos botões internos */
@@ -78,9 +123,11 @@ function logout() {
   align-items: center;
   gap: 0.375rem;
   padding: 0.4rem 0.875rem;
-  border: 1.5px solid var(--color-border);
+  border: 1px solid rgba(5, 150, 105, 0.20);
   border-radius: var(--radius-sm);
-  background: var(--color-card);
+  background: rgba(255, 255, 255, 0.70);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   font-family: inherit;
   font-size: 0.875rem;
   font-weight: 500;
@@ -95,28 +142,17 @@ function logout() {
   background: var(--color-error-light);
 }
 
-.onboarding-brand {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  margin-bottom: 2.5rem;
-}
-
-.onboarding-brand__icon {
-  font-size: 1.5rem;
-}
-
-.onboarding-brand__name {
-  font-size: 1.25rem;
-  font-weight: 600;
-  color: var(--color-text);
-  letter-spacing: -0.02em;
+:global([data-theme="dark"]) .logout-btn {
+  background: rgba(30, 41, 59, 0.70);
+  border-color: var(--color-border);
 }
 
 .onboarding-content {
   width: 100%;
   max-width: 680px;
   margin: 0 auto;
+  position: relative;
+  z-index: 1;
 }
 
 @media (max-width: 480px) {
