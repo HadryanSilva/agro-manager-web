@@ -16,6 +16,11 @@ function logout() {
 <template>
   <div class="onboarding-wrapper">
 
+    <!-- Blobs decorativos -->
+    <div class="blob blob-1" aria-hidden="true"></div>
+    <div class="blob blob-2" aria-hidden="true"></div>
+    <div class="blob blob-3" aria-hidden="true"></div>
+
     <!-- Toolbar fixa: logout à esquerda, theme toggle à direita -->
     <div class="onboarding-toolbar">
       <button class="logout-btn" @click="logout" title="Sair da conta" aria-label="Sair da conta">
@@ -52,8 +57,53 @@ function logout() {
   align-items: center;
   justify-content: center;
   padding: 2rem 1rem;
-  background: var(--color-background);
+  background: linear-gradient(160deg, #f0fdf4 0%, #ecfdf5 55%, #d1fae5 100%);
+  position: relative;
+  overflow: hidden;
 }
+
+:global([data-theme="dark"]) .onboarding-wrapper {
+  background: linear-gradient(160deg, #0f172a 0%, #0f2419 55%, #022c22 100%);
+}
+
+/* ── Blobs decorativos ── */
+.blob {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.blob-1 {
+  top: -60px;
+  right: -60px;
+  width: 220px;
+  height: 220px;
+  background: rgba(5, 150, 105, 0.13);
+  filter: blur(30px);
+}
+
+.blob-2 {
+  bottom: -50px;
+  left: -50px;
+  width: 170px;
+  height: 170px;
+  background: rgba(217, 119, 6, 0.10);
+  filter: blur(22px);
+}
+
+.blob-3 {
+  top: 100px;
+  left: 30px;
+  width: 70px;
+  height: 70px;
+  background: rgba(5, 150, 105, 0.07);
+  filter: blur(12px);
+}
+
+:global([data-theme="dark"]) .blob-1 { background: rgba(52, 211, 153, 0.10); }
+:global([data-theme="dark"]) .blob-2 { background: rgba(251, 191, 36, 0.07); }
+:global([data-theme="dark"]) .blob-3 { background: rgba(52, 211, 153, 0.05); }
 
 /* Toolbar fixa no topo com logout e theme toggle */
 .onboarding-toolbar {
@@ -66,6 +116,7 @@ function logout() {
   justify-content: space-between;
   /* Garante que o toolbar não interfira com o conteúdo centralizado */
   pointer-events: none;
+  z-index: 10;
 }
 
 /* Reativa eventos apenas nos botões internos */
@@ -117,6 +168,8 @@ function logout() {
   width: 100%;
   max-width: 680px;
   margin: 0 auto;
+  position: relative;
+  z-index: 1;
 }
 
 @media (max-width: 480px) {
