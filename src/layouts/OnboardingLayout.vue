@@ -101,9 +101,9 @@ function logout() {
   filter: blur(12px);
 }
 
-:global([data-theme="dark"]) .blob-1 { background: rgba(52, 211, 153, 0.10); }
-:global([data-theme="dark"]) .blob-2 { background: rgba(251, 191, 36, 0.07); }
-:global([data-theme="dark"]) .blob-3 { background: rgba(52, 211, 153, 0.05); }
+:global([data-theme="dark"]) .onboarding-wrapper .blob-1 { background: rgba(52, 211, 153, 0.10); }
+:global([data-theme="dark"]) .onboarding-wrapper .blob-2 { background: rgba(251, 191, 36, 0.07); }
+:global([data-theme="dark"]) .onboarding-wrapper .blob-3 { background: rgba(52, 211, 153, 0.05); }
 
 /* Toolbar fixa no topo com logout e theme toggle */
 .onboarding-toolbar {
