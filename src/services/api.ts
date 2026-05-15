@@ -3,6 +3,7 @@ import { useAuthStore } from '@/stores/authStore'
 
 const api = axios.create({
   baseURL: import.meta.env.VITE_API_URL ?? 'http://localhost:8080',
+  withCredentials: true,
   headers: {
     'Content-Type': 'application/json'
   }
@@ -25,11 +26,10 @@ api.interceptors.response.use(
     const authStore = useAuthStore()
 
     const isUnauthorized = error.response?.status === 401
-    const hasRefreshToken = !!authStore.refreshToken
     const notAlreadyRetried = !originalRequest._retry
     const notRefreshEndpoint = !originalRequest.url?.includes('/auth/refresh')
 
-    if (isUnauthorized && hasRefreshToken && notAlreadyRetried && notRefreshEndpoint) {
+    if (isUnauthorized && notAlreadyRetried && notRefreshEndpoint) {
       originalRequest._retry = true
 
       try {
