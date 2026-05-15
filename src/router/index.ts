@@ -261,6 +261,10 @@ router.beforeEach(async (to) => {
   const auth = useAuthStore()
   const accountStore = useAccountStore()
 
+  if ((to.meta.guestOnly || to.path === '/') && !auth.isAuthenticated && auth.hasStoredSession) {
+    await auth.restoreSession()
+  }
+
   // Tenta restaurar a sessão via refresh token antes de redirecionar para login
   if (to.meta.requiresAuth && !auth.isAuthenticated) {
     await auth.restoreSession()

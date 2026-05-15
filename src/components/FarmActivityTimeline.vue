@@ -2,6 +2,8 @@
 import { ref, computed, onMounted } from 'vue'
 import { useAccountStore } from '@/stores/accountStore'
 import activityService from '@/services/activityService'
+import SvgIcon from '@/components/SvgIcon.vue'
+import type { IconName } from '@/components/SvgIcon.vue'
 import type { FarmActivityResponse, FarmActivityType } from '@/services/activityService'
 
 const props = defineProps<{ farmId: string }>()
@@ -19,44 +21,44 @@ const savingNote  = ref(false)
 const noteError   = ref('')
 
 // Configuração visual por tipo
-type ActivityConfig = { icon: string; color: string; bg: string; label: string }
+type ActivityConfig = { icon: IconName; color: string; bg: string; label: string }
 
 const typeConfig: Record<FarmActivityType, ActivityConfig> = {
   EXPENSE_CREATED: {
     label: 'Despesa registrada',
     color: '#2563eb',
     bg:    '#dbeafe',
-    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>`
+    icon: 'plus'
   },
   EXPENSE_UPDATED: {
     label: 'Despesa atualizada',
     color: '#7c3aed',
     bg:    '#ede9fe',
-    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>`
+    icon: 'edit'
   },
   EXPENSE_DELETED: {
     label: 'Despesa removida',
     color: '#dc2626',
     bg:    '#fee2e2',
-    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4h6v2"/></svg>`
+    icon: 'trash'
   },
   EXPENSE_PAID: {
     label: 'Despesa paga',
     color: '#059669',
     bg:    '#d1fae5',
-    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>`
+    icon: 'check'
   },
   FARM_UPDATED: {
     label: 'Lavoura atualizada',
     color: '#d97706',
     bg:    '#fef3c7',
-    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg>`
+    icon: 'leaf'
   },
   NOTE: {
     label: 'Anotação',
     color: '#6b7280',
     bg:    '#f3f4f6',
-    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>`
+    icon: 'file-text'
   },
 }
 
@@ -167,8 +169,9 @@ function formatDateTime(date: string): string {
             background: typeConfig[activity.type].bg,
             color: typeConfig[activity.type].color
           }"
-          v-html="typeConfig[activity.type].icon"
-        />
+        >
+          <SvgIcon :name="typeConfig[activity.type].icon" :size="14" />
+        </div>
 
         <!-- Conteúdo -->
         <div class="timeline__content">

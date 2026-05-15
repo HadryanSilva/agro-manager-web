@@ -1,5 +1,12 @@
 import type { AxiosResponse } from 'axios'
 
+export class ResponseNormalizationError extends Error {
+  constructor(message: string) {
+    super(message)
+    this.name = 'ResponseNormalizationError'
+  }
+}
+
 export type ListPayload<T> = T[] | {
   content?: T[]
   items?: T[]
@@ -14,14 +21,16 @@ export type ObjectPayload<T> = T | {
 
 export function normalizeListPayload<T>(payload: unknown): T[] {
   if (Array.isArray(payload)) return payload as T[]
-  if (!payload || typeof payload !== 'object') return []
+  if (!payload || typeof payload !== 'object') {
+    throw new ResponseNormalizationError('Expected a list payload object or array.')
+  }
 
   const record = payload as Record<string, unknown>
   if (Array.isArray(record.content)) return record.content as T[]
   if (Array.isArray(record.items)) return record.items as T[]
   if (Array.isArray(record.results)) return record.results as T[]
 
-  return []
+  throw new ResponseNormalizationError('Expected list payload to contain content, items, or results.')
 }
 
 export function normalizeListResponse<T>(
@@ -54,7 +63,7 @@ export function normalizeObjectPayload<T>(payload: unknown): T {
     return record as T
   }
 
-  return {} as T
+  throw new ResponseNormalizationError('Expected an object payload.')
 }
 
 export function normalizeObjectResponse<T>(
@@ -97,18 +106,14 @@ function toBoolean(value: unknown, fallback: boolean): boolean {
 
 export function normalizePagePayload<T>(payload: unknown): NormalizedPagePayload<T> & Record<string, unknown> {
   if (!payload || typeof payload !== 'object') {
-    return {
-      content: [],
-      page: 0,
-      size: 0,
-      totalElements: 0,
-      totalPages: 0,
-      last: true,
-    }
+    throw new ResponseNormalizationError('Expected a page payload object.')
   }
 
   const record = payload as Record<string, unknown>
   const contentSource = record.content ?? record.items ?? record.results
+  if (!Array.isArray(contentSource)) {
+    throw new ResponseNormalizationError('Expected page payload to contain content, items, or results.')
+  }
   const content = normalizeListPayload<T>(contentSource)
 
   const page = toFiniteNumber(record.page ?? record.pageNumber ?? record.number, 0)

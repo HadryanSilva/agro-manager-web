@@ -33,7 +33,7 @@ api.interceptors.response.use(
       originalRequest._retry = true
 
       try {
-        await authStore.refreshSession()
+        await authStore.refreshSessionOnce()
         originalRequest.headers.Authorization = `Bearer ${authStore.accessToken}`
         return api(originalRequest)
       } catch {

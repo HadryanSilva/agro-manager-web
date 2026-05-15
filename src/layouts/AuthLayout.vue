@@ -1,26 +1,28 @@
 <script setup lang="ts">
 import { RouterView } from 'vue-router'
 import ThemeToggle from '@/components/ThemeToggle.vue'
+import SvgIcon from '@/components/SvgIcon.vue'
+import type { IconName } from '@/components/SvgIcon.vue'
 
 // Funcionalidades destacadas no painel de apresentação
-const features = [
+const features: Array<{ icon: IconName; title: string; desc: string }> = [
   {
-    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg>`,
+    icon: 'leaf',
     title: 'Gestão de lavouras',
     desc: 'Acompanhe todas as suas lavouras de melancia com status em tempo real.',
   },
   {
-    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>`,
+    icon: 'money',
     title: 'Controle financeiro',
     desc: 'Registre despesas, acompanhe pagamentos e gere relatórios com exportação para Excel.',
   },
   {
-    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>`,
+    icon: 'clock',
     title: 'Histórico completo',
     desc: 'Acompanhe todas as atividades e alterações de cada lavoura com registro automático.',
   },
   {
-    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>`,
+    icon: 'users',
     title: 'Trabalho em equipe',
     desc: 'Adicione membros à sua conta com diferentes níveis de acesso.',
   },
@@ -67,7 +69,9 @@ const features = [
       <!-- Features -->
       <div class="panel-features">
         <div v-for="f in features" :key="f.title" class="feature-item">
-          <div class="feature-item__icon" v-html="f.icon" />
+          <div class="feature-item__icon">
+            <SvgIcon :name="f.icon" />
+          </div>
           <div class="feature-item__text">
             <span class="feature-item__title">{{ f.title }}</span>
             <span class="feature-item__desc">{{ f.desc }}</span>

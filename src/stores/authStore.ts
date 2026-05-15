@@ -1,14 +1,17 @@
 import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
 import authService from '@/services/authService'
+import { createAuthRefreshCoordinator } from '@/services/authRefreshCoordinator'
 import type { RegisterPayload, LoginPayload } from '@/services/authService'
+
+const REFRESH_TOKEN_KEY = 'refreshToken'
 
 export const useAuthStore = defineStore('auth', () => {
   // Access token mantido apenas em memória por segurança
   const accessToken = ref<string | null>(null)
 
-  // Refresh token persistido no localStorage para sobreviver ao reload
-  const refreshToken = ref<string | null>(localStorage.getItem('refreshToken'))
+  // Refresh token limitado à aba atual para reduzir persistência em caso de XSS.
+  const refreshToken = ref<string | null>(sessionStorage.getItem(REFRESH_TOKEN_KEY))
 
   // Controla se a tentativa de restauração inicial já foi feita
   // Evita múltiplas chamadas simultâneas ao /auth/refresh no startup
@@ -23,14 +26,14 @@ export const useAuthStore = defineStore('auth', () => {
   function setTokens(access: string, refresh: string) {
     accessToken.value = access
     refreshToken.value = refresh
-    localStorage.setItem('refreshToken', refresh)
+    sessionStorage.setItem(REFRESH_TOKEN_KEY, refresh)
   }
 
   function clearAuth() {
     accessToken.value    = null
     refreshToken.value   = null
     sessionRestored.value = true  // marca como resolvido para não tentar restaurar
-    localStorage.removeItem('refreshToken')
+    sessionStorage.removeItem(REFRESH_TOKEN_KEY)
 
     import('@/stores/accountStore').then(({ useAccountStore }) => {
       useAccountStore().reset()
@@ -57,6 +60,8 @@ export const useAuthStore = defineStore('auth', () => {
     const { data } = await authService.refresh(refreshToken.value)
     setTokens(data.data.accessToken, data.data.refreshToken)
   }
+
+  const refreshSessionOnce = createAuthRefreshCoordinator(refreshSession)
 
   /**
    * Tenta restaurar o access token usando o refresh token salvo.
@@ -97,6 +102,7 @@ export const useAuthStore = defineStore('auth', () => {
     register,
     login,
     refreshSession,
+    refreshSessionOnce,
     restoreSession,
   }
 })
