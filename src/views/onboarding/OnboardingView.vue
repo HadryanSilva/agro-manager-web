@@ -118,9 +118,9 @@ const router = useRouter()
 .option-card {
   display: flex;
   align-items: center;
-  gap: 1.25rem;
+  gap: 1rem;
   width: 100%;
-  padding: 1.5rem;
+  padding: 1rem 1.125rem;
   background: var(--color-card);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
@@ -128,6 +128,15 @@ const router = useRouter()
   cursor: pointer;
   text-align: left;
   transition: border-color 0.15s, box-shadow 0.15s, transform 0.1s;
+}
+
+.option-card:not(.option-card--disabled) {
+  border-color: var(--color-primary);
+  box-shadow: 0 4px 16px rgba(5, 150, 105, 0.18);
+}
+
+:global([data-theme="dark"]) .option-card:not(.option-card--disabled) {
+  box-shadow: 0 4px 16px rgba(52, 211, 153, 0.15);
 }
 
 .option-card:hover:not(:disabled) {
@@ -141,7 +150,7 @@ const router = useRouter()
 }
 
 .option-card--disabled {
-  opacity: 0.55;
+  opacity: 0.5;
   cursor: not-allowed;
 }
 
