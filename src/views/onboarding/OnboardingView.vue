@@ -127,6 +127,7 @@ const router = useRouter()
   box-shadow: var(--shadow-card);
   cursor: pointer;
   text-align: left;
+  font-family: inherit;
   transition: border-color 0.15s, box-shadow 0.15s, transform 0.1s;
 }
 
