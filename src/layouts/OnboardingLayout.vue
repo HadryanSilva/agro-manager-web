@@ -36,12 +36,6 @@ function logout() {
       <ThemeToggle />
     </div>
 
-    <!-- Brand centralizada -->
-    <div class="onboarding-brand">
-      <span class="onboarding-brand__icon">🌱</span>
-      <span class="onboarding-brand__name">Agro Manager</span>
-    </div>
-
     <div class="onboarding-content">
       <RouterView />
     </div>
@@ -129,9 +123,11 @@ function logout() {
   align-items: center;
   gap: 0.375rem;
   padding: 0.4rem 0.875rem;
-  border: 1.5px solid var(--color-border);
+  border: 1px solid rgba(5, 150, 105, 0.20);
   border-radius: var(--radius-sm);
-  background: var(--color-card);
+  background: rgba(255, 255, 255, 0.70);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   font-family: inherit;
   font-size: 0.875rem;
   font-weight: 500;
@@ -146,22 +142,9 @@ function logout() {
   background: var(--color-error-light);
 }
 
-.onboarding-brand {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  margin-bottom: 2.5rem;
-}
-
-.onboarding-brand__icon {
-  font-size: 1.5rem;
-}
-
-.onboarding-brand__name {
-  font-size: 1.25rem;
-  font-weight: 600;
-  color: var(--color-text);
-  letter-spacing: -0.02em;
+:global([data-theme="dark"]) .logout-btn {
+  background: rgba(30, 41, 59, 0.70);
+  border-color: var(--color-border);
 }
 
 .onboarding-content {
