@@ -155,6 +155,13 @@ const router = createRouter({
           component: () => import('@/views/expenses/ExpenseFormView.vue')
         },
 
+        // ── Mão de obra ───────────────────────────────────────────
+        {
+          path: 'labor',
+          name: 'labor',
+          component: () => import('@/views/labor/LaborView.vue')
+        },
+
         // ── Vendas ────────────────────────────────────────────────
         {
           path: 'sales',
